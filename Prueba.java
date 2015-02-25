@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 public class MyDataAcces { // Holaaaa
 
+// CAMBIO BIEEEEn
 	private String _usuario="root";
 	private String _pwd= "";
 	private static String _bd="CatalogoBD";

@@ -17,7 +17,7 @@ public class MyDataAcces {
 		
 		try{
 			Class.forName("com.mysql.jdbc.Connection");
-			conn = (Connection)DriverManager.getConnection(_url, _usuario, _pwd);
+			conn = (Connection)DriverManager.getConnection(_url, _usuario, _pwd); // MODIFICACION
 			if(conn != null)
 			{
 				System.out.println("Conexion a base de datos "+_url+" . . . Ok");

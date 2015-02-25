@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MyDataAcces {
+public class MyDataAcces { // Holaaaa
 
 	private String _usuario="root";
 	private String _pwd= "";

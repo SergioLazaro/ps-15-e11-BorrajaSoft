@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class MyDataAcces {
 
 	private String _usuario="root";
-	private String _pwd= "";
+	private String _pwd= "root";				//CONTROLAR CONTRASEÑA DEL SERVIDOR
 	private static String _bd="CatalogoBD";
 	static String _url = "jdbc:mysql://localhost/"+_bd;
 	private Connection conn = null;
@@ -25,7 +25,7 @@ public class MyDataAcces {
 		}
 		catch(SQLException ex)
 		{
-			System.out.println("Hubo un problema al intentar conecarse a la base de datos"+_url);
+			System.out.println("Hubo un problema al intentar conecarse a la base de datos "+_url);
 		}
 		catch(ClassNotFoundException ex)
 		{

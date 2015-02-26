@@ -8,7 +8,10 @@ public class MantenimientoBD {
 
 	public static void main(String[] args) {
 		MyDataAcces mda = new MyDataAcces();
-		insertPath(mda);		
+		//insertPath(mda);
+		
+		System.out.println("Conectado");
+				
 	}
 	
 	/**

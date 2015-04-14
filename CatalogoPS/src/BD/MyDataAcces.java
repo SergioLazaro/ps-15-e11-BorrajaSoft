@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class MyDataAcces {
 
 	private String _usuario="root";
-	private String _pwd= "root";				//CONTROLAR CONTRASEÑA DEL SERVIDOR
+	private String _pwd= "";				//CONTROLAR CONTRASEÃ‘A DEL SERVIDOR
 	private static String _bd="CatalogoBD";
 	static String _url = "jdbc:mysql://localhost/"+_bd;
 	private Connection conn = null;

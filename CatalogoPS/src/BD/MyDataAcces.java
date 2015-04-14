@@ -25,7 +25,7 @@ public class MyDataAcces {
 		}
 		catch(SQLException ex)
 		{
-			System.out.println("Hubo un problema al intentar conecarse a la base de datos "+_url);
+			System.out.println("Hubo un problema al intentar conectarse a la base de datos "+_url);
 		}
 		catch(ClassNotFoundException ex)
 		{

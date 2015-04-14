@@ -85,7 +85,7 @@ public class DataExtraction {
 	public ArrayList<Pyme> extractPymes() throws SQLException {
 		ArrayList<Pyme> array = new ArrayList<Pyme>();
 		
-		ResultSet result = mda.getQuery("Select * from Pymes");
+		ResultSet result = mda.getQuery("Select * from Productos");
 		
 		int idPyme, telefono;
 		String nombre, direccion, mail, password;
@@ -102,7 +102,7 @@ public class DataExtraction {
 			System.out.println(aux.toString());
 			array.add(aux);
 		}
-		
+				
 		System.out.println("Cantidad total = " + array.size());
 		return array;
 	}
@@ -136,6 +136,53 @@ public class DataExtraction {
 		
 		System.out.println("Cantidad total = " + array.size());
 		return array;
+	}
+	
+	public ArrayList<Prenda> lookingForPrenda(String query) throws SQLException{
+		ResultSet result = mda.getQuery("SELECT * FROM Productos WHERE nombre "
+				+ "LIKE '%" + query + "%'");
+		
+		ArrayList<Prenda> prodArray = new ArrayList<Prenda>();
+		String nombre, marca;
+		double precio;
+		int cantidad, idTypeProd, idProd;
+		Prenda prenda;
+		while(result.next()){	//buscamos en la tabla Prenda a ver si esta la busqueda del cliente
+			idProd = result.getInt("idProd");
+			nombre = result.getString("nombre");
+			marca = result.getString("marca");
+			precio = result.getDouble("precio");
+			cantidad = result.getInt("cantidad");
+			idTypeProd = result.getInt("idTypeProd");
+			prenda = new Prenda(idProd,precio,nombre,marca,cantidad,idTypeProd);
+			System.out.println(prenda.toString());
+			prodArray.add(prenda);
+		}
+		System.out.println("Fin ejecucion lookingForPrenda.");
+		return prodArray;
+	}
+	
+	public ArrayList<Pyme> lookingForPymes(String query) throws SQLException{
+		ResultSet result = mda.getQuery("select * from Pymes WHERE nombre LIKE '%" 
+				+ query + "%'" );
+		ArrayList<Pyme> pymesArray = new ArrayList<Pyme>();
+		int idPyme, telefono;
+		String nombrePyme, direccion, mail, password;
+		Pyme pyme;
+		while(result.next()){	//buscamos en la tabla Pyme a ver si esta la busqueda del cliente
+			idPyme = result.getInt("idPyme");
+			telefono = result.getInt("telefono");
+			nombrePyme = result.getString("nombre");
+			direccion = result.getString("direccion");
+			mail = result.getString("mail");
+			password = result.getString("password");
+			
+			pyme = new Pyme(idPyme, nombrePyme, direccion, mail, telefono, password);
+			System.out.println(pyme.toString());
+			pymesArray.add(pyme);
+		}
+		System.out.println("Fin ejecucion lookingForPymes.");
+		return pymesArray;
 	}
 	
 }

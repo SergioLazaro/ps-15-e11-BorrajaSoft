@@ -15,129 +15,6 @@ public class DataExtraction {
 		mda = new MyDataAcces();
 	}
 	
-	
-	/**
-	 * 
-	 * @return un array con todas las prendas (productos) contenidos en la BD
-	 * @throws SQLException
-	 */
-	public ArrayList<Prenda> extractPrendas() throws SQLException {
-		ArrayList<Prenda> array = new ArrayList<Prenda>();
-		
-		ResultSet result = mda.getQuery("Select * from Productos");
-		
-		int idProd, cantidad, idTypeProd;
-		double precio;
-		String nombre, marca;
-		
-		while (result.next()) {
-			idProd = result.getInt("idProd");
-			precio = result.getDouble("precio");
-			nombre = result.getString("nombre");
-			marca = result.getString("marca");
-			cantidad = result.getInt("cantidad");
-			idTypeProd = result.getInt("idTypeProd");
-			
-			Prenda aux = new Prenda(idProd, precio, nombre, marca, cantidad, idTypeProd);
-			System.out.println(aux.toString());
-			array.add(aux);
-		}
-		
-		System.out.println("Cantidad total = " + array.size());
-		return array;
-	}
-
-	
-	/**
-	 * 
-	 * @return un array con todos los pedidos contenidos en la BD
-	 * @throws SQLException
-	 */
-	public ArrayList<Pedido> extractPedidos() throws SQLException {
-		ArrayList<Pedido> array = new ArrayList<Pedido>();
-		
-		ResultSet result = mda.getQuery("Select * from Pedidos");
-		
-		int idPyme, idProducto, cantidad;
-		String fecha;
-		
-		while (result.next()) {
-			idPyme = result.getInt("idPyme");
-			idProducto = result.getInt("idProducto");
-			cantidad = result.getInt("cantidad");
-			fecha = result.getString("fecha");
-			
-			Pedido aux = new Pedido(idPyme, idProducto, cantidad, fecha);
-			System.out.println(aux.toString());
-			array.add(aux);
-		}
-		
-		System.out.println("Cantidad total = " + array.size());
-		return array;
-	}
-	
-	
-	/**
-	 * 
-	 * @return un array con todas las Pymes de la BD
-	 * @throws SQLException
-	 */
-	public ArrayList<Pyme> extractPymes() throws SQLException {
-		ArrayList<Pyme> array = new ArrayList<Pyme>();
-		
-		ResultSet result = mda.getQuery("Select * from Productos");
-		
-		int idPyme, telefono;
-		String nombre, direccion, mail, password;
-		
-		while (result.next()) {
-			idPyme = result.getInt("idPyme");
-			telefono = result.getInt("telefono");
-			nombre = result.getString("nombre");
-			direccion = result.getString("direccion");
-			mail = result.getString("mail");
-			password = result.getString("password");
-			
-			Pyme aux = new Pyme(idPyme, nombre, direccion, mail, telefono, password);
-			System.out.println(aux.toString());
-			array.add(aux);
-		}
-				
-		System.out.println("Cantidad total = " + array.size());
-		return array;
-	}
-	
-	
-	/**
-	 * 
-	 * @return un array con todos los TipoProducto de la BD
-	 * @throws SQLException
-	 */
-	public ArrayList<TipoProducto> extractTipoProducto() throws SQLException {
-		ArrayList<TipoProducto> array = new ArrayList<TipoProducto>();
-		
-		ResultSet result = mda.getQuery("Select * from typeProd");
-		
-		int idTypeProd;
-		String prenda, color, estilo, path, talla;
-		
-		while (result.next()) {
-			idTypeProd = result.getInt("idTypeProd");
-			prenda = result.getString("prenda");
-			color = result.getString("color");
-			estilo = result.getString("estilo");
-			path = result.getString("path");
-			talla = result.getString("talla");
-			
-			TipoProducto aux = new TipoProducto(idTypeProd, prenda, color, estilo, path, talla);
-			System.out.println(aux.toString());
-			array.add(aux);
-		}
-		
-		System.out.println("Cantidad total = " + array.size());
-		return array;
-	}
-	
 	public ArrayList<Prenda> lookingForPrenda(String query) throws SQLException{
 		ResultSet result = mda.getQuery("SELECT * FROM Productos WHERE nombre "
 				+ "LIKE '%" + query + "%'");
@@ -155,34 +32,108 @@ public class DataExtraction {
 			cantidad = result.getInt("cantidad");
 			idTypeProd = result.getInt("idTypeProd");
 			prenda = new Prenda(idProd,precio,nombre,marca,cantidad,idTypeProd);
-			System.out.println(prenda.toString());
 			prodArray.add(prenda);
 		}
-		System.out.println("Fin ejecucion lookingForPrenda.");
+		System.out.println("Fin ejecucion lookingForPrenda");
 		return prodArray;
 	}
 	
-	public ArrayList<Pyme> lookingForPymes(String query) throws SQLException{
-		ResultSet result = mda.getQuery("select * from Pymes WHERE nombre LIKE '%" 
+	public ArrayList<Trabajador> lookingForTrabajador(String query) throws SQLException{
+		ResultSet result = mda.getQuery("select * from Trabajador WHERE nombre LIKE '%" 
 				+ query + "%'" );
-		ArrayList<Pyme> pymesArray = new ArrayList<Pyme>();
-		int idPyme, telefono;
-		String nombrePyme, direccion, mail, password;
-		Pyme pyme;
-		while(result.next()){	//buscamos en la tabla Pyme a ver si esta la busqueda del cliente
-			idPyme = result.getInt("idPyme");
+		ArrayList<Trabajador> TrabajadorArray = new ArrayList<Trabajador>();
+		int idTrabajador, telefono;
+		String nombreTrabajador, direccion, mail, password;
+		Trabajador Trabajador;
+		while(result.next()){	//buscamos en la tabla Trabajador a ver si esta la busqueda del cliente
+			idTrabajador = result.getInt("idTrabajador");
 			telefono = result.getInt("telefono");
-			nombrePyme = result.getString("nombre");
+			nombreTrabajador = result.getString("nombre");
 			direccion = result.getString("direccion");
 			mail = result.getString("mail");
 			password = result.getString("password");
 			
-			pyme = new Pyme(idPyme, nombrePyme, direccion, mail, telefono, password);
-			System.out.println(pyme.toString());
-			pymesArray.add(pyme);
+			Trabajador = new Trabajador(idTrabajador, nombreTrabajador, direccion, mail, telefono, password);
+			TrabajadorArray.add(Trabajador);
 		}
-		System.out.println("Fin ejecucion lookingForPymes.");
-		return pymesArray;
+		System.out.println("Fin lookingForTrabajadors");
+		return TrabajadorArray;
+	}
+	
+	public ArrayList<String> gettingTypeProd() throws SQLException{
+		ResultSet result = mda.getQuery("SELECT DISTINCT prenda FROM TypeProd");
+		ArrayList<String> array = new ArrayList<String>();
+		String prenda;
+		while(result.next()){
+			prenda = result.getString("prenda");
+			array.add(prenda);
+		}
+		System.out.println("Fin gettingTypeProd");
+		return array;
+	}
+	
+	public ArrayList<String> gettingStyleProd(String prenda) throws SQLException{
+		ResultSet result = mda.getQuery("SELECT DISTINCT estilo FROM TypeProd "
+				+ "WHERE prenda = '" + prenda + "'");
+		ArrayList<String> array = new ArrayList<String>();
+		String estilo;
+		while(result.next()){
+			estilo = result.getString("estilo");
+			array.add(estilo);
+		}
+		System.out.println("Fin gettingStyleProd");
+		return array;
+	}
+	
+	public ArrayList<String> gettingShoppingCart(int idTrabajador) throws SQLException{
+		ResultSet result = mda.getQuery("SELECT t1.nombre as nombre , t1.marca as marca ,"
+				+ " t1.precio as precio FROM Productos t1 , Carrito t2 "
+				+ "WHERE t1.idProd = t2.idProducto AND t2.idTrabajador = " + idTrabajador);
+		ArrayList<String> array = new ArrayList<String>();
+		array.add("CARRITO DE LA COMPRA: ");
+		String nombre, marca;
+		double precio;
+		while(result.next()){
+			nombre = result.getString("nombre");
+			marca = result.getString("marca");
+			precio = result.getDouble("precio");
+			array.add("- " + nombre + "\t" + marca + "\t" + precio + "€");
+		}
+		System.out.println("Fin gettingShoppingCart");
+		return array;
+	}
+	
+	public ArrayList<String> gettingHistorical(int idTrabajador) throws SQLException{
+		ResultSet result = mda.getQuery("SELECT t1.nombre as nombre , t1.marca as marca ,"
+				+ " t1.precio as precio FROM Productos t1 , Historico t2 "
+				+ "WHERE t1.idProd = t2.idProducto AND t2.idTrabajador = " + idTrabajador
+				+ " limit 10");
+		ArrayList<String> array = new ArrayList<String>();
+		String nombre, marca;
+		double precio;
+		while(result.next()){
+			nombre = result.getString("nombre");
+			marca = result.getString("marca");
+			precio = result.getDouble("precio");
+			array.add("- " + nombre + "   " + marca + "   " + precio + "€");
+		}
+		return array;
+	}
+	
+	public int enter(String usermail, String password) throws SQLException{
+		ResultSet result = mda.getQuery("SELECT mail , password , idTrabajador FROM Trabajador"
+				+ " WHERE mail = '" + usermail + "' AND password = '" + password + "'");
+		int idUser = -1;
+		String nameAux,passwordAux;
+		while(result.next()){
+			nameAux = result.getString("mail");
+			passwordAux = result.getString("password");
+			if (nameAux.equalsIgnoreCase(usermail) && passwordAux.equalsIgnoreCase(password)){
+				idUser = result.getInt("idTrabajador");
+			}
+		}
+		System.out.println("Fin enter");
+		return idUser;
 	}
 	
 }

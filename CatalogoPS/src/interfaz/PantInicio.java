@@ -1,90 +1,136 @@
 package interfaz;
 
-import BD.*;
+/*
+ * Class that implements the GUI management
+ */
+
 import Facade.*;
 
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JList;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.AbstractListModel;
-
-import java.awt.Color;
-
-import javax.swing.JMenuItem;
-
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.ScrollPane;
-import java.awt.Panel;
-import java.awt.Point;
-import java.awt.List;
 import java.awt.Toolkit;
-import java.awt.Font;
 
 import javax.swing.JLayeredPane;
-import javax.swing.JTextPane;
 
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.JSplitPane;
-import javax.swing.border.BevelBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.tree.TreePath;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class PantInicio {
 
+	// TODO Change all those static variables and methods to non-static
 	private JFrame frameRopaUltracool;
 	private final JLayeredPane layeredPane = new JLayeredPane();
+	// TODO create a class for the search button
 	private static JTextField textField;
-	private static JButton botonBuscar;
-	private static ArrayList<Pyme> pymeArray;
-	private static ArrayList<Prenda> prendaArray;
+	private static JButton searchButton;
+	
+	private static ArrayList<Trabajador> pymeArray;	//Se usara en un futuro
+	private static ArrayList<Prenda> prendaArray;	//Se usara en un futuro
 	private static DataExtraction data;
+	private static int idUser;
+	private static Menu menu;
+	private static CenterPanel center;
+	private static Right right;
+	private static Top top;
+	
+	
+	/**
+	 * -- Constructor --
+	 */
+	public PantInicio() {
+		data = new DataExtraction();
+		idUser = -1;
+		LoginWindow loginW = new LoginWindow();
+		//Show up log-in window
+		while(idUser == -1){
+			idUser=loginW.login();
+		}
+		initialize();
+		
+		frameRopaUltracool.setVisible(true);
+	}
+	
+	
+	/**
+	 * Method that adds the actionListeners
+	 */
+	private void listeners(){
+		// Search Button Listener
+		searchButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				String text = textField.getText();
+				
+				try {
+					prendaArray = data.lookingForPrenda(text);
+					pymeArray = data.lookingForTrabajador(text);
+					textField.setText("");
+					center.replace(prendaArray);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		// Menu actionListener
+		menu.getTree().addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+	        public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+	            menuValueChanged(evt);
+	        }
+	    });
+		
+		
+	}
+	
+	/**
+	 * Method that implements the actionListener over the JTree (Menu)
+	 * @param tse - event
+	 */
+	public void menuValueChanged( TreeSelectionEvent tse ) {
+		try{
+			System.out.println("El nodo es: " + tse.getNewLeadSelectionPath().toString());
+			System.out.println(tse.getNewLeadSelectionPath().getPathCount());
+//			for (Object i : tse.getNewLeadSelectionPath()){
+//				
+//			}
+			
+			String search = tse.getNewLeadSelectionPath().getLastPathComponent().toString();
+			TreePath prueba = tse.getNewLeadSelectionPath().getParentPath();
+			while (prueba.getParentPath()!=null){
+				search =  prueba.getLastPathComponent().toString() + " " + search;
+				prueba = prueba.getParentPath();
+			}
+			prendaArray = data.lookingForPrenda(search);
+			center.replace(prendaArray);
+			System.out.println("El resultado es: " + search);
+		}catch(NullPointerException e){
+			System.err.println("se ha clicado en clothes");
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+	}
+	
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		data = new DataExtraction();
+		// Event Queue configuration
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					PantInicio window = new PantInicio();
-					window.frameRopaUltracool.setVisible(true);
-					botonBuscar.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent ae){
-							String text = textField.getText();
-							
-							try {
-								prendaArray = data.lookingForPrenda(text);
-								pymeArray = data.lookingForPymes(text);
-								textField.setText("");
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-						
-					});
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -94,163 +140,53 @@ public class PantInicio {
 	}
 
 	/**
-	 * Create the application.
-	 */
-	public PantInicio() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame that implements the main window.
 	 */
 	private void initialize() {
+		// Define the frame
 		frameRopaUltracool = new JFrame();
 		frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(PantInicio.class.getResource("/imagenes/ImagenEmpresa.jpg")));
-		frameRopaUltracool.setTitle("ROPA ULTRA-COOL");
-		frameRopaUltracool.setBounds(100, 100, 717, 484);
+		frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); // 
+		//frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH);	//MAXIMUM AVAIVABLE SIZE
+		frameRopaUltracool.setBounds(100, 100, 717, 484); // SMALL NON-FIXED WINDOW
 		frameRopaUltracool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameRopaUltracool.getContentPane().setLayout(null);
 		layeredPane.setBounds(0, 0, 701, 445);
 		frameRopaUltracool.getContentPane().add(layeredPane);
 		
-		botonBuscar = new JButton("");
-		botonBuscar.setIcon(new ImageIcon(PantInicio.class.getResource("/imagenes/buscar.jpg")));
-		botonBuscar.setBounds(681, 101, 20, 20);
-		layeredPane.add(botonBuscar);
-		
-		JScrollPane scrollArbolSeleccion = new JScrollPane();
-		scrollArbolSeleccion.setBounds(0, 124, 174, 322);
-		layeredPane.add(scrollArbolSeleccion);
-		
-		JTree arbolSeleccion = new JTree();
-		arbolSeleccion.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		scrollArbolSeleccion.setViewportView(arbolSeleccion);
-		arbolSeleccion.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Ropa") {
-				{
-					DefaultMutableTreeNode node_1;
-					DefaultMutableTreeNode node_2;
-					node_1 = new DefaultMutableTreeNode("Pantalones");
-						node_2 = new DefaultMutableTreeNode("estilo");
-							node_2.add(new DefaultMutableTreeNode("corto"));
-							node_2.add(new DefaultMutableTreeNode("largo"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("material");
-							node_2.add(new DefaultMutableTreeNode("pana"));
-							node_2.add(new DefaultMutableTreeNode("vaquero"));
-							node_2.add(new DefaultMutableTreeNode("algod\u00F3n"));
-							node_2.add(new DefaultMutableTreeNode("lino"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("color");
-							node_2.add(new DefaultMutableTreeNode("azul"));
-							node_2.add(new DefaultMutableTreeNode("verde"));
-							node_2.add(new DefaultMutableTreeNode("rojo"));
-							node_2.add(new DefaultMutableTreeNode("negro"));
-							node_2.add(new DefaultMutableTreeNode("blanco"));
-						node_1.add(node_2);
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("Camisetas");
-						node_2 = new DefaultMutableTreeNode("estilo");
-							node_2.add(new DefaultMutableTreeNode("manga corta"));
-							node_2.add(new DefaultMutableTreeNode("manga larga"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("material");
-							node_2.add(new DefaultMutableTreeNode("pana"));
-							node_2.add(new DefaultMutableTreeNode("vaquero"));
-							node_2.add(new DefaultMutableTreeNode("algod\u00F3n"));
-							node_2.add(new DefaultMutableTreeNode("lino"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("color");
-							node_2.add(new DefaultMutableTreeNode("azul"));
-							node_2.add(new DefaultMutableTreeNode("verde"));
-							node_2.add(new DefaultMutableTreeNode("rojo"));
-							node_2.add(new DefaultMutableTreeNode("negro"));
-							node_2.add(new DefaultMutableTreeNode("blanco"));
-						node_1.add(node_2);
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("Chaquetas");
-						node_2 = new DefaultMutableTreeNode("estilo");
-							node_2.add(new DefaultMutableTreeNode("botones"));
-							node_2.add(new DefaultMutableTreeNode("cremallera"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("material");
-							node_2.add(new DefaultMutableTreeNode("pana"));
-							node_2.add(new DefaultMutableTreeNode("vaquera"));
-							node_2.add(new DefaultMutableTreeNode("algod\u00F3n"));
-							node_2.add(new DefaultMutableTreeNode("lana"));
-						node_1.add(node_2);
-						node_2 = new DefaultMutableTreeNode("color");
-							node_2.add(new DefaultMutableTreeNode("azul"));
-							node_2.add(new DefaultMutableTreeNode("verde"));
-							node_2.add(new DefaultMutableTreeNode("rojo"));
-							node_2.add(new DefaultMutableTreeNode("negro"));
-							node_2.add(new DefaultMutableTreeNode("blanco"));
-						node_1.add(node_2);
-					add(node_1);
-				}
-			}
-		));
-		
-		JScrollPane scrollCarroCompra = new JScrollPane();
-		scrollCarroCompra.setBounds(463, 124, 238, 167);
-		layeredPane.add(scrollCarroCompra);
-		
-		JList listaCarroCompra = new JList();
-		listaCarroCompra.setModel(new AbstractListModel() {
-			String[] values = new String[] {"CARRO DE LA COMPRA:", "-Camiseta vaquera T42", "-Pantalones vaqueros T40 azules"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		listaCarroCompra.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		scrollCarroCompra.setViewportView(listaCarroCompra);
-		listaCarroCompra.setBackground(new Color(255, 255, 255));
-		
-		JScrollPane scrollHistorial = new JScrollPane();
-		scrollHistorial.setBounds(464, 290, 237, 155);
-		layeredPane.add(scrollHistorial);
-		
-		JList listaHistorial = new JList();
-		listaHistorial.setModel(new AbstractListModel() {
-			String[] values = new String[] {"HISTORIAL:", "-Bragatanga roja licra T.XXL", "-Pantalones vaqueros T.42 rojo"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		listaHistorial.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		scrollHistorial.setViewportView(listaHistorial);
-		listaHistorial.setBackground(new Color(204, 255, 204));
-		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(PantInicio.class.getResource("/imagenes/logo.jpg")));
-		btnNewButton.setBounds(105, 11, 227, 102);
-		layeredPane.add(btnNewButton);
-		
-		//barra de busqueda
+		//Search bar
 		textField = new JTextField();
 		textField.setBounds(464, 101, 214, 20);
 		layeredPane.add(textField);
 		textField.setColumns(10);
 		
+		// SearchButton
+		searchButton = new JButton("");
+		searchButton.setIcon(new ImageIcon(PantInicio.class.getResource("/imagenes/buscar.jpg")));
+		searchButton.setBounds(681, 101, 20, 20);
+		layeredPane.add(searchButton);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(173, 124, 292, 102);
-		layeredPane.add(panel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(173, 225, 295, 221);
-		layeredPane.add(scrollPane);
+		//Clothes tree
+		menu = new Menu(layeredPane);
 		
-		JList list = new JList();
-		list.setBackground(new Color(255, 215, 0));
-		list.setForeground(Color.BLACK);
-		scrollPane.setViewportView(list);
+		// Shopping cart & History
+		right = new Right(layeredPane,idUser);
+		
+		// Logo
+		// TODO Choose a functionality for this button
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(PantInicio.class.getResource("/imagenes/logo.jpg")));
+		btnNewButton.setBounds(105, 11, 227, 102);
+		layeredPane.add(btnNewButton);
+		
+		// Superior panel
+		top = new Top(layeredPane);
+		
+		// center panel
+		center =  new CenterPanel(layeredPane, null);
+		
+		// Adds the actionListeners
+		listeners();
 	}
 }
-

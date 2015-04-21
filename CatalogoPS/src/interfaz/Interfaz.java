@@ -1,5 +1,9 @@
 package interfaz;
 
+/*
+ * DEPRECATED -- FOR TEST ONLY
+ */
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -53,4 +57,3 @@ public class Interfaz {
 		frmCatlogoTextil.getContentPane().add(splitPane);
 	}
 }
-

@@ -3,32 +3,27 @@ package gui;
 import java.util.ArrayList;
 
 public class ElementoSubArbol {
-	
-	private String tipoPrenda;
-	private ArrayList<String> estilos;
-	
-	public ElementoSubArbol(String tipoPrenda, ArrayList<String> estilos) {
-		this.tipoPrenda = tipoPrenda;
-		this.estilos = estilos;
-	}
+   private ArrayList<String> estilos;
+   private String tipoPrenda;
 
-	public String getTipoPrenda() {
-		return tipoPrenda;
-	}
+   public ElementoSubArbol(String tipoPrenda, ArrayList<String> estilos) {
+      this.tipoPrenda = tipoPrenda;
+      this.estilos = estilos;
+   }
 
-	public void setTipoPrenda(String tipoPrenda) {
-		this.tipoPrenda = tipoPrenda;
-	}
+   public ArrayList<String> getEstilos() {
+      return estilos;
+   }
 
-	public ArrayList<String> getEstilos() {
-		return estilos;
-	}
+   public String getTipoPrenda() {
+      return tipoPrenda;
+   }
 
-	public void setEstilos(ArrayList<String> estilos) {
-		this.estilos = estilos;
-	}
-	
-	
-	
-	
+   public void setEstilos(ArrayList<String> estilos) {
+      this.estilos = estilos;
+   }
+
+   public void setTipoPrenda(String tipoPrenda) {
+      this.tipoPrenda = tipoPrenda;
+   }
 }

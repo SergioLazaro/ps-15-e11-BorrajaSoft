@@ -1,8 +1,8 @@
-package Facade;
+package façade;
 
-public class Pyme {
+public class Trabajador {
 
-	private int idPyme;
+	private int idTrabajador;
 	private String nombre;
 	private String direccion;
 	private String mail;
@@ -10,8 +10,8 @@ public class Pyme {
 	private String password;
 	
 	
-	public Pyme(int idPyme, String nombre, String direccion, String mail, int telefono, String password) {
-		this.idPyme = idPyme;
+	public Trabajador(int idTrabajador, String nombre, String direccion, String mail, int telefono, String password) {
+		this.idTrabajador = idTrabajador;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.mail = mail;
@@ -22,17 +22,17 @@ public class Pyme {
 
 	@Override
 	public String toString() {
-		return idPyme + "\t" + nombre + "\t" + direccion + "\t" + mail + "\t" + telefono + "\t" + password;
+		return idTrabajador + "\t" + nombre + "\t" + direccion + "\t" + mail + "\t" + telefono + "\t" + password;
 	}
 
 
-	public int getIdPyme() {
-		return idPyme;
+	public int getidTrabajador() {
+		return idTrabajador;
 	}
 
 
-	public void setIdPyme(int idPyme) {
-		this.idPyme = idPyme;
+	public void setidTrabajador(int idTrabajador) {
+		this.idTrabajador = idTrabajador;
 	}
 
 

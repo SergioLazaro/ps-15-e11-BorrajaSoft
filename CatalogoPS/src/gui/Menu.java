@@ -1,18 +1,16 @@
-package interfaz;
+package gui;
 
 
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.BevelBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
-import Facade.DataExtraction;
+import façade.DataExtraction;
 
 /**
  * Class that manages the Left Menu in the GUI

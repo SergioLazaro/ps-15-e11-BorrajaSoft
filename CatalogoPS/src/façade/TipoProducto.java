@@ -1,4 +1,4 @@
-package Facade;
+package façade;
 
 public class TipoProducto {
 

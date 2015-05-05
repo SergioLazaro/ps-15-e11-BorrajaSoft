@@ -1,18 +1,17 @@
-package Facade;
+package façade;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import BD.MyDataAcces;
+import database.DataAccess;
 
 public class DataExtraction {	
 	
-	private MyDataAcces mda;
+	private DataAccess mda;
 	
 	
 	public DataExtraction() {
-		mda = new MyDataAcces();
+		mda = new DataAccess();
 	}
 	
 	public ArrayList<Prenda> lookingForPrenda(String query) throws SQLException{

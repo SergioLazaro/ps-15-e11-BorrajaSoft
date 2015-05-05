@@ -1,4 +1,4 @@
-package interfaz;
+package gui;
 
 import java.util.ArrayList;
 

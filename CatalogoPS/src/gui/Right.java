@@ -1,16 +1,14 @@
-package interfaz;
+package gui;
 
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
-
-import Facade.DataExtraction;
+import façade.DataExtraction;
 
 /**
  * Class that manages the Right panels in the GUI

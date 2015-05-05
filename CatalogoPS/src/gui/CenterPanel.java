@@ -1,14 +1,12 @@
-package interfaz;
+package gui;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-
-import Facade.Prenda;
+import façade.Prenda;
 
 /**
  * Class that manages the Bottom-Center Panel in the GUI

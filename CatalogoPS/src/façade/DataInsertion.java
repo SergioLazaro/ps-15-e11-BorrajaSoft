@@ -1,10 +1,10 @@
-package Facade;
+package façade;
 
-import BD.MyDataAcces;
+import database.DataAccess;
 
 public class DataInsertion {
 
-	private static MyDataAcces mda;
+	private static DataAccess mda;
 
 	public static void main(String[] args) {
 		DataInsertion dt = new DataInsertion();
@@ -14,7 +14,7 @@ public class DataInsertion {
 	}
 
 	public DataInsertion() {
-		mda = new MyDataAcces();
+		mda = new DataAccess();
 	}
 
 	/**

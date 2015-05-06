@@ -19,29 +19,67 @@ public class DataInsertion {
    public static void main(String[] args) {
       DataInsertion dt = new DataInsertion();
 
-      Clothes p = new Clothes(1001, 1234, "nuevoProducto", "nuevaMarca", 111, 1);
-      dt.insertProducto(p);
+      Product p = new Product(1001, 1234, "nuevaMarca", "nuevoProducto", 11, 111);
+      dt.insertProduct(p);
    }
 
    /**
-    * Inserta en la BD el Pedido parametrizado
+    * Insert data into the ProductType table.
     * 
-    * @param pedido
+    * @param productType
+    *           The data to insert.
     */
-   public void insertPedido(Order pedido) {
-      mda.setQuery("INSERT INTO `pedidos` VALUES (" + pedido.getIdPyme() + ", "
-               + pedido.getIdProducto() + ", " + pedido.getCantidad() + ", '" + pedido.getFecha()
-               + "')");
+   public void insertProductType(ProductType productType) {
+      mda.setQuery("INSERT INTO ProductTypes VALUES (" + productType.toString() + ")");
    }
 
    /**
-    * Inserta en la BD la Prenda parametrizada
+    * Insert data into the Products table.
     * 
-    * @param prenda
+    * @param product
+    *           The data to insert.
     */
-   public void insertProducto(Clothes prenda) {
-      mda.setQuery("INSERT INTO `productos` VALUES (" + prenda.getIdProd() + ", "
-               + prenda.getPrecio() + ", '" + prenda.getNombre() + "', '" + prenda.getMarca()
-               + "', " + prenda.getCantidad() + ", " + prenda.getIdTypeProd() + ")");
+   public void insertProduct(Product product) {
+      mda.setQuery("INSERT INTO Products VALUES (" + product.toString() + ")");
+   }
+
+   /**
+    * Insert data into the Customers table.
+    * 
+    * @param customer
+    *           The data to insert.
+    */
+   public void insertCustomer(Customer customer) {
+      mda.setQuery("INSERT INTO Customers VALUES (" + customer.toString() + ")");
+   }
+
+   /**
+    * Insert data into the ShoppingCarts table.
+    * 
+    * @param shoppingCart
+    *           The data to insert.
+    */
+   public void insertShoppingCart(ShoppingCart shoppingCart) {
+      mda.setQuery("INSERT INTO ShoppingCarts VALUES (" + shoppingCart.toString() + ")");
+   }
+
+   /**
+    * Insert data into the Orders table.
+    * 
+    * @param order
+    *           The data to insert.
+    */
+   public void insertOrder(Order order) {
+      mda.setQuery("INSERT INTO Orders VALUES (" + order.toString() + ")");
+   }
+
+   /**
+    * Insert data into the OrderRecords table.
+    * 
+    * @param orderRecord
+    *           The data to insert.
+    */
+   public void insertOrderRecord(OrderRecord orderRecord) {
+      mda.setQuery("INSERT INTO OrderRecords VALUES (" + orderRecord.toString() + ")");
    }
 }

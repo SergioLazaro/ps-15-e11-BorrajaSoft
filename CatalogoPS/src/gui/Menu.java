@@ -43,7 +43,7 @@ public class Menu {
 
             {
                // Obtain the elements of the tree
-               ArrayList<String> array = data.gettingTypeProd();
+               ArrayList<String> array = data.getProductType();
                DefaultMutableTreeNode nodes[] = new DefaultMutableTreeNode[array.size()];
                String name = "";
                // Navigate through the tree and create parent nodes
@@ -62,7 +62,7 @@ public class Menu {
                for (int i = 0; i < nodes.length; i++) {
                   // For each element, navigate through all possible styles
                   prenda = array.get(i);
-                  tipos = data.gettingStyleProd(prenda);
+                  tipos = data.getStyleProduct(prenda);
                   lista[i] = new ElementoSubArbol(prenda, tipos);
                }
                int i, j;

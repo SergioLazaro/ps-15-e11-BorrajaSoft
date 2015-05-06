@@ -1,59 +1,55 @@
 package façade;
 
 public class Order {
-   private int amount;
-   private String fecha;
-   private int idProducto;
-   private int idPyme;
+   private int customerID;
+   private String date;
+   private int orderID;
+   private double totalPrice;
 
-   /**
-    * Crea un Pedido a partir de los datos parametrizados
-    * 
-    * @param idPyme
-    * @param idProducto
-    * @param cantidad
-    * @param fecha
-    */
-   public Order(int idPyme, int idProducto, int cantidad, String fecha) {
-      this.idPyme = idPyme;
-      this.idProducto = idProducto;
-      this.amount = cantidad;
-      this.fecha = fecha;
+   public Order(int orderID, int customerID, String date, double totalPrice) {
+      this.orderID = orderID;
+      this.customerID = customerID;
+      this.date = date;
+      this.totalPrice = totalPrice;
    }
 
-   public int getCantidad() {
-      return amount;
+   public int getCustomerID() {
+      return customerID;
    }
 
-   public String getFecha() {
-      return fecha;
+   public String getDate() {
+      return date;
    }
 
-   public int getIdProducto() {
-      return idProducto;
+   public int getOrderID() {
+      return orderID;
    }
 
-   public int getIdPyme() {
-      return idPyme;
+   public double getTotalPrice() {
+      return totalPrice;
    }
 
-   public void setCantidad(int cantidad) {
-      this.amount = cantidad;
+   public void setCustomerID(int customerID) {
+      this.customerID = customerID;
    }
 
-   public void setFecha(String fecha) {
-      this.fecha = fecha;
+   public void setDate(String date) {
+      this.date = date;
    }
 
-   public void setIdProducto(int idProducto) {
-      this.idProducto = idProducto;
+   public void setOrderID(int orderID) {
+      this.orderID = orderID;
    }
 
-   public void setIdPyme(int idPyme) {
-      this.idPyme = idPyme;
+   public void setTotalPrice(double totalPrice) {
+      this.totalPrice = totalPrice;
    }
 
+   @Override
    public String toString() {
-      return idPyme + "\t" + idProducto + "\t" + amount + "\t" + fecha;
+      return orderID + ", " +
+             customerID + ", " +
+             "'" + date + "', " +
+             totalPrice;
    }
 }

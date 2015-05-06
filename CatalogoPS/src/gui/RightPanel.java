@@ -53,7 +53,7 @@ public class RightPanel {
       // Taking the pyme's shopping cart
       ArrayList<String> array = null;
       try {
-         array = data.gettingShoppingCart(idUser);
+         array = data.getShoppingCart(idUser);
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
@@ -76,7 +76,7 @@ public class RightPanel {
 
       // Taking the worker historical registry
       try {
-         array = data.gettingHistorical(idUser);
+         array = data.getOrderRecord(idUser);
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();

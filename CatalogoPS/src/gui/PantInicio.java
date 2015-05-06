@@ -17,17 +17,17 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.TreePath;
-import façade.Clothes;
+import façade.Product;
 import façade.DataExtraction;
-import façade.Worker;
+import façade.Customer;
 
 public class PantInicio {
    private static CenterPanel center;
    private static DataExtraction data;
    private static int idUser;
    private static Menu menu;
-   private static ArrayList<Clothes> prendaArray; // Se usara en un futuro
-   private static ArrayList<Worker> pymeArray; // Se usara en un futuro
+   private static ArrayList<Product> prendaArray; // Se usara en un futuro
+   private static ArrayList<Customer> pymeArray; // Se usara en un futuro
    private static RightPanel right;
    private static JButton searchButton;
    // TODO create a class for the search button
@@ -90,7 +90,7 @@ public class PantInicio {
             search = prueba.getLastPathComponent().toString() + " " + search;
             prueba = prueba.getParentPath();
          }
-         prendaArray = data.lookingForClothes(search);
+         prendaArray = data.basicSearchProducts(search);
          center.replace(prendaArray);
          System.out.println("El resultado es: " + search);
       } catch (NullPointerException e) {
@@ -162,8 +162,8 @@ public class PantInicio {
             String text = textField.getText();
 
             try {
-               prendaArray = data.lookingForClothes(text);
-               pymeArray = data.lookingForWorkers(text);
+               prendaArray = data.basicSearchProducts(text);
+               pymeArray = data.searchCustomers(text);
                textField.setText("");
                center.replace(prendaArray);
 

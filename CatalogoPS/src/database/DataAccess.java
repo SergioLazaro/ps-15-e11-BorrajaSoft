@@ -14,7 +14,7 @@ public class DataAccess {
    private Connection conn = null;
 
    /**
-    * 
+    * Create the connection with the database.
     */
    public DataAccess() {
       try {
@@ -30,17 +30,18 @@ public class DataAccess {
       }
    }
 
+   // TODO: Rellenar descripción, param y return.
    /**
     * 
-    * @param _query
+    * @param  query 
     * @return
     */
-   public ResultSet getQuery(String _query) {
+   public ResultSet getQuery(String query) {
       ResultSet resultado = null;
 
       try {
          Statement state = (Statement) conn.createStatement();
-         resultado = state.executeQuery(_query);
+         resultado = state.executeQuery(query);
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -48,14 +49,15 @@ public class DataAccess {
       return resultado;
    }
 
+   // TODO: Rellenar descripción, param.
    /**
     * 
-    * @param _query
+    * @param query
     */
-   public void setQuery(String _query) {
+   public void setQuery(String query) {
       try {
          Statement state = (Statement) conn.createStatement();
-         state.execute(_query);
+         state.execute(query);
       } catch (SQLException e) {
          e.printStackTrace();
       }

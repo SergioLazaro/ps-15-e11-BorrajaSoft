@@ -1,6 +1,6 @@
 package façade;
 
-public class Clothes {
+public class Product {
    private String brand;
    private String name;
    private double price;
@@ -8,23 +8,13 @@ public class Clothes {
    private int productTypeID;
    private int stock;
 
-   /**
-    * Create clothes object based on the input data.
-    * 
-    * @param productID
-    * @param productTypeID
-    * @param name
-    * @param brand
-    * @param stock
-    * @param price
-    */
-   public Clothes(int productID, double price, String name, String brand, int stock, int productTypeID) {
+   public Product(int productID, int productTypeID, String brand, String name, double price, int stock) {
       this.productID = productID;
-      this.price = price;
-      this.name = name;
-      this.brand = brand;
-      this.stock = stock;
       this.productTypeID = productTypeID;
+      this.brand = brand;
+      this.name = name;
+      this.price = price;
+      this.stock = stock;
    }
 
    public String getBrand() {
@@ -77,6 +67,11 @@ public class Clothes {
 
    @Override
    public String toString() {
-      return productID + "\t" + price + "\t" + name + "\t" + brand + "\t" + stock + "\t" + productTypeID;
+      return productID + ", " +
+             productTypeID + ", " +
+             "'" + brand + "', " +
+             "'" + name + "', " +
+             price + ", " +
+             stock;
    }
 }

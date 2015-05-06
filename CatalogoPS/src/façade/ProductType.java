@@ -1,80 +1,77 @@
 package façade;
 
 public class ProductType {
-   private String color;
-   private String estilo;
-   private int idTypeProd;
-   private String path;
-   private String prenda;
-   private String talla;
+   private String clothes;
+   private String colour;
+   private String image;
+   private int productTypeID;
+   private String size;
+   private String style;
 
-   /**
-    * 
-    * @param idTypeProd
-    * @param prenda
-    * @param color
-    * @param estilo
-    * @param path
-    * @param talla
-    */
-   public ProductType(int idTypeProd, String prenda, String color, String estilo, String path, String talla) {
-      this.idTypeProd = idTypeProd;
-      this.prenda = prenda;
-      this.color = color;
-      this.estilo = estilo;
-      this.path = path;
-      this.talla = talla;
+   public ProductType(int productTypeID, String clothes, String colour, String style, String image, String size) {
+      this.productTypeID = productTypeID;
+      this.clothes = clothes;
+      this.colour = colour;
+      this.style = style;
+      this.image = image;
+      this.size = size;
    }
 
-   public String getColor() {
-      return color;
+   public String getClothes() {
+      return clothes;
    }
 
-   public String getEstilo() {
-      return estilo;
+   public String getColour() {
+      return colour;
    }
 
-   public int getIdTypeProd() {
-      return idTypeProd;
+   public String getImage() {
+      return image;
    }
 
-   public String getPath() {
-      return path;
+   public int getProductTypeID() {
+      return productTypeID;
    }
 
-   public String getPrenda() {
-      return prenda;
+   public String getSize() {
+      return size;
    }
 
-   public String getTalla() {
-      return talla;
+   public String getStyle() {
+      return style;
    }
 
-   public void setColor(String color) {
-      this.color = color;
+   public void setClothes(String clothes) {
+      this.clothes = clothes;
    }
 
-   public void setEstilo(String estilo) {
-      this.estilo = estilo;
+   public void setColour(String colour) {
+      this.colour = colour;
    }
 
-   public void setIdTypeProd(int idTypeProd) {
-      this.idTypeProd = idTypeProd;
+   public void setImage(String image) {
+      this.image = image;
    }
 
-   public void setPath(String path) {
-      this.path = path;
+   public void setProductTypeID(int productTypeID) {
+      this.productTypeID = productTypeID;
    }
 
-   public void setPrenda(String prenda) {
-      this.prenda = prenda;
+   public void setSize(String size) {
+      this.size = size;
    }
 
-   public void setTalla(String talla) {
-      this.talla = talla;
+   public void setStyle(String style) {
+      this.style = style;
    }
 
+   @Override
    public String toString() {
-      return idTypeProd + "\t" + prenda + "\t" + color + "\t" + estilo + "\t" + path + "\t" + talla;
+      return productTypeID + "," +
+             "'" + clothes + "', " +
+             "'" + colour + "', " +
+             "'" + style + "', " +
+             "'" + image + "', " +
+             "'" + size + "'";
    }
 }

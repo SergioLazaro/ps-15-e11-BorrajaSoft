@@ -6,7 +6,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import façade.Clothes;
+import façade.Product;
 
 /**
  * Class that manages the Bottom-Center Panel in the GUI
@@ -16,8 +16,8 @@ import façade.Clothes;
  */
 public class CenterPanel {
    private JLayeredPane layeredPane;
-   private JList<Clothes> list;
-   private DefaultListModel<Clothes> model;
+   private JList<Product> list;
+   private DefaultListModel<Product> model;
 
    /**
     * -- Constructor -- Creates the Bottom-Center Panel
@@ -26,11 +26,11 @@ public class CenterPanel {
     * @param scroll
     * @param array
     */
-   public CenterPanel(JLayeredPane parent, ArrayList<Clothes> array) {
+   public CenterPanel(JLayeredPane parent, ArrayList<Product> array) {
       this.layeredPane = parent;
-      model = new DefaultListModel<Clothes>();
+      model = new DefaultListModel<Product>();
       if (array != null) {
-         for (Clothes o : array) {
+         for (Product o : array) {
             model.addElement(o);
          }
       }
@@ -38,7 +38,7 @@ public class CenterPanel {
       scrollPane.setBounds(173, 225, 291, 221);
       layeredPane.add(scrollPane);
 
-      list = new JList<Clothes>(model);
+      list = new JList<Product>(model);
       list.setBackground(new Color(255, 215, 0)); // yellow
       // list.setBackground(Color.BLUE);//new Color(255, 215, 0));
       list.setForeground(Color.BLACK);
@@ -50,11 +50,11 @@ public class CenterPanel {
     * 
     * @param array
     */
-   public void replace(ArrayList<Clothes> array) {
+   public void replace(ArrayList<Product> array) {
       list.setVisible(false);
       model.removeAllElements();
       if (array != null) {
-         for (Clothes o : array) {
+         for (Product o : array) {
             model.addElement(o);
          }
       }
@@ -65,10 +65,10 @@ public class CenterPanel {
     * 
     * @param array
     */
-   public void update(ArrayList<Clothes> array) {
+   public void update(ArrayList<Product> array) {
       list.setVisible(false);
       if (array != null) {
-         for (Clothes o : array) {
+         for (Product o : array) {
             model.addElement(o);
          }
       }

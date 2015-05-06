@@ -1,6 +1,6 @@
 package façade;
 
-public class Companies {
+public class Company {
    private int companyID;
    private String direction;
    private String mail;
@@ -11,7 +11,7 @@ public class Companies {
    /**
     * 
     */
-   public Companies(int idPyme, String nombre, String direccion, String mail, int telefono,
+   public Company(int idPyme, String nombre, String direccion, String mail, int telefono,
             String password) {
       this.companyID = idPyme;
       this.name = nombre;

@@ -33,7 +33,7 @@ public class LoginWindow {
    public int login() {
       int idUser = -1;
       try {
-         String usermail = "";
+         String username = "";
          String password = "";
          SpringLayout layout = new SpringLayout();
 
@@ -67,11 +67,11 @@ public class LoginWindow {
                   JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
          if (option == 0) // pressing OK button
          {
-            usermail = usr.getText();
+            username = usr.getText();
             password = new String(pass.getPassword());
          }
          // TODO Maybe hash the password for higher security?
-         idUser = data.enter(usermail, password);
+         idUser = data.login(username, password);
       } catch (SQLException e1) {
          e1.printStackTrace();
       }

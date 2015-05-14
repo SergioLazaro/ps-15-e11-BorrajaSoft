@@ -3,9 +3,9 @@ CREATE TABLE ProductTypes (
    productTypeID        INT(9)         NOT NULL AUTO_INCREMENT,
    clothes              VARCHAR(45)    NOT NULL,
    colour               VARCHAR(15)    NOT NULL,
-   style                VARCHAR        NOT NULL,
-   image                VARCHAR        NOT NULL,
-   size                 VARCHAR        NOT NULL,
+   style                VARCHAR(15)        NOT NULL,
+   image                VARCHAR(45)        NOT NULL,
+   size                 VARCHAR(4)        NOT NULL,
 
    PRIMARY KEY (productTypeID)
 );
@@ -45,20 +45,20 @@ CREATE TABLE ShoppingCart (
    productID            INT(9)         NOT NULL,
    numItems             INT(3)         NOT NULL,
    
-   FOREIGN KEY customerID references Customers(customerID),
-   FOREIGN KEY productID references Products(productID),
+   FOREIGN KEY (customerID) references Customers(customerID),
+   FOREIGN KEY (productID) references Products(productID),
    PRIMARY KEY (customerID, productID)
 );
 
 
 DROP TABLE IF EXISTS Orders;
 CREATE TABLE Orders (
-   orderID              INT(9)         NOT NULL
+   orderID              INT(9)         NOT NULL,
    customerID           INT(9)         NOT NULL,
    date                 DATE           NOT NULL,
    totalPrice           DECIMAL(9,2)   NOT NULL,
 
-   FOREIGN KEY customerID references Customers(customerID),
+   FOREIGN KEY (customerID) references Customers(customerID),
    PRIMARY KEY (orderID)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE OrderRecords (
    numItems             INT(3)         NOT NULL,
    pricePerItem         DECIMAL(9,2)   NOT NULL,
 
-   FOREIGN KEY orderID references Orders(orderID),
-   FOREIGN KEY productID references Products(productID),
+   FOREIGN KEY (orderID) references Orders(orderID),
+   FOREIGN KEY (productID) references Products(productID),
    PRIMARY KEY (orderID, orderRecordID)
 );

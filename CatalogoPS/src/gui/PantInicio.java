@@ -10,13 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.TreePath;
+
 import façade.Product;
 import façade.DataExtraction;
 import façade.Customer;
@@ -26,13 +29,13 @@ public class PantInicio {
    private static DataExtraction data;
    private static int idUser;
    private static Menu menu;
-   private static ArrayList<Product> prendaArray; // Se usara en un futuro
-   private static ArrayList<Customer> pymeArray; // Se usara en un futuro
+   private static ArrayList<Product> productArray;
+   private static ArrayList<Customer> customerArray;
    private static RightPanel right;
    private static JButton searchButton;
    // TODO create a class for the search button
    private static JTextField textField;
-   private static BannerPanel top;
+   private static TopPanel top;
    // TODO Change all those static variables and methods to non-static
    private JFrame frameRopaUltracool;
    private final JLayeredPane layeredPane = new JLayeredPane();
@@ -42,8 +45,8 @@ public class PantInicio {
     */
    public PantInicio() {
       data = new DataExtraction();
-      idUser = -1;
       LoginWindow loginW = new LoginWindow();
+      idUser = -1;
       // Show up log-in window
       while (idUser == -1) {
          idUser = loginW.login();
@@ -90,8 +93,8 @@ public class PantInicio {
             search = prueba.getLastPathComponent().toString() + " " + search;
             prueba = prueba.getParentPath();
          }
-         prendaArray = data.basicSearchProducts(search);
-         center.replace(prendaArray);
+         productArray = data.basicSearchProducts(search);
+         center.replace(productArray);
          System.out.println("El resultado es: " + search);
       } catch (NullPointerException e) {
          System.err.println("se ha clicado en clothes");
@@ -108,7 +111,7 @@ public class PantInicio {
       // Define the frame
       frameRopaUltracool = new JFrame();
       frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(
-               PantInicio.class.getResource("/imagenes/ImagenEmpresa.jpg")));
+               PantInicio.class.getResource("/photos/CompanyIcon.jpg")));
       frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //
       // frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH); //MAXIMUM AVAIVABLE SIZE
       frameRopaUltracool.setBounds(100, 100, 717, 484); // SMALL NON-FIXED WINDOW
@@ -125,7 +128,7 @@ public class PantInicio {
 
       // SearchButton
       searchButton = new JButton("");
-      searchButton.setIcon(new ImageIcon(PantInicio.class.getResource("/imagenes/buscar.jpg")));
+      searchButton.setIcon(new ImageIcon(PantInicio.class.getResource("/photos/LookingFor.jpg")));
       searchButton.setBounds(681, 101, 20, 20);
       layeredPane.add(searchButton);
 
@@ -138,12 +141,12 @@ public class PantInicio {
       // Logo
       // TODO Choose a functionality for this button
       JButton btnNewButton = new JButton("");
-      btnNewButton.setIcon(new ImageIcon(PantInicio.class.getResource("/imagenes/logo.jpg")));
+      btnNewButton.setIcon(new ImageIcon(PantInicio.class.getResource("/photos/logo.jpg")));
       btnNewButton.setBounds(105, 11, 227, 102);
       layeredPane.add(btnNewButton);
 
       // Superior panel
-      top = new BannerPanel(layeredPane);
+      top = new TopPanel(layeredPane);
 
       // center panel
       center = new CenterPanel(layeredPane, null);
@@ -162,14 +165,15 @@ public class PantInicio {
             String text = textField.getText();
 
             try {
-               prendaArray = data.basicSearchProducts(text);
-               pymeArray = data.searchCustomers(text);
+               productArray = data.basicSearchProducts(text);
+               customerArray = data.searchCustomers(text);
                textField.setText("");
-               center.replace(prendaArray);
+               center.replace(productArray);
 
             } catch (SQLException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
+               //
             }
          }
       });
@@ -179,5 +183,11 @@ public class PantInicio {
             menuValueChanged(evt);
          }
       });
+      // Center actionListener
+   		center.getList().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+   			public void valueChanged(ListSelectionEvent evt) {
+   				center.centerValueChanged(evt, top);
+   			}
+   		});
    }
 }

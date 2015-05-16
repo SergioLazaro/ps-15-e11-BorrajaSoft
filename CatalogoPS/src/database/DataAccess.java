@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataAccess {
-   private static String _bd = "CatalogoBD";
+   private static String _bd = "CatalogueDB";
    private static String _url = "jdbc:mysql://localhost/" + _bd;
    private String _pwd = ""; // CONTROLAR CONTRASEÑA DEL SERVIDOR
    private String _usuario = "root";

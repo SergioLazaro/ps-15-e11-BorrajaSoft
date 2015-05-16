@@ -8,13 +8,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
-public class Interfaz {
+public class Interface {
    private JFrame frmCatlogoTextil;
 
    /**
     * Create the application.
     */
-   public Interfaz() {
+   public Interface() {
       initialize();
    }
 
@@ -25,7 +25,7 @@ public class Interfaz {
       EventQueue.invokeLater(new Runnable() {
          public void run() {
             try {
-               Interfaz window = new Interfaz();
+               Interface window = new Interface();
                window.frmCatlogoTextil.setVisible(true);
             } catch (Exception e) {
                e.printStackTrace();

@@ -1,6 +1,7 @@
 package façade;
 
 public class Customer {
+	
    private int customerID;
    private String deliveringAddress;
    private String mailAddress;
@@ -8,12 +9,10 @@ public class Customer {
    private String password;
    private String surname;
    private int telephone;
-   private String username;
 
-   public Customer(int customerID, String username, String password, String name, String surname,
+   public Customer(int customerID, String password, String name, String surname,
             String deliveringAddress, String mailAddress, int telephone) {
       this.customerID = customerID;
-      this.username = username;
       this.password = password;
       this.name = name;
       this.surname = surname;
@@ -50,10 +49,6 @@ public class Customer {
       return telephone;
    }
 
-   public String getUsername() {
-      return username;
-   }
-
    public void setCustomerID(int customerID) {
       this.customerID = customerID;
    }
@@ -82,14 +77,9 @@ public class Customer {
       this.telephone = telephone;
    }
 
-   public void setUsername(String username) {
-      this.username = username;
-   }
-
    @Override
    public String toString() {
       return customerID + ", " +
-             "'" + username + "', " +
              "'" + password + "', " +
              "'" + name + "', " +
              "'" + surname + "', " +

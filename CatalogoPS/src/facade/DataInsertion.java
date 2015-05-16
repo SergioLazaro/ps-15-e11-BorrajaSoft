@@ -1,4 +1,4 @@
-package façade;
+package facade;
 
 import database.DataAccess;
 

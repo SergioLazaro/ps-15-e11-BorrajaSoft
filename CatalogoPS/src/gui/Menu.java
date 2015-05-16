@@ -8,7 +8,7 @@ import javax.swing.JTree;
 import javax.swing.border.BevelBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import façade.DataExtraction;
+import facade.DataExtraction;
 
 /**
  * Class that manages the Left Menu in the GUI

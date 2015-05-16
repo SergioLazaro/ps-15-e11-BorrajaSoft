@@ -9,7 +9,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 
-import façade.Product;
+import facade.Product;
 
 /**
  * Class that manages the Bottom-Center Panel in the GUI

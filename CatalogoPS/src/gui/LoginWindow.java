@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import façade.DataExtraction;
+import facade.DataExtraction;
 
 /**
  * Class that manages the Login in the GUI
@@ -69,9 +69,12 @@ public class LoginWindow {
          {
             username = usr.getText();
             password = new String(pass.getPassword());
+            idUser = data.login(username, password);
+         }
+         else if (option == 1) {
+        	idUser = -2;
          }
          // TODO Maybe hash the password for higher security?
-         idUser = data.login(username, password);
       } catch (SQLException e1) {
          e1.printStackTrace();
       }

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
-import façade.Product;
+import facade.Product;
 
 /**
  * Class that manages the Top panel in the GUI

@@ -1,4 +1,4 @@
-package façade;
+package facade;
 
 public class OrderRecord {
    private int numItems;

@@ -20,9 +20,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.TreePath;
 
-import façade.Product;
-import façade.DataExtraction;
-import façade.Customer;
+import facade.Product;
+import facade.DataExtraction;
+import facade.Customer;
 
 public class PantInicio {
    private static CenterPanel center;
@@ -51,6 +51,11 @@ public class PantInicio {
       while (idUser == -1) {
          idUser = loginW.login();
       }
+      
+      if (idUser < 0) {		// Cancel button preesed. Exit
+		  return;
+	  }
+      
       initialize();
 
       frameRopaUltracool.setVisible(true);
@@ -153,6 +158,7 @@ public class PantInicio {
 
       // Adds the actionListeners
       listeners();
+      
    }
 
    /**
@@ -168,7 +174,10 @@ public class PantInicio {
                productArray = data.basicSearchProducts(text);
                customerArray = data.searchCustomers(text);
                textField.setText("");
-               center.replace(productArray);
+               
+               if (productArray != null && productArray.size() != 0) {
+            	   center.replace(productArray);
+               }
 
             } catch (SQLException e) {
                // TODO Auto-generated catch block

@@ -1,4 +1,4 @@
-package façade;
+package facade;
 
 public class Order {
    private int customerID;

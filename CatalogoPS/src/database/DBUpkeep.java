@@ -8,41 +8,42 @@ public class DBUpkeep {
    public static void main(String[] args) {
       DataAccess mda = new DataAccess();
       modifyingStyle(mda);
-     //System.out.println("Conectado");
+      // System.out.println("Conectado");
    }
 
    /**
-    * PRE: mda != null
-    * POST: Update DB setting correctly the totalprices of all orders
+    * Update the prices of the orders of the database.
+    *  
+    * @param mda The database.
     */
-   public static void setTotalPrice(DataAccess mda){
-	   ResultSet result = mda.getQuery("SELECT MAX(orderID) as max FROM OrderRecords");
-	   double []totalprices = null;
-	   ResultSet result2 = mda.getQuery("SELECT t1.orderID orderID , "
-	   		+ "t1.numItems numItems, t2.productID productID , t2.price price "
-	   		+ "FROM OrderRecords t1 , Products t2 WHERE t1.productID = t2.productID");
-	   try {
-		   while(result.next()){		//Just one iteration, one element
-			   totalprices = new double[result.getInt("max")];
-		   }
-		   while(result2.next()){		//adding all prices per order
-			   totalprices[result2.getInt("orderID") - 1] += result2.getDouble("price"); 
-		   }
-		   for(int i = 0; i < totalprices.length; i++){
-			   mda.setQuery("UPDATE Orders SET totalprice = " + totalprices[i] + 
-					   " WHERE orderID = " + i);
-		   }
-	   } 
-	   catch (SQLException e1) {
-		   // TODO Auto-generated catch block
-		   e1.printStackTrace();
-	   }
-	  
+   public static void setTotalPrice(DataAccess mda) {
+      ResultSet result = mda.getQuery("SELECT MAX(orderID) as max FROM OrderRecords");
+      double[] totalprices = null;
+      ResultSet result2 = mda.getQuery("SELECT t1.orderID orderID , "
+               + "t1.numItems numItems, t2.productID productID , t2.price price "
+               + "FROM OrderRecords t1 , Products t2 WHERE t1.productID = t2.productID");
+      try {
+         while (result.next()) { // Just one iteration, one element
+            totalprices = new double[result.getInt("max")];
+         }
+         while (result2.next()) { // adding all prices per order
+            totalprices[result2.getInt("orderID") - 1] += result2.getDouble("price");
+         }
+         for (int i = 0; i < totalprices.length; i++) {
+            mda.setQuery("UPDATE Orders SET totalprice = " + totalprices[i] + " WHERE orderID = "
+                     + i);
+         }
+      } catch (SQLException e1) {
+         // TODO Auto-generated catch block
+         e1.printStackTrace();
+      }
+
    }
-   
+
    /**
-    * PRE: mda != null 
-    * POST: Modify image field setting it as a union of /photos/[ProductTypeName].jpg
+    * Set the relative path to the image in the database. 
+    * 
+    * @param mda The dabase.
     */
    private static void insertPath(DataAccess mda) {
       ResultSet result = mda.getQuery("SELECT * FROM ProductTypes");
@@ -60,9 +61,9 @@ public class DBUpkeep {
    }
 
    /**
-    * PRE: mda != null 
-    * POST: Modify Products table setting name column as a union of three fields: colour +
-    * 	style + clothes.
+    * Update the name of the product.
+    * 
+    * @param mda The database.
     */
    private static void updateProductName(DataAccess mda) {
       ResultSet result1;
@@ -76,7 +77,7 @@ public class DBUpkeep {
             while (result1.next()) {
                productTypeID = result1.getInt("productTypeID");
                name = result1.getString("colour") + " " + result1.getString("style") + " "
-                       + result1.getString("clothes");
+                        + result1.getString("clothes");
             }
             System.out.println(name);
             mda.setQuery("UPDATE Products SET name = '" + name + "' WHERE productID = "
@@ -89,8 +90,9 @@ public class DBUpkeep {
    }
 
    /**
-    * PRE: mda != null POST: Modifica todas las filas de la tabla TypeProd asignando un valor a a la
-    * columna "estilo" segun un numero obtenido mediante un objeto Random
+    * Update the style column of the ProductType table randomly.
+    * 
+    * @param mda The database.
     */
    private static void modifyingStyle(DataAccess mda) {
       Random rm = new Random();
@@ -105,57 +107,68 @@ public class DBUpkeep {
             if (cloth.equals("shirt")) {
                num = rm.nextInt(2);
                if (num == 0) {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'simple' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'simple' WHERE productTypeID = "
+                           + id);
                   System.out.println("Shirt modified");
                } else {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'striped' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'striped' WHERE productTypeID = "
+                           + id);
                   System.out.println("Shirt modified");
                }
 
             } else if (cloth.equals("sweater")) {
                num = rm.nextInt(2);
                if (num == 0) {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'simple' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'simple' WHERE productTypeID = "
+                           + id);
                   System.out.println("Sweater modifed");
                } else {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'striped' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'striped' WHERE productTypeID = "
+                           + id);
                   System.out.println("Sweater modified");
                }
 
             } else if (cloth.equals("t-shirt")) {
                num = rm.nextInt(2);
                if (num == 0) {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'simple' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'simple' WHERE productTypeID = "
+                           + id);
                   System.out.println("T-shirt modified");
                } else {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'striped' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'striped' WHERE productTypeID = "
+                           + id);
                   System.out.println("T-shirt modified");
                }
 
             } else if (cloth.equals("shocks")) {
                num = rm.nextInt(2);
                if (num == 0) {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'shorts' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'shorts' WHERE productTypeID = "
+                           + id);
                   System.out.println("Shocks modified");
                } else {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'large' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'large' WHERE productTypeID = "
+                           + id);
                   System.out.println("Shocks modified");
                }
 
             } else if (cloth.equals("trousers")) {
                num = rm.nextInt(2);
                if (num == 0) {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'larges' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'larges' WHERE productTypeID = "
+                           + id);
                   System.out.println("Trousers modified");
                } else {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'shorts' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'shorts' WHERE productTypeID = "
+                           + id);
                   System.out.println("Trousers modified");
                }
 
             } else if (cloth.equals("underpants")) {
                num = rm.nextInt(2);
                if (num == 0) {
-                  mda.setQuery("UPDATE ProductTypes SET style = 'boxer' WHERE productTypeID = " + id);
+                  mda.setQuery("UPDATE ProductTypes SET style = 'boxer' WHERE productTypeID = "
+                           + id);
                   System.out.println("Underpants modified");
                } else {
                   mda.setQuery("UPDATE ProductTypes SET style = 'slip' WHERE productTypeID = " + id);

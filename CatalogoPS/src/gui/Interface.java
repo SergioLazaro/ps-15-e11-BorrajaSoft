@@ -35,7 +35,7 @@ public class Interface {
    }
 
    /**
-    * Initialize the contents of the frame.
+    * Initialise the contents of the frame.
     */
    private void initialize() {
       frmCatlogoTextil = new JFrame();

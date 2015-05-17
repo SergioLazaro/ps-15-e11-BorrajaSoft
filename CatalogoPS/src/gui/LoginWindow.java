@@ -10,16 +10,13 @@ import javax.swing.SpringLayout;
 import façade.DataExtraction;
 
 /**
- * Class that manages the Login in the GUI
- * 
- * @author Hijus
- *
+ * Class that manages the Login in the GUI.
  */
 public class LoginWindow {
    DataExtraction data;
 
    /**
-    * -- Constructor --
+    * Constructor
     */
    public LoginWindow() {
       data = new DataExtraction();
@@ -28,7 +25,8 @@ public class LoginWindow {
    /**
     * Method that implements the login window
     * 
-    * @return id of the user or -1 if login fails
+    * @return id  of the user logged 
+    *         -1  if login fails
     */
    public int login() {
       int idUser = -1;

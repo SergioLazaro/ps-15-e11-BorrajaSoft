@@ -11,10 +11,7 @@ import javax.swing.tree.DefaultTreeModel;
 import façade.DataExtraction;
 
 /**
- * Class that manages the Left Menu in the GUI
- * 
- * @author Hijus
- *
+ * Class that manages the Left Menu in the GUI.
  */
 public class Menu {
    // TODO Maybe create methods instead of having everything in the Constructor?
@@ -23,10 +20,9 @@ public class Menu {
    private JTree selectionTree;
 
    /**
-    * -- Constructor -- Generates a menu and adds it to [panel]
+    * Constructor. Generates a menu and adds it to [panel]
     * 
-    * @param panel
-    *           - The JlayeredPane to which the menu is added
+    * @param panel The JlayeredPane to which the menu is added
     */
    public Menu(JLayeredPane panel) {
       this.layeredPane = panel;
@@ -40,7 +36,6 @@ public class Menu {
       try {
          selectionTree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Clothes") {
             private static final long serialVersionUID = 1L;
-
             {
                // Obtain the elements of the tree
                ArrayList<String> array = data.getProductType();
@@ -84,10 +79,9 @@ public class Menu {
     * Get the JTree associated with the menu. This method is intended to be used for defining
     * actionListeners
     * 
-    * @return
+    * @return 
     */
    public JTree getTree() {
       return selectionTree;
    }
-
 }

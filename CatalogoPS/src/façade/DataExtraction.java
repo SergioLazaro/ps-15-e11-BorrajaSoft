@@ -9,7 +9,7 @@ public class DataExtraction {
    private DataAccess mda;
 
    /**
-    * 
+    * Constructor.
     */
    public DataExtraction() {
       mda = new DataAccess();
@@ -43,9 +43,10 @@ public class DataExtraction {
    }
 
    /**
+    * Return the orderId of a customer. 
     * 
-    * @param idTrabajador
-    * @return
+    * @param customerID The id of the customer searched
+    * @return           A list with the complete order history of the customer.
     * @throws SQLException
     */
    public ArrayList<String> getOrderRecord(int customerID) throws SQLException {
@@ -69,9 +70,10 @@ public class DataExtraction {
    }
 
    /**
+    * Return the shopping cart of a customer.
     * 
-    * @param idTrabajador
-    * @return
+    * @param customerID The customer searched.
+    * @return           A list with products.
     * @throws SQLException
     */
    public ArrayList<String> getShoppingCart(int customerID) throws SQLException {
@@ -94,9 +96,10 @@ public class DataExtraction {
    }
 
    /**
+    * Return the style of a product.
     * 
-    * @param clothes
-    * @return
+    * @param clothes The product.
+    * @return        The style
     * @throws SQLException
     */
    public ArrayList<String> getStyleProduct(String clothes) throws SQLException {
@@ -115,8 +118,9 @@ public class DataExtraction {
    }
 
    /**
+    * Return all the types of the products.
     * 
-    * @return
+    * @return         A list with the styles.
     * @throws SQLException
     */
    public ArrayList<String> getProductType() throws SQLException {
@@ -133,9 +137,10 @@ public class DataExtraction {
    }
 
    /**
+    * Search products in the database based on the name. 
     * 
-    * @param query
-    * @return
+    * @param query The query executed in the database.
+    * @return      A list of products.
     * @throws SQLException
     */
    public ArrayList<Product> basicSearchProducts(String query) throws SQLException {
@@ -159,9 +164,12 @@ public class DataExtraction {
       return productArray;
    }
 
-   // TODO: Verificar si se busca por nombre o nombre de usuario.
    /**
+    * Search customers in the database.
     * 
+    * @param query The query to search in the database.
+    * @return      A list with customers.
+    * @throws SQLException
     */
    public ArrayList<Customer> searchCustomers(String query) throws SQLException {
       ArrayList<Customer> CustomerArray = new ArrayList<Customer>();

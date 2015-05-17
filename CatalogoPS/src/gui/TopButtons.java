@@ -11,10 +11,7 @@ import javax.swing.event.DocumentListener;
 
 /**
  * Class that manages the buttons (and their listeners) that appear on the
- * Product being selected in the Top panel
- * 
- * @author Hijus
- *
+ * Product being selected in the Top panel.
  */
 @SuppressWarnings("serial")
 public class TopButtons extends JPanel implements ActionListener {

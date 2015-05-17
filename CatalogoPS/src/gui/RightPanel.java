@@ -12,9 +12,6 @@ import façade.DataExtraction;
 
 /**
  * Class that manages the Right panels in the GUI
- * 
- * @author Hijus
- *
  */
 public class RightPanel {
    private DataExtraction data;
@@ -26,12 +23,10 @@ public class RightPanel {
    private JList shoppingCartList;
 
    /**
-    * -- Constructor --
+    * Constructor
     * 
-    * @param panel
-    *           - main panel of the application
-    * @param usr
-    *           - user identifier, obtained on login
+    * @param panel main panel of the application
+    * @param usr   user identifier, obtained on login
     */
    public RightPanel(JLayeredPane panel, int usr) {
       layeredPane = panel;

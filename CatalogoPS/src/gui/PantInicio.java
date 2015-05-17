@@ -41,7 +41,7 @@ public class PantInicio {
    private final JLayeredPane layeredPane = new JLayeredPane();
 
    /**
-    * -- Constructor --
+    * Constructor
     */
    public PantInicio() {
       data = new DataExtraction();
@@ -76,8 +76,7 @@ public class PantInicio {
    /**
     * Method that implements the actionListener over the JTree (Menu)
     * 
-    * @param tse
-    *           - event
+    * @param tse event
     */
    public void menuValueChanged(TreeSelectionEvent tse) {
       try {
@@ -105,7 +104,7 @@ public class PantInicio {
    }
 
    /**
-    * Initialize the contents of the frame that implements the main window.
+    * Initialise the contents of the frame that implements the main window.
     */
    private void initialize() {
       // Define the frame

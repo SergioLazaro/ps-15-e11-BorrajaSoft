@@ -15,19 +15,17 @@ import javax.swing.border.Border;
 import façade.Product;
 
 /**
- * Class that manages the Top panel in the GUI
- * @author Hijus
- *
+ * Class that manages the Top panel in the GUI.
  */
 public class TopPanel {
-
 	private JLayeredPane layeredPane;
 	private JPanel jp1;
 	private JScrollPane scrollPane1;
 	
 	/**
-	 * -- Constructor --
-	 * @param panel
+	 * Constructor
+	 * 
+	 * @param panel The object reference.
 	 */
 	public TopPanel(JLayeredPane panel){
 		layeredPane = panel;
@@ -35,7 +33,7 @@ public class TopPanel {
 	}
 	
 	/**
-	 * Method that initializes the top panel
+	 * Method that initialises the top panel
 	 * 
 	 * Important: The image used for the default image should no be larger that the
 	 * JScrollPane that contains the image (291x102). Otherwise, the image will need
@@ -73,7 +71,8 @@ public class TopPanel {
 	 * 			icon_"name_of_the_product".jpg
 	 * where "name_of_the_product" corresponds to the full name of the product, this is,
 	 * name and the brand
-	 * @param p 
+	 * 
+	 * @param p The product to modify.
 	 */
 	public void update(Product p){
 		jp1 = new JPanel(new BorderLayout(20,0));
@@ -106,6 +105,11 @@ public class TopPanel {
 		scan.close();
 	}
 	
+	/**
+	 * Update the product in the shopping cart.
+	 * 
+	 * @param p The product in the shopping cart.
+	 */
 	public void updateFromCart(Product p){
 		
 	}

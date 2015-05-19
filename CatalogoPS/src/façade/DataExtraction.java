@@ -194,4 +194,26 @@ public class DataExtraction {
       System.out.println("Fin lookingForTrabajadors");
       return CustomerArray;
    }
+   
+   /**
+    * 
+    * @param productTypeID
+    * @return Path of the image of productType which has productTypeID or default no image path if an error occurs
+    */
+   public String getProductPath(int productTypeID) {
+	   try{
+		   ResultSet result = mda.getQuery("SELECT image FROM ProductTypes WHERE productTypeID = " 
+				   + productTypeID);
+		   String path = "/photos/no_image.jpg";
+		   while (result.next()){
+			   path = result.getString("image");
+		   }
+		   return path;
+	   }
+	   catch(SQLException e){
+		   return "/photos/no_image.jpg";
+	   }
+		
+   }
+   
 }

@@ -46,7 +46,7 @@ public class PantInicio {
    public PantInicio() {
       data = new DataExtraction();
       LoginWindow loginW = new LoginWindow();
-      idUser = -1;
+      idUser = 1; // CHANGE to -1
       // Show up log-in window
       while (idUser == -1) {
          idUser = loginW.login();

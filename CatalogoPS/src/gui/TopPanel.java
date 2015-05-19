@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import façade.DataExtraction;
 import façade.Product;
 
 /**
@@ -46,7 +47,7 @@ public class TopPanel {
 		
 //		// first line
 	   jp1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//	   jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/imagenes/buscar.jpg"))));
+	   jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/LookingFor.jpg"))));
 	   jp1.add(new JLabel(" Seleccionar prenda "));
 //
 //	   // second line
@@ -78,14 +79,13 @@ public class TopPanel {
 		jp1 = new JPanel(new BorderLayout(20,0));
 			
 		// Search & add the image
-		Scanner scan = new Scanner(p.getName());
-		String nombre = scan.next();
-		if(PantInicio.class.getResource("/photos/icon_" + nombre + ".jpg")==null) {
-			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/no_image.jpg"))), BorderLayout.LINE_START);
-		}else{
-			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/icon_" 
-					+ nombre + ".jpg"))), BorderLayout.LINE_START);
-		}
+//		Scanner scan = new Scanner(p.getName());
+//		String nombre = scan.next();
+//		if(PantInicio.class.getResource("/photos/icon_" + nombre + ".jpg")==null) {
+		DataExtraction d = new DataExtraction();
+
+		jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource(d.getProductPath(p.getProductTypeID())))), BorderLayout.LINE_START);
+
 		
 		// Add padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,0,0);
@@ -102,7 +102,7 @@ public class TopPanel {
 		
 		jp1.add(jp2, BorderLayout.PAGE_END);
 
-		scan.close();
+//		scan.close();
 	}
 	
 	/**

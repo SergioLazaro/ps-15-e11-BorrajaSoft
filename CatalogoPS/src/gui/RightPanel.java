@@ -33,8 +33,8 @@ public class RightPanel {
     * @param panel main panel of the application
     * @param usr   user identifier, obtained on login
     */
-   public RightPanel(JLayeredPane panel, int usr) {
-      layeredPane = panel;
+   public RightPanel(int usr) {
+      layeredPane = HomeWindow.getLayeredPane();
       idUser = usr;
       data = new DataExtraction();
       mCart = new DefaultListModel<Product>();
@@ -85,7 +85,7 @@ public class RightPanel {
             mHistory.addElement(o);
          }
       }
-      historyList = new JList(mHistory);
+      historyList = new JList<Product>(mHistory);
       historyList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scrollHistory.setViewportView(historyList);
       historyList.setBackground(new Color(255, 255, 255));

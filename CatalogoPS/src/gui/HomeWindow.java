@@ -24,7 +24,7 @@ import facade.Customer;
 import facade.DataExtraction;
 import facade.Product;
 
-public class PantInicio {
+public class HomeWindow {
    private static CenterPanel center;
    private static DataExtraction data;
    private static int idUser;
@@ -37,14 +37,15 @@ public class PantInicio {
    private static JTextField textField;
    private static TopPanel top;
    // TODO Change all those static variables and methods to non-static
-   private JFrame frameRopaUltracool;
-   private final JLayeredPane layeredPane = new JLayeredPane();
+   private static JFrame frameRopaUltracool;
+   private static JLayeredPane layeredPane;
 
    /**
     * Constructor
     */
-   public PantInicio() {
+   public HomeWindow() {
       data = new DataExtraction();
+      layeredPane = new JLayeredPane();
       LoginWindow loginW = new LoginWindow();
       idUser = 1; // CHANGE to -1
       // Show up log-in window
@@ -67,7 +68,7 @@ public class PantInicio {
       EventQueue.invokeLater(new Runnable() {
          public void run() {
             try {
-               PantInicio window = new PantInicio();
+               HomeWindow window = new HomeWindow();
             } catch (Exception e) {
                e.printStackTrace();
             }
@@ -113,7 +114,7 @@ public class PantInicio {
       // Define the frame
       frameRopaUltracool = new JFrame();
       frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(
-               PantInicio.class.getResource("/photos/CompanyIcon.jpg")));
+               HomeWindow.class.getResource("/photos/CompanyIcon.jpg")));
       frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //
       // frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH); //MAXIMUM AVAIVABLE SIZE
       frameRopaUltracool.setBounds(100, 100, 800, 800); // SMALL NON-FIXED WINDOW
@@ -130,29 +131,29 @@ public class PantInicio {
 
       // SearchButton
       searchButton = new JButton("");
-      searchButton.setIcon(new ImageIcon(PantInicio.class.getResource("/photos/LookingFor.jpg")));
+      searchButton.setIcon(new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg")));
       searchButton.setBounds(770, 101, 20, 20);
       layeredPane.add(searchButton);
 
       // Clothes tree
-      menu = new Menu(layeredPane);
+      menu = new Menu();
 
       // Shopping cart & History
-      right = new RightPanel(layeredPane, idUser);
+      right = new RightPanel(idUser);
 
       // Logo
       // TODO Choose a functionality for this button
       JButton btnNewButton = new JButton("");
-      btnNewButton.setIcon(new ImageIcon(PantInicio.class.getResource("/photos/logo.jpg")));
+      btnNewButton.setIcon(new ImageIcon(HomeWindow.class.getResource("/photos/logo.jpg")));
       btnNewButton.setBounds(105, 11, 227, 102);
       layeredPane.add(btnNewButton);
 
 
       // center panel
-      center = new CenterPanel(layeredPane, null);
+      center = new CenterPanel(null);
       
       // Superior panel
-      top = new TopPanel(layeredPane,right,center,idUser);
+      top = new TopPanel(idUser);
 
       // Adds the actionListeners
       listeners();
@@ -208,4 +209,56 @@ public class PantInicio {
    			}
    		});
    }
+   
+   
+   /* GETTERS */
+
+	public static CenterPanel getCenter() {
+		return center;
+	}
+	
+	public static DataExtraction getData() {
+		return data;
+	}
+	
+	public static int getIdUser() {
+		return idUser;
+	}
+	
+	public static Menu getMenu() {
+		return menu;
+	}
+	
+	public static ArrayList<Product> getProductArray() {
+		return productArray;
+	}
+	
+	public static ArrayList<Customer> getCustomerArray() {
+		return customerArray;
+	}
+	
+	public static RightPanel getRight() {
+		return right;
+	}
+	
+	public static JButton getSearchButton() {
+		return searchButton;
+	}
+	
+	public static JTextField getTextField() {
+		return textField;
+	}
+	
+	public static TopPanel getTop() {
+		return top;
+	}
+	
+	public static JFrame getFrameRopaUltracool() {
+		return frameRopaUltracool;
+	}
+	
+	public static JLayeredPane getLayeredPane() {
+		return layeredPane;
+	}
+      
 }

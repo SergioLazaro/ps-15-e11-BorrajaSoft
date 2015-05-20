@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
@@ -24,7 +23,6 @@ public class TopPanel {
 	private JPanel jp1;
 	private JScrollPane scrollPane1;
 	private int idUser;
-	private RightPanel rightPanel;
 	private CenterPanel centerPanel;
 	
 	/**
@@ -32,10 +30,9 @@ public class TopPanel {
 	 * 
 	 * @param panel The object reference.
 	 */
-	public TopPanel(JLayeredPane panel, RightPanel right, CenterPanel center, int idUser){
-		layeredPane = panel;
-		rightPanel = right;
-		centerPanel = center;
+	public TopPanel(int idUser){
+		layeredPane = HomeWindow.getLayeredPane();
+		centerPanel = HomeWindow.getCenter();
 		initialize();
 		this.idUser = idUser;
 	}
@@ -54,7 +51,7 @@ public class TopPanel {
 		
 //		// first line
 	   jp1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-	   jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/LookingFor.jpg"))));
+	   jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg"))));
 	   jp1.add(new JLabel(" Seleccionar prenda "));
 //
 //	   // second line
@@ -92,9 +89,9 @@ public class TopPanel {
 		DataExtraction d = new DataExtraction();
 
 		try{
-			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource(d.getProductPath(p.getProductTypeID())))), BorderLayout.LINE_START);
+			jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource(d.getProductPath(p.getProductTypeID())))), BorderLayout.LINE_START);
 		}catch(NullPointerException e){
-			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/no_image.jpg"))), BorderLayout.LINE_START);
+			jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource("/photos/no_image.jpg"))), BorderLayout.LINE_START);
 
 		}
 
@@ -110,7 +107,7 @@ public class TopPanel {
 
 		
 		JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		jp2.add(new TopButtons(p.getStock(),p, idUser, rightPanel, centerPanel,0));
+		jp2.add(new TopButtons(p.getStock(),p, idUser, 0));
 		System.out.println("centerPANEL ES "+ centerPanel);
 
 		
@@ -128,7 +125,7 @@ public class TopPanel {
 		DataExtraction d = new DataExtraction();
 		
 		jp1 = new JPanel(new BorderLayout(20,0));
-		jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource(
+		jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource(
 				d.getProductPath(p.getProductTypeID())))), BorderLayout.LINE_START);
 
 		
@@ -143,7 +140,7 @@ public class TopPanel {
 
 		
 		JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		jp2.add(new TopButtons(d.getStackFromCart(p.getProductID()),p, idUser, rightPanel, centerPanel, 1));
+		jp2.add(new TopButtons(d.getStackFromCart(p.getProductID()),p, idUser, 1));
 
 		
 		jp1.add(jp2, BorderLayout.PAGE_END);

@@ -29,8 +29,8 @@ public class CenterPanel {
     * @param parent The principal banner.
     * @param array The list of products to show in the panel.
     */
-   public CenterPanel(JLayeredPane parent, ArrayList<Product> array) {
-      this.layeredPane = parent;
+   public CenterPanel(ArrayList<Product> array) {
+      layeredPane = HomeWindow.getLayeredPane();
       model = new DefaultListModel<Product>();
       if (array != null) {
          for (Product o : array) {

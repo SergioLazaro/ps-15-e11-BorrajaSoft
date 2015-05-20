@@ -26,8 +26,8 @@ public class Menu {
     * 
     * @param panel The JlayeredPane to which the menu is added
     */
-   public Menu(JLayeredPane panel) {
-      this.layeredPane = panel;
+   public Menu() {
+      layeredPane = HomeWindow.getLayeredPane();
       JScrollPane scrollSelectionTree = new JScrollPane();
       scrollSelectionTree.setBounds(0, 124, 174, 581);
       layeredPane.add(scrollSelectionTree);

@@ -30,13 +30,12 @@ public class TopButtons extends JPanel implements ActionListener {
 	protected RightPanel shCart;
 	protected CenterPanel center;
 
-	public TopButtons(int max, Product product, int idUser, 
-			RightPanel cart, CenterPanel center, int mode) {
+	public TopButtons(int max, Product product, int idUser, int mode) {
 		maxClothes = max;
 		this.product = product;
 		this.idUser = idUser;
-		this.shCart = cart;
-		this.center = center;
+		this.shCart = HomeWindow.getRight();
+		this.center = HomeWindow.getCenter();
 		System.out.println("IDUSER = " + this.idUser);
 		minus = new JButton("-");
 		minus.setActionCommand("less");

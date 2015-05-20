@@ -77,7 +77,7 @@ DROP TABLE IF EXISTS `Orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Orders` (
-  `orderID` int(9) NOT NULL,
+  `orderID` int(9) NOT NULL AUTO_INCREMENT,
   `customerID` int(9) NOT NULL,
   `date` date NOT NULL,
   `totalPrice` decimal(9,2) NOT NULL,

@@ -7,17 +7,14 @@ import javax.swing.JScrollPane;
 
 /**
  * Class that manages the Top panel in the GUI
- * 
- * @author Hijus
- *
  */
 public class BannerPanel {
    private JLayeredPane layeredPane;
 
    /**
-    * -- Constructor --
+    * Constructor
     * 
-    * @param panel
+    * @param panel The object where the banner is inserted.
     */
    public BannerPanel(JLayeredPane panel) {
       layeredPane = panel;
@@ -25,7 +22,7 @@ public class BannerPanel {
    }
 
    /**
-    * Method that initializes the top panel
+    * Method that initialises the top panel
     */
    private void initialize() {
       JScrollPane scrollPane1 = new JScrollPane();

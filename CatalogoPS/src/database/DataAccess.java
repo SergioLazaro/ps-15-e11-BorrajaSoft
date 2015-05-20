@@ -30,11 +30,11 @@ public class DataAccess {
       }
    }
 
-   // TODO: Rellenar descripción, param y return.
    /**
+    * Return the result of a search in the database. 
     * 
-    * @param  query 
-    * @return
+    * @param query Expression searched.
+    * @return      Rows that granted the searched.
     */
    public ResultSet getQuery(String query) {
       ResultSet resultado = null;
@@ -49,10 +49,10 @@ public class DataAccess {
       return resultado;
    }
 
-   // TODO: Rellenar descripción, param.
    /**
+    * Set a query to the database.
     * 
-    * @param query
+    * @param query Query to set.
     */
    public void setQuery(String query) {
       try {

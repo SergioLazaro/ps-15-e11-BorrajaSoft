@@ -20,9 +20,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.TreePath;
 
-import facade.Product;
-import facade.DataExtraction;
 import facade.Customer;
+import facade.DataExtraction;
+import facade.Product;
 
 public class PantInicio {
    private static CenterPanel center;
@@ -41,21 +41,19 @@ public class PantInicio {
    private final JLayeredPane layeredPane = new JLayeredPane();
 
    /**
-    * -- Constructor --
+    * Constructor
     */
    public PantInicio() {
       data = new DataExtraction();
       LoginWindow loginW = new LoginWindow();
-      idUser = -1;
+      idUser = 1; // CHANGE to -1
       // Show up log-in window
       while (idUser == -1) {
+    	 System.out.println("ID = " + idUser);
          idUser = loginW.login();
+         System.out.println("ID = " + idUser);
+
       }
-      
-      if (idUser < 0) {		// Cancel button preesed. Exit
-		  return;
-	  }
-      
       initialize();
 
       frameRopaUltracool.setVisible(true);
@@ -81,8 +79,7 @@ public class PantInicio {
    /**
     * Method that implements the actionListener over the JTree (Menu)
     * 
-    * @param tse
-    *           - event
+    * @param tse event
     */
    public void menuValueChanged(TreeSelectionEvent tse) {
       try {
@@ -95,7 +92,7 @@ public class PantInicio {
          String search = tse.getNewLeadSelectionPath().getLastPathComponent().toString();
          TreePath prueba = tse.getNewLeadSelectionPath().getParentPath();
          while (prueba.getParentPath() != null) {
-            search = prueba.getLastPathComponent().toString() + " " + search;
+            search = " " + search + " " + prueba.getLastPathComponent().toString();
             prueba = prueba.getParentPath();
          }
          productArray = data.basicSearchProducts(search);
@@ -110,7 +107,7 @@ public class PantInicio {
    }
 
    /**
-    * Initialize the contents of the frame that implements the main window.
+    * Initialise the contents of the frame that implements the main window.
     */
    private void initialize() {
       // Define the frame
@@ -119,22 +116,22 @@ public class PantInicio {
                PantInicio.class.getResource("/photos/CompanyIcon.jpg")));
       frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //
       // frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH); //MAXIMUM AVAIVABLE SIZE
-      frameRopaUltracool.setBounds(100, 100, 717, 484); // SMALL NON-FIXED WINDOW
+      frameRopaUltracool.setBounds(100, 100, 800, 800); // SMALL NON-FIXED WINDOW
       frameRopaUltracool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frameRopaUltracool.getContentPane().setLayout(null);
-      layeredPane.setBounds(0, 0, 701, 445);
+      layeredPane.setBounds(0, 0, 800, 800);
       frameRopaUltracool.getContentPane().add(layeredPane);
 
       // Search bar
       textField = new JTextField();
-      textField.setBounds(464, 101, 214, 20);
+      textField.setBounds(560, 101, 214, 20);
       layeredPane.add(textField);
       textField.setColumns(10);
 
       // SearchButton
       searchButton = new JButton("");
       searchButton.setIcon(new ImageIcon(PantInicio.class.getResource("/photos/LookingFor.jpg")));
-      searchButton.setBounds(681, 101, 20, 20);
+      searchButton.setBounds(770, 101, 20, 20);
       layeredPane.add(searchButton);
 
       // Clothes tree
@@ -150,15 +147,15 @@ public class PantInicio {
       btnNewButton.setBounds(105, 11, 227, 102);
       layeredPane.add(btnNewButton);
 
-      // Superior panel
-      top = new TopPanel(layeredPane);
 
       // center panel
       center = new CenterPanel(layeredPane, null);
+      
+      // Superior panel
+      top = new TopPanel(layeredPane,right,center,idUser);
 
       // Adds the actionListeners
       listeners();
-      
    }
 
    /**
@@ -174,10 +171,7 @@ public class PantInicio {
                productArray = data.basicSearchProducts(text);
                customerArray = data.searchCustomers(text);
                textField.setText("");
-               
-               if (productArray != null && productArray.size() != 0) {
-            	   center.replace(productArray);
-               }
+               center.replace(productArray);
 
             } catch (SQLException e) {
                // TODO Auto-generated catch block
@@ -196,6 +190,21 @@ public class PantInicio {
    		center.getList().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
    			public void valueChanged(ListSelectionEvent evt) {
    				center.centerValueChanged(evt, top);
+   			}
+   		});
+   		//ShoppingCart Listener
+   		right.getShoppingCartList().addListSelectionListener(new javax.swing.event.
+   				ListSelectionListener(){
+   			public void valueChanged(ListSelectionEvent evt) {
+   				right.shoppingCartListChanged(evt, top);
+   			}
+   		});
+   		
+   		//History Listener
+   		right.getHistoryList().addListSelectionListener(new javax.swing.event.
+   				ListSelectionListener(){
+   			public void valueChanged(ListSelectionEvent evt) {
+   				right.historyListChanged(evt, top);
    			}
    		});
    }

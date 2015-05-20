@@ -1,8 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
-import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -12,30 +12,36 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import facade.DataExtraction;
 import facade.Product;
 
 /**
- * Class that manages the Top panel in the GUI
- * @author Hijus
- *
+ * Class that manages the Top panel in the GUI.
  */
 public class TopPanel {
-
+	
 	private JLayeredPane layeredPane;
 	private JPanel jp1;
 	private JScrollPane scrollPane1;
+	private int idUser;
+	private RightPanel rightPanel;
+	private CenterPanel centerPanel;
 	
 	/**
-	 * -- Constructor --
-	 * @param panel
+	 * Constructor
+	 * 
+	 * @param panel The object reference.
 	 */
-	public TopPanel(JLayeredPane panel){
+	public TopPanel(JLayeredPane panel, RightPanel right, CenterPanel center, int idUser){
 		layeredPane = panel;
+		rightPanel = right;
+		centerPanel = center;
 		initialize();
+		this.idUser = idUser;
 	}
 	
 	/**
-	 * Method that initializes the top panel
+	 * Method that initialises the top panel
 	 * 
 	 * Important: The image used for the default image should no be larger that the
 	 * JScrollPane that contains the image (291x102). Otherwise, the image will need
@@ -43,12 +49,12 @@ public class TopPanel {
 	 */
 	private void initialize(){
 		scrollPane1 = new JScrollPane();
-		scrollPane1.setBounds(173, 124, 291, 102);
+		scrollPane1.setBounds(173, 124, 385, 102);
 		layeredPane.add(scrollPane1);
 		
 //		// first line
 	   jp1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-//	   jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/imagenes/buscar.jpg"))));
+	   jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/LookingFor.jpg"))));
 	   jp1.add(new JLabel(" Seleccionar prenda "));
 //
 //	   // second line
@@ -73,20 +79,25 @@ public class TopPanel {
 	 * 			icon_"name_of_the_product".jpg
 	 * where "name_of_the_product" corresponds to the full name of the product, this is,
 	 * name and the brand
-	 * @param p 
+	 * 
+	 * @param p The product to modify.
 	 */
 	public void update(Product p){
 		jp1 = new JPanel(new BorderLayout(20,0));
 			
 		// Search & add the image
-		Scanner scan = new Scanner(p.getName());
-		String nombre = scan.next();
-		if(PantInicio.class.getResource("/photos/icon_" + nombre + ".jpg")==null) {
+//		Scanner scan = new Scanner(p.getName());
+//		String nombre = scan.next();
+//		if(PantInicio.class.getResource("/photos/icon_" + nombre + ".jpg")==null) {
+		DataExtraction d = new DataExtraction();
+
+		try{
+			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource(d.getProductPath(p.getProductTypeID())))), BorderLayout.LINE_START);
+		}catch(NullPointerException e){
 			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/no_image.jpg"))), BorderLayout.LINE_START);
-		}else{
-			jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource("/photos/icon_" 
-					+ nombre + ".jpg"))), BorderLayout.LINE_START);
+
 		}
+
 		
 		// Add padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,0,0);
@@ -99,14 +110,42 @@ public class TopPanel {
 
 		
 		JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		jp2.add(new TopButtons(p.getStock()));
+		jp2.add(new TopButtons(p.getStock(),p, idUser, rightPanel, centerPanel,0));
+		System.out.println("centerPANEL ES "+ centerPanel);
+
 		
 		jp1.add(jp2, BorderLayout.PAGE_END);
 
-		scan.close();
+//		scan.close();
 	}
 	
+	/**
+	 * Update the product in the shopping cart.
+	 * 
+	 * @param p The product in the shopping cart.
+	 */
 	public void updateFromCart(Product p){
+		DataExtraction d = new DataExtraction();
 		
+		jp1 = new JPanel(new BorderLayout(20,0));
+		jp1.add(new JLabel(new ImageIcon(PantInicio.class.getResource(
+				d.getProductPath(p.getProductTypeID())))), BorderLayout.LINE_START);
+
+		
+		// Add padding
+		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,0,0);
+		jp1.setBorder(paddingBorder);
+		
+		// Add the name and buttons
+		jp1.add(new JLabel(p.getName()), BorderLayout.CENTER);
+		
+		scrollPane1.setViewportView(jp1);
+
+		
+		JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jp2.add(new TopButtons(d.getStackFromCart(p.getProductID()),p, idUser, rightPanel, centerPanel, 1));
+
+		
+		jp1.add(jp2, BorderLayout.PAGE_END);
 	}
 }

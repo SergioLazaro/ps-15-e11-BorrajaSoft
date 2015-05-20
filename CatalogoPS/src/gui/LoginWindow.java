@@ -1,25 +1,24 @@
 package gui;
 
 import java.sql.SQLException;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+
 import facade.DataExtraction;
 
 /**
- * Class that manages the Login in the GUI
- * 
- * @author Hijus
- *
+ * Class that manages the Login in the GUI.
  */
 public class LoginWindow {
    DataExtraction data;
 
    /**
-    * -- Constructor --
+    * Constructor
     */
    public LoginWindow() {
       data = new DataExtraction();
@@ -28,7 +27,8 @@ public class LoginWindow {
    /**
     * Method that implements the login window
     * 
-    * @return id of the user or -1 if login fails
+    * @return id  of the user logged 
+    *         -1  if login fails
     */
    public int login() {
       int idUser = -1;
@@ -69,12 +69,9 @@ public class LoginWindow {
          {
             username = usr.getText();
             password = new String(pass.getPassword());
-            idUser = data.login(username, password);
-         }
-         else if (option == 1) {
-        	idUser = -2;
          }
          // TODO Maybe hash the password for higher security?
+         idUser = data.login(username, password);
       } catch (SQLException e1) {
          e1.printStackTrace();
       }

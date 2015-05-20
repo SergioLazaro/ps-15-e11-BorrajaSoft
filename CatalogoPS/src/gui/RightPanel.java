@@ -1,57 +1,44 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SpringLayout;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
 
 import facade.DataExtraction;
 import facade.Product;
 
 /**
  * Class that manages the Right panels in the GUI
- * 
- * @author Hijus
- *
  */
 public class RightPanel {
    private DataExtraction data;
-   private JList historyList;
    private int idUser;
    private JLayeredPane layeredPane;
-   private DefaultListModel mCart; // To be used, to update
-   private DefaultListModel mHistory;
-   private JList shoppingCartList;
-   
-   private ArrayList<Product> products;		// Products in the shoppeng cart
-   
+   private DefaultListModel<Product> mCart; // To be used, to update
+   private DefaultListModel<Product> mHistory;
+   private JList<Product> shoppingCartList;
+   private JList<Product> historyList;
+
 
    /**
-    * -- Constructor --
+    * Constructor
     * 
-    * @param panel
-    *           - main panel of the application
-    * @param usr
-    *           - user identifier, obtained on login
+    * @param panel main panel of the application
+    * @param usr   user identifier, obtained on login
     */
    public RightPanel(JLayeredPane panel, int usr) {
       layeredPane = panel;
       idUser = usr;
       data = new DataExtraction();
-      mCart = new DefaultListModel();
-      mHistory = new DefaultListModel();
-      products = new ArrayList<Product>();
-      
+      mCart = new DefaultListModel<Product>();
+      mHistory = new DefaultListModel<Product>();
       initialize();
    }
 
@@ -59,13 +46,11 @@ public class RightPanel {
     * Method that generates both the Shopping Cart and the History Panels in the GUI
     */
    private void initialize() {
-	   
       JScrollPane shoppingCartScroll = new JScrollPane();
-      shoppingCartScroll.setBounds(463, 124, 238, 167);
+      shoppingCartScroll.setBounds(558, 124, 238, 290);
       layeredPane.add(shoppingCartScroll);
 
-      // Taking the pyme's shopping cart
-      /*ArrayList<String> array = null;
+      ArrayList<Product> array = null;
       try {
          array = data.getShoppingCart(idUser);
       } catch (SQLException e) {
@@ -73,91 +58,120 @@ public class RightPanel {
          e.printStackTrace();
       }
       if (array != null) {
-         for (Object o : array) {
+         for (Product o : array) {
             mCart.addElement(o);
          }
 
-      }*/
-      
-      ArrayList<Product> array = null;
-      try {
-         array = data.getShoppingCartP(idUser);
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
       }
-      if (array != null) {
-         for (Product p : array) {
-        	 addToShoppingCart(p);
-         }
-
-      }
-      
-      
       shoppingCartList = new JList<>(mCart);
 
       shoppingCartList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       shoppingCartScroll.setViewportView(shoppingCartList);
       shoppingCartList.setBackground(new Color(255, 255, 255));
-      
-      shoppingCartList.addMouseListener(new MouseAdapter() {		// Sets a double click listener
-    	    public void mouseClicked(MouseEvent evt) {
-    	        JList list = (JList)evt.getSource();
-    	        if (evt.getClickCount() == 2) {
 
-    	            // Double-click detected
-    	            int index = list.locationToIndex(evt.getPoint());
-    	            removeProduct(index);
-    	        } 
-    	    }
-    	});
-      
-      
-      
-      
       JScrollPane scrollHistory = new JScrollPane();
-      scrollHistory.setBounds(464, 290, 237, 155);
+      scrollHistory.setBounds(558, 415, 237, 290);
       layeredPane.add(scrollHistory);
 
       // Taking the worker historical registry
       try {
-          //array = data.getOrderRecord(idUser);
-          array = data.getOrderRecordP(idUser);
+         array = data.getOrderRecord(idUser);
       } catch (SQLException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
       if (array != null) {
-         for (Object o : array) {
+         for (Product o : array) {
             mHistory.addElement(o);
          }
       }
       historyList = new JList(mHistory);
       historyList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scrollHistory.setViewportView(historyList);
-      historyList.setBackground(new Color(204, 255, 204));
-      
+      historyList.setBackground(new Color(255, 255, 255));
    }
    
-   
+   public void updateShoppingCart(){
+	   mCart.clear();
+	   ArrayList<Product> array = null;
+	   try {
+	         array = data.getShoppingCart(idUser);
+	   } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	   }
+	   if (array != null) {
+		   for (Product o : array) {
+	            mCart.addElement(o);
+	       }
+	   }
+	   shoppingCartList = new JList<Product>(mCart);
+	   layeredPane.add(shoppingCartList);  
+   }
    
    /**
-    * Adds the product p to the shopping cart
+    * 
+    * Method that implements the actionListener over the CenterPanelList (Center)
+    * 
+    * @param evt Event to search.
+    * @param top The principal panel.
     */
-   public void addToShoppingCart(Product p) {
-	   mCart.addElement("- " + p.getName() + ", " + p.getBrand() + ", " + p.getPrice() + " €");
-	   products.add(p);
+   public void shoppingCartListChanged(ListSelectionEvent evt, TopPanel top) {
+      // TODO Auto-generated method stub
+      if (!evt.getValueIsAdjusting()) {
+         try {
+            JList<?> prueba = (JList<?>) evt.getSource();
+            if (prueba == null) {
+               System.out.println("\nla lista es nula");
+            }
+            System.out.println("\nLa lista es " + prueba);
+            Product select = (Product) prueba.getSelectedValue();
+            if (select == null) {
+               System.out.println("la prenda es nula");
+            } else {
+               System.out.println(select);
+               top.updateFromCart(select);
+            }
+         } catch (NullPointerException e) {
+            e.printStackTrace();
+         }
+      }
    }
-   
    
    /**
-    * Remove the product p from the shopping cart
+    * 
+    * Method that implements the actionListener over the CenterPanelList (Center)
+    * 
+    * @param evt Event to search.
+    * @param top The principal panel.
     */
-   public void removeProduct(int index) {
-	   mCart.remove(index);
-	   Product p = products.remove(index);
+   public void historyListChanged(ListSelectionEvent evt, TopPanel top) {
+      // TODO Auto-generated method stub
+      if (!evt.getValueIsAdjusting()) {
+         try {
+            JList<?> prueba = (JList<?>) evt.getSource();
+            if (prueba == null) {
+               System.out.println("\nla lista es nula");
+            }
+            System.out.println("\nLa lista es " + prueba);
+            Product select = (Product) prueba.getSelectedValue();
+            if (select == null) {
+               System.out.println("la prenda es nula");
+            } else {
+               System.out.println(select);
+               top.update(select);
+            }
+         } catch (NullPointerException e) {
+            e.printStackTrace();
+         }
+      }
    }
    
+   public JList getShoppingCartList(){
+	   return shoppingCartList;
+   }
    
-   
+   public JList getHistoryList(){
+	   return historyList;
+   }
 }

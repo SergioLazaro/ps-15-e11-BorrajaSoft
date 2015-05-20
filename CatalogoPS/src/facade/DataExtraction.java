@@ -9,7 +9,7 @@ public class DataExtraction {
    private DataAccess mda;
 
    /**
-    * 
+    * Constructor.
     */
    public DataExtraction() {
       mda = new DataAccess();
@@ -43,101 +43,67 @@ public class DataExtraction {
    }
 
    /**
+    * Return the orderId of a customer. 
     * 
-    * @param idTrabajador
-    * @return
+    * @param customerID The id of the customer searched
+    * @return           A list with the complete order history of the customer.
     * @throws SQLException
     */
-   public ArrayList<String> getOrderRecord(int customerID) throws SQLException {
-      ArrayList<String> array = new ArrayList<String>();
+   public ArrayList<Product> getOrderRecord(int customerID) throws SQLException {
+      ArrayList<Product> array = new ArrayList<Product>();
       ResultSet result = 
-               mda.getQuery("SELECT p.name , p.brand , p.price "
-               + "FROM Products p , Orders o1, OrderRecords o2 "
-               + "WHERE p.productID = o2.productID AND "
-               + "o2.orderID = o1.orderID AND "
-               + "o1.customerID = " + customerID + " limit 10");
+               mda.getQuery("SELECT p.productID , p.productTypeID , p.name , p.brand , "
+               		+ "p.price , p.stock FROM Products p , Orders o1, OrderRecords o2 "
+               		+ "WHERE p.productID = o2.productID AND o2.orderID = o1.orderID AND "
+               		+ "o1.customerID = " + customerID + " limit 20");
 
       while (result.next()) {
-         String name = result.getString("name");
-         String brand = result.getString("brand");
-         double price = result.getDouble("price");
-         array.add("- " + name + "   " + brand + "   " + price + "â‚¬");
+    	  int productID = result.getInt("productID");
+          int productTypeID = result.getInt("productTypeID");
+          String brand = result.getString("brand");
+          String name = result.getString("name");
+          double price = result.getDouble("price");
+          int stock = result.getInt("stock");
+          array.add(new Product(productID,productTypeID,brand,name,price,stock));
       }
 
       System.out.println("getOrderRecord ends.");
       return array;
    }
-   
-   
-   
-   public ArrayList<Product> getOrderRecordP(int customerID) throws SQLException {
-	      ArrayList<Product> array = new ArrayList<Product>();
-	      ResultSet result = 
-	               mda.getQuery("SELECT p.productId, p.productTypeID, p.name , p.brand , p.price, p.stock "
-	               + "FROM Products p , Orders o1, OrderRecords o2 "
-	               + "WHERE p.productID = o2.productID AND "
-	               + "o2.orderID = o1.orderID AND "
-	               + "o1.customerID = " + customerID + " limit 10");
-
-	      while (result.next()) {
-	    	 Product p = new Product(result.getInt("productId"), result.getInt("productTypeId"), result.getString("brand"),
-	    			 result.getString("name"),result.getDouble("price"), result.getInt("stock"));
-	         
-	         array.add(p);
-	      }
-
-	      System.out.println("getOrderRecord ends.");
-	      return array;
-   }
-   
 
    /**
+    * Return the shopping cart of a customer.
     * 
-    * @param idTrabajador
-    * @return
+    * @param customerID The customer searched.
+    * @return           A list with products.
     * @throws SQLException
     */
-   public ArrayList<Product> getShoppingCartP(int customerID) throws SQLException {
+   public ArrayList<Product> getShoppingCart(int customerID) throws SQLException {
       ArrayList<Product> array = new ArrayList<Product>();
-      //array.add("Shopping Cart List: ");
       ResultSet result = 
-               mda.getQuery("SELECT p.productId, p.productTypeID, p.name , p.brand , p.price, p.stock "
-               + "FROM Products p , ShoppingCart sc "
-               + "WHERE p.productID = sc.productID AND sc.customerID = " + customerID);
+               mda.getQuery("SELECT p.productID , p.productTypeID , p.name , p.brand , "
+               		+ "p.price , p.stock FROM Products p , ShoppingCart sc "
+               		+ "WHERE p.productID = sc.productID AND sc.customerID = " + customerID);
 
       while (result.next()) {
-    	  Product p = new Product(result.getInt("productId"), result.getInt("productTypeId"), result.getString("brand"),
-	    			 result.getString("name"),result.getDouble("price"), result.getInt("stock"));
-         array.add(p);
+         int productID = result.getInt("productID");
+         int productTypeID = result.getInt("productTypeID");
+         String brand = result.getString("brand");
+         String name = result.getString("name");
+         double price = result.getDouble("price");
+         int stock = result.getInt("stock");
+         array.add(new Product(productID,productTypeID,brand,name,price,stock));
       }
 
       System.out.println("getShoppingCart ends.");
       return array;
    }
-   
-   public ArrayList<String> getShoppingCart(int customerID) throws SQLException {
-	      ArrayList<String> array = new ArrayList<String>();
-	      //array.add("Shopping Cart List: ");
-	      ResultSet result = 
-	               mda.getQuery("SELECT p.name as name, p.brand as brand, p.price as price "
-	               + "FROM Products p , ShoppingCart sc "
-	               + "WHERE p.productID = sc.productID AND sc.customerID = " + customerID);
-
-	      while (result.next()) {
-	         String name = result.getString("name");
-	         String brand = result.getString("brand");
-	         double price = result.getDouble("price");
-	         array.add("- " + name + ", " + brand + ", " + price + " €");
-	      }
-
-	      System.out.println("getShoppingCart ends.");
-	      return array;
-	   }
 
    /**
+    * Return the style of a product.
     * 
-    * @param clothes
-    * @return
+    * @param clothes The product.
+    * @return        The style
     * @throws SQLException
     */
    public ArrayList<String> getStyleProduct(String clothes) throws SQLException {
@@ -156,8 +122,9 @@ public class DataExtraction {
    }
 
    /**
+    * Return all the types of the products.
     * 
-    * @return
+    * @return         A list with the styles.
     * @throws SQLException
     */
    public ArrayList<String> getProductType() throws SQLException {
@@ -174,39 +141,39 @@ public class DataExtraction {
    }
 
    /**
+    * Search products in the database based on the name. 
     * 
-    * @param query
-    * @return
+    * @param query The query executed in the database.
+    * @return      A list of products.
     * @throws SQLException
     */
    public ArrayList<Product> basicSearchProducts(String query) throws SQLException {
       ArrayList<Product> productArray = new ArrayList<Product>();
-      
-      if (query != null && !query.equals("")){
-	      ResultSet result = 
-	               mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '%" + query + "%'");
-	
-	      // Buscamos en la tabla Prenda a ver si esta la busqueda del cliente.
-	      while (result.next()) { 
-	         int productID = result.getInt("productID");
-	         int productTypeID = result.getInt("productTypeID");
-	         String brand = result.getString("brand");
-	         String name = result.getString("name");
-	         double price = result.getDouble("price");
-	         int stock = result.getInt("stock");
-	         Product clothes = new Product(productID, productTypeID, brand, name, price, stock);
-	         productArray.add(clothes);
-	      }
-	
-	      System.out.println("basicSearchProducts ends.");
+      ResultSet result = 
+               mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '%" + query + "%'");
+
+      // Buscamos en la tabla Prenda a ver si esta la busqueda del cliente.
+      while (result.next()) { 
+         int productID = result.getInt("productID");
+         int productTypeID = result.getInt("productTypeID");
+         String brand = result.getString("brand");
+         String name = result.getString("name");
+         double price = result.getDouble("price");
+         int stock = result.getInt("stock");
+         Product clothes = new Product(productID, productTypeID, brand, name, price, stock);
+         productArray.add(clothes);
       }
-      
+
+      System.out.println("basicSearchProducts ends.");
       return productArray;
    }
 
-   // TODO: Verificar si se busca por nombre o nombre de usuario.
    /**
+    * Search customers in the database.
     * 
+    * @param query The query to search in the database.
+    * @return      A list with customers.
+    * @throws SQLException
     */
    public ArrayList<Customer> searchCustomers(String query) throws SQLException {
       ArrayList<Customer> CustomerArray = new ArrayList<Customer>();
@@ -231,4 +198,41 @@ public class DataExtraction {
       System.out.println("Fin lookingForTrabajadors");
       return CustomerArray;
    }
+   
+   /**
+    * 
+    * @param productTypeID
+    * @return Path of the image of productType which has productTypeID or default no image path if an error occurs
+    */
+   public String getProductPath(int productTypeID) {
+	   try{
+		   ResultSet result = mda.getQuery("SELECT image FROM ProductTypes WHERE productTypeID = " 
+				   + productTypeID);
+		   String path = "/photos/no_image.jpg";
+		   while (result.next()){
+			   path = result.getString("image");
+		   }
+		   return path;
+	   }
+	   catch(SQLException e){
+		   return "/photos/no_image.jpg";
+	   }
+		
+   }
+   
+   public int getStackFromCart(int productID) {
+	   int stack = 0;
+
+	   try{
+		   ResultSet result = mda.getQuery("SELECT numItems FROM ShoppingCart WHERE productID = "
+				   + productID);
+		   while(result.next()){
+			   stack = result.getInt("numItems");
+		   }
+	   }catch(SQLException e){
+		   e.printStackTrace();
+	   }
+	   return stack;
+   }
+   
 }

@@ -82,7 +82,7 @@ public class DataExtraction {
       ArrayList<Product> array = new ArrayList<Product>();
       ResultSet result = 
                mda.getQuery("SELECT p.productID , p.productTypeID , p.name , p.brand , "
-               		+ "p.price , p.stock FROM Products p , ShoppingCart sc "
+               		+ "p.price , sc.numItems FROM Products p , ShoppingCart sc "
                		+ "WHERE p.productID = sc.productID AND sc.customerID = " + customerID);
 
       while (result.next()) {
@@ -91,7 +91,7 @@ public class DataExtraction {
          String brand = result.getString("brand");
          String name = result.getString("name");
          double price = result.getDouble("price");
-         int stock = result.getInt("stock");
+         int stock = result.getInt("numItems");
          array.add(new Product(productID,productTypeID,brand,name,price,stock));
       }
 
@@ -141,16 +141,28 @@ public class DataExtraction {
    }
 
    /**
-    * Search products in the database based on the name. 
+    * Search products in the database based on the name and the given options.
+    * If alpha is not one of the correct options, it orders by name by default. 
     * 
     * @param query The query executed in the database.
-    * @return      A list of products.
+    * @param orderBY - must be 'price' or 'alpha'
+    * @param asc - If true, orders ASCENDANT, else orders DESCENDENT
+    * @return A list of products.
     * @throws SQLException
     */
-   public ArrayList<Product> basicSearchProducts(String query) throws SQLException {
+   public ArrayList<Product> basicSearchProducts(String query, String orderBy, boolean asc) throws SQLException {
       ArrayList<Product> productArray = new ArrayList<Product>();
+      // Avoid SQL injection
+      if(!(orderBy.equalsIgnoreCase("price") || orderBy.equalsIgnoreCase("name"))){
+    	  orderBy = "name";
+      }
+      String type = "desc";
+      if(asc){
+    	  type = "asc";
+      }
       ResultSet result = 
-               mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '%" + query + "%'");
+               mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '%" + query + "%' ORDER BY " +
+            		   orderBy + " " + type);
 
       // Buscamos en la tabla Prenda a ver si esta la busqueda del cliente.
       while (result.next()) { 
@@ -166,6 +178,42 @@ public class DataExtraction {
 
       System.out.println("basicSearchProducts ends.");
       return productArray;
+   }
+   
+   public ArrayList<Product> searchProduct(String query) throws SQLException {
+	      ArrayList<Product> productArray = new ArrayList<Product>();
+	      ResultSet result = 
+	               mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '% " + query + "%'");
+
+	      // Buscamos en la tabla Prenda a ver si esta la busqueda del cliente.
+	      while (result.next()) { 
+	         int productID = result.getInt("productID");
+	         int productTypeID = result.getInt("productTypeID");
+	         String brand = result.getString("brand");
+	         String name = result.getString("name");
+	         double price = result.getDouble("price");
+	         int stock = result.getInt("stock");
+	         Product clothes = new Product(productID, productTypeID, brand, name, price, stock);
+	         productArray.add(clothes);
+	      }
+
+	      System.out.println("basicSearchProducts ends.");
+	      return productArray;
+	   }
+   
+   /**
+    * Returns the stock of a given productID
+    * @param productID
+    * @return stock of the given productID
+    * @throws SQLException if no product with that productID is found
+    */
+   public int searchStockByID(int productID) throws SQLException {
+	   ResultSet result = mda.getQuery("SELECT stock FROM Products WHERE productID = " + productID);
+	   int stock = 0;
+	   while (result.next()){
+		   stock = result.getInt("stock");
+	   }
+	   return stock;
    }
 
    /**

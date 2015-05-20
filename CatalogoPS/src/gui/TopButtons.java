@@ -166,12 +166,14 @@ public class TopButtons extends JPanel implements ActionListener {
 					maxClothes -= num;
 					//Update shoppingCart on RightPanel
 					shCart.updateShoppingCart();
+					center.update();
 					break;
 				case "remove":
 					//Remove from shoppingCart List
 					data.updateProductStock(-num, maxClothes, product, idUser);
 					maxClothes -= num;
 					shCart.updateShoppingCart();
+					center.update();
 					break;
 			}
 			

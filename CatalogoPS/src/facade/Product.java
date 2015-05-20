@@ -67,11 +67,8 @@ public class Product {
 
    @Override
    public String toString() {
-      return productID + ", " +
-             productTypeID + ", " +
-             "'" + brand + "', " +
-             "'" + name + "', " +
-             price + ", " +
-             stock;
+      return name + " , " + brand + " , " + price +"€ , " + stock;
    }
+   
+  
 }

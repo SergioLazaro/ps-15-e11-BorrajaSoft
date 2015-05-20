@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -68,6 +70,15 @@ public class RightPanel {
       shoppingCartList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       shoppingCartScroll.setViewportView(shoppingCartList);
       shoppingCartList.setBackground(new Color(255, 255, 255));
+      
+    //Add listener to list
+      shoppingCartList.addMouseListener(new MouseAdapter() {
+    	    public void mouseClicked(MouseEvent evt) {
+    	        customMouseHandler(evt);
+    	    }
+
+			
+    	});
 
       JScrollPane scrollHistory = new JScrollPane();
       scrollHistory.setBounds(558, 415, 237, 290);
@@ -90,6 +101,20 @@ public class RightPanel {
       scrollHistory.setViewportView(historyList);
       historyList.setBackground(new Color(255, 255, 255));
    }
+   
+   /**
+    * Custom mouse handler for the elements clicked on the center JList
+    * @param evt
+    */
+	private void customMouseHandler(MouseEvent evt) {
+		System.out.println("ENTRO AL HANDLER");
+		@SuppressWarnings("unchecked")
+		JList<Product> list = (JList<Product>)evt.getSource();
+		if (evt.getClickCount() != 0) {
+            Product selected = list.getSelectedValue();
+            if(selected!=null) HomeWindow.getTop().updateFromCart(selected);
+        }					
+	}
    
    public void updateShoppingCart(){
 	   mCart.clear();

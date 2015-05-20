@@ -1,5 +1,7 @@
 package facade;
 
+import java.sql.SQLException;
+
 import database.DataAccess;
 
 public class DataInsertion {
@@ -68,22 +70,27 @@ public class DataInsertion {
    }
    
    public void updateProductStock(int num, int maxNum,Product product, int idUser){
-	   System.out.println("First try.");
-	   mda.setQuery("UPDATE Products SET stock = " + (maxNum - num) + " WHERE productID = " + 
-			   product.getProductID());
-	   System.out.println("Product updated");
 	   DataExtraction d = new DataExtraction ();
-	   int cartStack = d.getStackFromCart(product.getProductID());
-	   if(cartStack == 0){
-		   System.out.println(idUser + " - " + product.getProductID() + " - " + num);
-		   mda.setQuery("INSERT INTO ShoppingCart VALUES(" + idUser + " , " + product.getProductID() +
-				   " , " + num + ")");
-		   System.out.println("New product added to Shopping Cart");
-	   } else if(cartStack == -num){
-		   mda.setQuery("DELETE FROM ShoppingCart WHERE productID = " + product.getProductID());
-	   } else{
-		   mda.setQuery("UPDATE ShoppingCart SET numItems = " + (maxNum + num) + " WHERE productID = "
-				   + product.getProductID()); 
-	   }
+	   try {
+		   int stock = d.searchStockByID(product.getProductID());
+		   mda.setQuery("UPDATE Products SET stock = " + (stock - num) + " WHERE productID = " + 
+				   product.getProductID());
+		   int cartStack = d.getStackFromCart(product.getProductID());
+		   if(cartStack == 0){
+			   //Insert new product to shoppingcart if is not there
+			   mda.setQuery("INSERT INTO ShoppingCart VALUES(" + idUser + " , " + product.getProductID() +
+					   " , " + num + ")");
+			   System.out.println("New product added to Shopping Cart");
+		   } else if(cartStack == -num){
+			   mda.setQuery("DELETE FROM ShoppingCart WHERE productID = " + product.getProductID() +
+					   " AND customerID = " + idUser);
+		   } else{
+			   //Update a product which exists
+			   mda.setQuery("UPDATE ShoppingCart SET numItems = " + (maxNum + num) + " WHERE productID = "
+					   + product.getProductID() + " AND customerID = " + idUser); 
+		   }
+	   } catch (SQLException e) {
+			e.printStackTrace();
+		}
    }
 }

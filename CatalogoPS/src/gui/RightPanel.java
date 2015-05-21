@@ -107,6 +107,7 @@ public class RightPanel {
     			  if (order != null && order.size() != 0) {
 					addToHistory();
 					updateHistoryList();
+					HomeWindow.getCenter().update();
     			  }
 			} catch (SQLException e) {
 				e.printStackTrace();

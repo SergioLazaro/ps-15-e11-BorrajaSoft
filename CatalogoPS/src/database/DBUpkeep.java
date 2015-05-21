@@ -12,7 +12,7 @@ public class DBUpkeep {
    }
 
    /**
-    * Update the prices of the orders in the database.
+    * Update the prices of the orders of the database.
     *  
     * @param mda The database.
     */
@@ -22,16 +22,13 @@ public class DBUpkeep {
       ResultSet result2 = mda.getQuery("SELECT t1.orderID orderID , "
                + "t1.numItems numItems, t2.productID productID , t2.price price "
                + "FROM OrderRecords t1 , Products t2 WHERE t1.productID = t2.productID");
-
       try {
          while (result.next()) { // Just one iteration, one element
             totalprices = new double[result.getInt("max")];
          }
-
          while (result2.next()) { // adding all prices per order
             totalprices[result2.getInt("orderID") - 1] += result2.getDouble("price");
          }
-
          for (int i = 0; i < totalprices.length; i++) {
             mda.setQuery("UPDATE Orders SET totalprice = " + totalprices[i] + " WHERE orderID = "
                      + i);
@@ -40,24 +37,24 @@ public class DBUpkeep {
          // TODO Auto-generated catch block
          e1.printStackTrace();
       }
+
    }
 
    /**
     * Set the relative path to the image in the database. 
     * 
-    * @param mda The database.
+    * @param mda The dabase.
     */
    private static void insertPath(DataAccess mda) {
       ResultSet result = mda.getQuery("SELECT * FROM ProductTypes");
-
+      String clothes = "";
       try {
          while (result.next()) {
-            String clothes = result.getString("clothes");
+            clothes = result.getString("clothes");
             mda.setQuery("UPDATE ProductTypes SET image = '/photos/" + clothes
                      + ".jpg' WHERE productTypeID = " + result.getInt("productTypeID"));
          }
-
-         System.out.println("Paths updated.");
+         System.out.println("Paths modificados");
       } catch (SQLException e) {
          e.printStackTrace();
       }
@@ -73,18 +70,15 @@ public class DBUpkeep {
       ResultSet result2 = mda.getQuery("SELECT * FROM Products");
       String name = "";
       int productTypeID = -1;
-
       try {
          while (result2.next()) {
             result1 = mda.getQuery("SELECT * FROM ProductTypes WHERE productTypeID = "
                      + result2.getInt("productTypeID"));
-
             while (result1.next()) {
                productTypeID = result1.getInt("productTypeID");
                name = result1.getString("colour") + " " + result1.getString("style") + " "
                         + result1.getString("clothes");
             }
-
             System.out.println(name);
             mda.setQuery("UPDATE Products SET name = '" + name + "' WHERE productID = "
                      + result2.getInt("productID") + " AND productTypeID = " + productTypeID);
@@ -180,6 +174,7 @@ public class DBUpkeep {
                   mda.setQuery("UPDATE ProductTypes SET style = 'slip' WHERE productTypeID = " + id);
                   System.out.println("Underpants modified");
                }
+
             }
          }
       } catch (SQLException e) {

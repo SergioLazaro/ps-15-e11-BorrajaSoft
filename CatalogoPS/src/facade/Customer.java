@@ -8,10 +8,10 @@ public class Customer {
    private String name;
    private String password;
    private String surname;
-   private int telephone;
+   private String telephone;
 
    public Customer(int customerID, String password, String name, String surname,
-            String deliveringAddress, String mailAddress, int telephone) {
+            String deliveringAddress, String mailAddress, String telephone) {
       this.customerID = customerID;
       this.password = password;
       this.name = name;
@@ -45,7 +45,7 @@ public class Customer {
       return surname;
    }
 
-   public int getTelephone() {
+   public String getTelephone() {
       return telephone;
    }
 
@@ -73,7 +73,7 @@ public class Customer {
       this.surname = surname;
    }
 
-   public void setTelephone(int telephone) {
+   public void setTelephone(String telephone) {
       this.telephone = telephone;
    }
 

@@ -2,12 +2,15 @@ package gui;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.border.BevelBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
 import facade.DataExtraction;
 
 /**
@@ -16,14 +19,13 @@ import facade.DataExtraction;
 public class Menu {
    // TODO Maybe create methods instead of having everything in the Constructor?
    private DataExtraction data = new DataExtraction();
-   private JLayeredPane layeredPane;
+   private JPanel layeredPane;
    private JTree selectionTree;
 
    /**
     * Constructor. Generates a menu and adds it to [panel]
     * 
-    * @param panel
-    *           The JlayeredPane to which the menu is added
+    * @param panel The JlayeredPane to which the menu is added
     */
    public Menu() {
       layeredPane = HomeWindow.getLayeredPane();
@@ -80,7 +82,7 @@ public class Menu {
     * Get the JTree associated with the menu. This method is intended to be used for defining
     * actionListeners
     * 
-    * @return
+    * @return 
     */
    public JTree getTree() {
       return selectionTree;

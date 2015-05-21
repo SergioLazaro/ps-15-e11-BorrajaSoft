@@ -1,6 +1,8 @@
 package facade;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import database.DataAccess;
 
@@ -55,9 +57,25 @@ public class DataInsertion {
     * Insert data into the Orders table.
     * 
     * @param order The data to insert.
+    * @throws SQLException 
     */
-   public void insertOrder(Order order) {
-      mda.setQuery("INSERT INTO Orders VALUES (" + order.toString() + ")");
+   public int insertOrder(Order order) throws SQLException {
+	  String query = "INSERT INTO Orders (customerId, date, totalPrice) VALUES (" + order.toStringDB() + ")";
+      mda.setQuery(query);
+      System.err.println(query);
+      
+      query = "SELECT O.orderId FROM orders O " 
+              + "WHERE O.customerId = " + order.getCustomerID()+ " AND O.date = '" + order.getDate() + "'" /* + " AND O.totalPrice = " + order.getTotalPrice() + ""*/;
+      
+      System.err.println(query);
+      ResultSet result = mda.getQuery(query);
+      
+      int orderId = -1;
+      while (result.next()) {
+    	  orderId = result.getInt(1);
+       }
+      
+      return orderId;
    }
 
    /**
@@ -66,7 +84,7 @@ public class DataInsertion {
     * @param orderRecord The data to insert.
     */
    public void insertOrderRecord(OrderRecord orderRecord) {
-      mda.setQuery("INSERT INTO OrderRecords VALUES (" + orderRecord.toString() + ")");
+      mda.setQuery("INSERT INTO OrderRecords (orderId, productId, numItems) VALUES (" + orderRecord.toString() + ")");
    }
    
    public void updateProductStock(int num, int maxNum,Product product, int idUser){
@@ -92,5 +110,28 @@ public class DataInsertion {
 	   } catch (SQLException e) {
 			e.printStackTrace();
 		}
+   }
+   
+   /**
+    * Delete all orders from idUser
+    */
+   public void deleteShoppingCart(int idUser) {
+	   mda.setQuery("DELETE FROM shoppingcart WHERE customerId = " + idUser);
+   }
+   
+   
+   /**
+    * Delete the parameterized order with all of their product and
+    * update the stock for these products
+    * @param o
+    * @param list
+    */
+   public void deleteOrder(Order o, ArrayList<ProductOrder> list) {
+	   mda.setQuery("DELETE FROM orderRecords WHERE orderId= " + o.getOrderID());
+	   mda.setQuery("DELETE FROM orders WHERE orderId= " + o.getOrderID());
+	   
+	   for (ProductOrder po : list) {		// Updates the stock for each product
+		   mda.setQuery("UPDATE products SET stock = stock + " + po.getNumItems() + " WHERE productId = " + po.getProductId());
+	   }
    }
 }

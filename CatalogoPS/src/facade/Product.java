@@ -7,6 +7,8 @@ public class Product {
    private int productID;
    private int productTypeID;
    private int stock;
+   private int cuantity;
+
 
    public Product(int productID, int productTypeID, String brand, String name, double price, int stock) {
       this.productID = productID;
@@ -15,6 +17,7 @@ public class Product {
       this.name = name;
       this.price = price;
       this.stock = stock;
+      this.cuantity = 0;
    }
 
    public String getBrand() {
@@ -64,6 +67,14 @@ public class Product {
    public void setStock(int stock) {
       this.stock = stock;
    }
+   
+   public int getCuantity() {
+		return cuantity;
+	}
+
+	public void setCuantity(int cuantity) {
+		this.cuantity = cuantity;
+	}
 
    @Override
    public String toString() {

@@ -157,13 +157,6 @@ public class HomeWindow {
    			}
    		});
    		
-   		//History Listener
-   		right.getHistoryList().addListSelectionListener(new javax.swing.event.
-   				ListSelectionListener(){
-   			public void valueChanged(ListSelectionEvent evt) {
-   				right.historyListChanged(evt, top);
-   			}
-   		});
    }
 
    /**

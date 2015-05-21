@@ -5,9 +5,9 @@ public class OrderRecord {
    private int orderID;
    private int orderRecordID;
    private double pricePerItem;
-   private String productID;
+   private int productID;
 
-   public OrderRecord(int orderID, int orderRecordID, String productID, int numItems,
+   public OrderRecord(int orderID, int orderRecordID, int productID, int numItems,
             double pricePerItem) {
       this.orderID = orderID;
       this.orderRecordID = orderRecordID;
@@ -32,7 +32,7 @@ public class OrderRecord {
       return pricePerItem;
    }
 
-   public String getProductID() {
+   public int getProductID() {
       return productID;
    }
 
@@ -52,16 +52,16 @@ public class OrderRecord {
       this.pricePerItem = pricePerItem;
    }
 
-   public void setProductID(String productID) {
+   public void setProductID(int productID) {
       this.productID = productID;
    }
 
    @Override
    public String toString() {
       return orderID + ", " +
-             orderRecordID + ", " +
+             //orderRecordID + ", " +
              productID + ", " +
-             numItems + ", " +
-             pricePerItem;
+             numItems;
+             //pricePerItem;
    }
 }

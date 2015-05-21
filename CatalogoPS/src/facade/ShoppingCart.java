@@ -5,6 +5,9 @@ public class ShoppingCart {
    private int numItems;
    private String productID;
 
+   /**
+    * Constructor
+    */
    public ShoppingCart(int customerID, String productID, int numItems) {
       this.customerID = customerID;
       this.productID = productID;

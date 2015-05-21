@@ -8,6 +8,9 @@ public class ProductType {
    private String size;
    private String style;
 
+   /**
+    * Constructor
+    */
    public ProductType(int productTypeID, String clothes, String colour, String style, String image, String size) {
       this.productTypeID = productTypeID;
       this.clothes = clothes;

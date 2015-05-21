@@ -8,6 +8,9 @@ public class Product {
    private int productTypeID;
    private int stock;
 
+   /**
+    * Constructor
+    */
    public Product(int productID, int productTypeID, String brand, String name, double price, int stock) {
       this.productID = productID;
       this.productTypeID = productTypeID;

@@ -20,6 +20,9 @@ import facade.Product;
 
 /**
  * Class that manages the Bottom-center Panel in the GUI.
+ * 
+ * It uses the method facade.DataExtraction.basicSearchProducts()
+ * to get the list that is shown. It is ordered by default by name(a-z).
  */
 public class CenterPanel {
    private JPanel layeredPane;
@@ -121,7 +124,11 @@ public class CenterPanel {
 	}
 	
    /**
-    * Add a list of products to the panel.
+    * Adds to the panel A list ordered by the attribute orderBy, which is set
+    * by the ComboBox placed above the center panel (comboBoxOption). 
+    * 
+    * By default, comboBoxOption is set to order by name (a to z). 
+    * 
     * 
     * @param array A list of products.
     */
@@ -134,21 +141,6 @@ public class CenterPanel {
 		e.printStackTrace();
 		array = new ArrayList<Product>();
 	}
-      if (array != null) {
-         for (Product o : array) {
-            model.addElement(o);
-         }
-      }
-      list.updateUI();
-   }
-
-   /**
-    * Updates the list of products of the panel.
-    * 
-    * @param array The new list of products.
-    */
-   public void replace(ArrayList<Product> array) {
-      model.clear();
       if (array != null) {
          for (Product o : array) {
             model.addElement(o);

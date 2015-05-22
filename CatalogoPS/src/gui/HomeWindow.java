@@ -233,12 +233,14 @@ public class HomeWindow {
 //            System.out.println("prueba vale:");
          }
          System.out.println("setLastSearch vale:" + lastSearch);
-         productArray = data.searchProduct(getLastSearch());
-         center.replace(productArray);
+//         productArray = data.searchProduct(getLastSearch());
+//         productArray = 
+//         center.replace(productArray);
+         center.update();
       } catch (NullPointerException e) {
          System.err.println("se ha clicado en clothes");
-      } catch (SQLException e) {
-         e.printStackTrace();
+//      } catch (SQLException e) {
+//         e.printStackTrace();
       }
 
    }

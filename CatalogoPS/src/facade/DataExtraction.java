@@ -313,4 +313,20 @@ public class DataExtraction {
 	   }
 	   return type;
    }
+
+    public ArrayList<String> getWarnings(int minStock){
+     ArrayList<String> array = new ArrayList<String> ();
+     try{
+       ResultSet result = mda.getQuery("SELECT DISTINCT p.productID , p.name , p.stock "
+          + "FROM Products p WHERE p.stock < " + minStock);
+       while(result.next()){
+         array.add(result.getInt("productID") + " - " + result.getString("name") + 
+             " - " + result.getInt("stock"));
+       }
+     }
+     catch(SQLException e){
+       e.printStackTrace();
+     }
+     return array;
+   }
 }

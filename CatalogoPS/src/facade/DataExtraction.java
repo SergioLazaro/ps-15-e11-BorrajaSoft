@@ -3,6 +3,7 @@ package facade;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import database.DataAccess;
 
 public class DataExtraction {
@@ -70,34 +71,57 @@ public class DataExtraction {
       System.out.println("getOrderRecord ends.");
       return array;
    }
+   
+   
+   public ArrayList<Order> getOrders(int customerId) throws SQLException {
+	   ArrayList<Order> array = new ArrayList<Order>();
+	      ResultSet result = 
+	               mda.getQuery("SELECT o.orderId, o.customerId, o.date, o.totalPrice"
+	               		+ "	FROM Orders O WHERE customerId = " + customerId);
+
+	      while (result.next()) {
+	    	  
+	    	  int orderId = result.getInt("orderId");
+	    	  String date = result.getString("date");
+	    	  double totalPrice = result.getDouble("totalPrice");
+	    	  Order o = new Order(orderId, customerId, date, totalPrice);
+	          array.add(o);
+	      }
+
+	      System.out.println("getOrderRecord ends.");
+	      return array;
+   }
+   
 
    /**
-    * Return the shopping cart of a customer.
-    * 
-    * @param customerID The customer searched.
-    * @return           A list with products.
-    * @throws SQLException
-    */
-   public ArrayList<Product> getShoppingCart(int customerID) throws SQLException {
-      ArrayList<Product> array = new ArrayList<Product>();
-      ResultSet result = 
-               mda.getQuery("SELECT p.productID , p.productTypeID , p.name , p.brand , "
-               		+ "p.price , sc.numItems FROM Products p , ShoppingCart sc "
-               		+ "WHERE p.productID = sc.productID AND sc.customerID = " + customerID);
+   * Return the shopping cart of a customer.
+   * 
+   * @param customerID The customer searched.
+   * @return           A list with products.
+   * @throws SQLException
+   */
+  public ArrayList<Product> getShoppingCart(int customerID) throws SQLException {
+     ArrayList<Product> array = new ArrayList<Product>();
+     ResultSet result = 
+              mda.getQuery("SELECT p.productID , p.productTypeID , p.name , p.brand , "
+              		+ "p.price , p.stock, sc.numItems FROM Products p , ShoppingCart sc "
+              		+ "WHERE p.productID = sc.productID AND sc.customerID = " + customerID);
 
-      while (result.next()) {
-         int productID = result.getInt("productID");
-         int productTypeID = result.getInt("productTypeID");
-         String brand = result.getString("brand");
-         String name = result.getString("name");
-         double price = result.getDouble("price");
-         int stock = result.getInt("numItems");
-         array.add(new Product(productID,productTypeID,brand,name,price,stock));
-      }
+     while (result.next()) {
+        int productID = result.getInt("productID");
+        int productTypeID = result.getInt("productTypeID");
+        String brand = result.getString("brand");
+        String name = result.getString("name");
+        double price = result.getDouble("price");
+        int stock = result.getInt("stock");
+        Product aux = new Product(productID,productTypeID,brand,name,price,stock);
+        aux.setCuantity(result.getInt("numItems"));
+        array.add(aux);
+     }
 
-      System.out.println("getShoppingCart ends.");
-      return array;
-   }
+     System.out.println("getShoppingCart ends.");
+     return array;
+  }
 
    /**
     * Return the style of a product.
@@ -329,4 +353,28 @@ public class DataExtraction {
      }
      return array;
    }
+    
+    
+   public ArrayList<ProductOrder> getProductsFromOrder(Order o) throws SQLException {
+ 	   ArrayList<ProductOrder> productArray = new ArrayList<ProductOrder>();
+ 	      ResultSet result = 
+ 	               mda.getQuery("SELECT ors.productID, ors.numItems, p.brand, p.name, p.price "
+ 	               		+ "FROM orderrecords ors, products p "
+ 	               		+ "WHERE ors.productId = p.productId AND ors.orderId = " + o.getOrderID() );
+
+ 	      // Buscamos en la tabla Prenda a ver si esta la busqueda del cliente.
+ 	      while (result.next()) { 
+ 	         int productID = result.getInt("productID");
+ 	         int numItems = result.getInt("numItems");
+ 	         String brand = result.getString("brand");
+ 	         String name = result.getString("name");
+ 	         double price = result.getDouble("price");
+ 	         
+ 	         ProductOrder po = new ProductOrder(productID, numItems, brand, name, price);
+ 	         productArray.add(po);
+ 	      }
+
+ 	      System.out.println("basicSearchProducts ends.");
+ 	      return productArray;
+    }
 }

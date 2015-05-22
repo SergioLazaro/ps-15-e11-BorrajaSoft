@@ -27,277 +27,281 @@ import facade.DataInsertion;
 import facade.Product;
 
 public class HomeWindow {
-   private static CenterPanel center;
-   private static DataExtraction data;
-   private static DataInsertion dataIn;
-   private static int idUser;
-   private static Menu menu;
-   private static ArrayList<Product> productArray;
-   private static String lastSearch;
-   private static ArrayList<Customer> customerArray;
-   private static RightPanel right;
-   private static JButton searchButton;
-   private static JTextField textField;
-   private static TopPanel top;
-   private static JFrame frameRopaUltracool;
-   private static JPanel layeredPane;
-   private static JTabbedPane tabbedPane;
-   
-   
+	private static CenterPanel center;
+	private static DataExtraction data;
+	private static DataInsertion dataIn;
+	private static int idUser;
+	private static Menu menu;
+	private static ArrayList<Product> productArray;
+	private static String lastSearch;
+	private static ArrayList<Customer> customerArray;
+	private static RightPanel right;
+	private static JButton searchButton;
+	private static JTextField textField;
+	private static TopPanel top;
+	private static JFrame frameRopaUltracool;
+	private static JPanel layeredPane;
+	private static JTabbedPane tabbedPane;
 
-   /**
-    * Constructor
-    */
-   public HomeWindow() {
-      data = new DataExtraction();
-      dataIn = new DataInsertion();
-      layeredPane = new JPanel();
-      LoginWindow loginW = new LoginWindow();
-      tabbedPane = new JTabbedPane();
-      idUser = -1; // CHANGE to -1
-      // Show up log-in window
-      while (idUser == -1) {
-    	 System.out.println("ID = " + idUser);
-         idUser = loginW.login();
-         System.out.println("ID = " + idUser);
+	/**
+	 * Constructor
+	 */
+	public HomeWindow() {
+		data = new DataExtraction();
+		dataIn = new DataInsertion();
+		layeredPane = new JPanel();
+		LoginWindow loginW = new LoginWindow();
+		tabbedPane = new JTabbedPane();
+		idUser = -1; // CHANGE to -1
+		// Show up log-in window
+		while (idUser == -1) {
+			System.out.println("ID = " + idUser);
+			idUser = loginW.login();
+			System.out.println("ID = " + idUser);
+		}
 
-      }
-      initialize();
+		if (idUser != -2) {
+			initialize();
+			frameRopaUltracool.setVisible(true);
+		}
 
-      frameRopaUltracool.setVisible(true);
-   }
-   
-   
-   /**
-    * Initialise the contents of the frame that implements the main window.
-    */
-   private void initialize() {
-      // Define the frame
-      frameRopaUltracool = new JFrame();
-      frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(
-               HomeWindow.class.getResource("/photos/CompanyIcon.jpg")));
-      frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //
-//       frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH); //MAXIMUM AVAIVABLE SIZE
-      frameRopaUltracool.setBounds(100, 100, 820, 800); // SMALL NON-FIXED WINDOW
-      frameRopaUltracool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//      frameRopaUltracool.getContentPane().setLayout(null);
-      layeredPane.setBounds(0, 0, 800, 800);
-//      layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.X_AXIS));
-      layeredPane.setLayout(null);
-      
-      // ADD Catalogue TAB
-      ImageIcon icon = new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg"));
-      tabbedPane.addTab("Catalogue", icon, layeredPane, "Catalogue Panel");
-      frameRopaUltracool.getContentPane().add(tabbedPane);
-      
-      // ADD User Info TAB
-      tabbedPane.addTab("User", icon, new UserInfo(), "User Info");
-       
-//      frameRopaUltracool.getContentPane().add(layeredPane);
-      frameRopaUltracool.setResizable(false); // NON-RESIZABLE
-      
-      
-      //Admin buttons
-      if (data.userType(idUser).equals("admin")){
-    	  @SuppressWarnings("unused")
-		AdminButtons adminButtons = new AdminButtons();
-      }
-      
-      // Search bar
-      textField = new JTextField();
-      textField.setBounds(560, 101, 214, 20);
-      layeredPane.add(textField);
-      textField.setColumns(10);
+	}
 
-      // SearchButton
-      searchButton = new JButton("");
-      searchButton.setIcon(new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg")));
-      searchButton.setBounds(770, 101, 20, 20);
-      layeredPane.add(searchButton);
+	/**
+	 * Initialise the contents of the frame that implements the main window.
+	 */
+	private void initialize() {
+		// Define the frame
+		frameRopaUltracool = new JFrame();
+		frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				HomeWindow.class.getResource("/photos/CompanyIcon.jpg")));
+		frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //
+		// frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH); //MAXIMUM
+		// AVAIVABLE SIZE
+		frameRopaUltracool.setBounds(100, 100, 820, 800); // SMALL NON-FIXED
+															// WINDOW
+		frameRopaUltracool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// frameRopaUltracool.getContentPane().setLayout(null);
+		layeredPane.setBounds(0, 0, 800, 800);
+		// layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.X_AXIS));
+		layeredPane.setLayout(null);
 
-      // Clothes tree
-      menu = new Menu();
+		// ADD Catalogue TAB
+		ImageIcon icon = new ImageIcon(
+				HomeWindow.class.getResource("/photos/LookingFor.jpg"));
+		tabbedPane.addTab("Catalogue", icon, layeredPane, "Catalogue Panel");
+		frameRopaUltracool.getContentPane().add(tabbedPane);
 
-      // Shopping cart & History
-      right = new RightPanel(idUser);
+		// ADD User Info TAB
+		tabbedPane.addTab("User", icon, new UserInfo(), "User Info");
 
-      // Logo
-      // TODO Choose a functionality for this button
-      JButton btnNewButton = new JButton("");
-      btnNewButton.setIcon(new ImageIcon(HomeWindow.class.getResource("/photos/logo.jpg")));
-      btnNewButton.setBounds(105, 11, 227, 102);
-      layeredPane.add(btnNewButton);
+		// frameRopaUltracool.getContentPane().add(layeredPane);
+		frameRopaUltracool.setResizable(false); // NON-RESIZABLE
 
+		// Admin buttons
+		if (data.userType(idUser).equals("admin")) {
+			@SuppressWarnings("unused")
+			AdminButtons adminButtons = new AdminButtons();
+		}
 
-      // center panel
-      center = new CenterPanel(null);
-      
-      // Superior panel
-      top = new TopPanel(idUser);
+		// Search bar
+		textField = new JTextField();
+		textField.setBounds(560, 101, 214, 20);
+		layeredPane.add(textField);
+		textField.setColumns(10);
 
-      // Adds the actionListeners
-      listeners();
-   }
-   
-   
-   /**
-    * Method that adds the actionListeners
-    */
-   private void listeners() {
-      // Search Button Listener
-      searchButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent ae) {
-            setLastSearch(textField.getText());
+		// SearchButton
+		searchButton = new JButton("");
+		searchButton.setIcon(new ImageIcon(HomeWindow.class
+				.getResource("/photos/LookingFor.jpg")));
+		searchButton.setBounds(770, 101, 20, 20);
+		layeredPane.add(searchButton);
 
-            try {
-               productArray = data.basicSearchProducts(getLastSearch(), "name", true);
-//               customerArray = data.searchCustomers(getLastSearch());
-               textField.setText("");
-               center.update();
+		// Clothes tree
+		menu = new Menu();
 
-            } catch (SQLException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-               //
-            }
-         }
-      });
-      // Menu actionListener
-      menu.getTree().addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-         public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-            menuValueChanged(evt);
-         }
-      });
-      // Center actionListener
-   		center.getList().addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-   			public void valueChanged(ListSelectionEvent evt) {
-   				center.centerValueChanged(evt);
-   			}
-   		});
-   		//ShoppingCart Listener
-   		right.getShoppingCartList().addListSelectionListener(new javax.swing.event.
-   				ListSelectionListener(){
-   			public void valueChanged(ListSelectionEvent evt) {
-   				right.shoppingCartListChanged(evt, top);
-   			}
-   		});
-   		
-   		//History Listener
-   		right.getHistoryList().addListSelectionListener(new javax.swing.event.
-   				ListSelectionListener(){
-   			public void valueChanged(ListSelectionEvent evt) {
-   				right.historyListChanged(evt, top);
-   			}
-   		});
-   }
+		// Shopping cart & History
+		right = new RightPanel(idUser);
 
-   /**
-    * Launch the application.
-    */
-   public static void main(String[] args) {
-      // Event Queue configuration
-      EventQueue.invokeLater(new Runnable() {
-         public void run() {
-            try {
-               @SuppressWarnings("unused")
-			HomeWindow window = new HomeWindow();
-            } catch (Exception e) {
-               e.printStackTrace();
-            }
-         }
-      });
+		// Logo
+		// TODO Choose a functionality for this button
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(HomeWindow.class
+				.getResource("/photos/logo.jpg")));
+		btnNewButton.setBounds(105, 11, 227, 102);
+		layeredPane.add(btnNewButton);
 
-   }
+		// center panel
+		center = new CenterPanel(null);
 
-   
-   
-   /**
-    * Method that implements the actionListener over the JTree (Menu)
-    * 
-    * @param tse event
-    */
-   public void menuValueChanged(TreeSelectionEvent tse) {
-      try {
-//         System.out.println("El nodo es: " + tse.getNewLeadSelectionPath().toString());
-//         System.out.println(tse.getNewLeadSelectionPath().getPathCount());
-         // for (Object i : tse.getNewLeadSelectionPath()){
-         //
-         // }
+		// Superior panel
+		top = new TopPanel(idUser);
 
-         setLastSearch(tse.getNewLeadSelectionPath().getLastPathComponent().toString());
-         TreePath prueba = tse.getNewLeadSelectionPath().getParentPath();
-         while (prueba.getParentPath() != null) {
-            setLastSearch(getLastSearch() + " " + prueba.getLastPathComponent().toString());
-            prueba = prueba.getParentPath();
-//            System.out.println("setLastSearch vale:");
-//            System.out.println("prueba vale:");
-         }
-         System.out.println("setLastSearch vale:" + lastSearch);
-//         productArray = data.searchProduct(getLastSearch());
-//         productArray = 
-//         center.replace(productArray);
-         center.update();
-      } catch (NullPointerException e) {
-         System.err.println("se ha clicado en clothes");
-//      } catch (SQLException e) {
-//         e.printStackTrace();
-      }
+		// Adds the actionListeners
+		listeners();
+	}
 
-   }
-   
-   
-   
-   /* GETTERS */
+	/**
+	 * Method that adds the actionListeners
+	 */
+	private void listeners() {
+		// Search Button Listener
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				setLastSearch(textField.getText());
+
+				try {
+
+					if (textField.getText() != null
+							&& !textField.getText().equals("")) {
+						System.err.println("Busqueda" + textField.getText());
+						productArray = data.basicSearchProducts(
+								getLastSearch(), "name", true);
+						// customerArray =
+						// data.searchCustomers(getLastSearch());
+						textField.setText("");
+						center.update();
+					}
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					//
+				}
+			}
+		});
+		// Menu actionListener
+		menu.getTree().addTreeSelectionListener(
+				new javax.swing.event.TreeSelectionListener() {
+					public void valueChanged(
+							javax.swing.event.TreeSelectionEvent evt) {
+						menuValueChanged(evt);
+					}
+				});
+		// Center actionListener
+		center.getList().addListSelectionListener(
+				new javax.swing.event.ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent evt) {
+						center.centerValueChanged(evt);
+					}
+				});
+		// ShoppingCart Listener
+		right.getShoppingCartList().addListSelectionListener(
+				new javax.swing.event.ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent evt) {
+						right.shoppingCartListChanged(evt, top);
+					}
+				});
+
+	}
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		// Event Queue configuration
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					@SuppressWarnings("unused")
+					HomeWindow window = new HomeWindow();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * Method that implements the actionListener over the JTree (Menu)
+	 * 
+	 * @param tse
+	 *            event
+	 */
+	public void menuValueChanged(TreeSelectionEvent tse) {
+		try {
+			// System.out.println("El nodo es: " +
+			// tse.getNewLeadSelectionPath().toString());
+			// System.out.println(tse.getNewLeadSelectionPath().getPathCount());
+			// for (Object i : tse.getNewLeadSelectionPath()){
+			//
+			// }
+
+			setLastSearch(tse.getNewLeadSelectionPath().getLastPathComponent()
+					.toString());
+			TreePath prueba = tse.getNewLeadSelectionPath().getParentPath();
+			while (prueba.getParentPath() != null) {
+				setLastSearch(getLastSearch() + " "
+						+ prueba.getLastPathComponent().toString());
+				prueba = prueba.getParentPath();
+				// System.out.println("setLastSearch vale:");
+				// System.out.println("prueba vale:");
+			}
+			System.out.println("setLastSearch vale:" + lastSearch);
+			// productArray = data.searchProduct(getLastSearch());
+			// productArray =
+			// center.replace(productArray);
+			center.update();
+		} catch (NullPointerException e) {
+			System.err.println("se ha clicado en clothes");
+			// } catch (SQLException e) {
+			// e.printStackTrace();
+		}
+
+	}
+
+	/* GETTERS */
 
 	public static CenterPanel getCenter() {
 		return center;
 	}
-	
+
 	public static DataExtraction getData() {
 		return data;
 	}
-	
+
 	public static int getIdUser() {
 		return idUser;
 	}
-	
+
 	public static Menu getMenu() {
 		return menu;
 	}
-	
+
 	public static ArrayList<Product> getProductArray() {
 		return productArray;
 	}
-	
+
 	public static ArrayList<Customer> getCustomerArray() {
 		return customerArray;
 	}
-	
+
 	public static RightPanel getRight() {
 		return right;
 	}
-	
+
 	public static JButton getSearchButton() {
 		return searchButton;
 	}
-	
+
 	public static JTextField getTextField() {
 		return textField;
 	}
-	
+
 	public static TopPanel getTop() {
 		return top;
 	}
-	
+
 	public static JFrame getFrameRopaUltracool() {
 		return frameRopaUltracool;
 	}
-	
+
 	public static JPanel getLayeredPane() {
 		return layeredPane;
 	}
-	
-	public static JTabbedPane getTabbedPane(){
+
+	public static JTabbedPane getTabbedPane() {
 		return tabbedPane;
 	}
 
@@ -309,10 +313,8 @@ public class HomeWindow {
 		HomeWindow.lastSearch = lastSearch;
 	}
 
-
 	public static DataInsertion getDataIn() {
 		return dataIn;
 	}
-	
-      
+
 }

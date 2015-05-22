@@ -45,11 +45,14 @@ public class Order {
       this.totalPrice = totalPrice;
    }
 
-   @Override
-   public String toString() {
-      return orderID + ", " +
+   public String toStringDB() {
+      return //sorderID + ", " +
              customerID + ", " +
              "'" + date + "', " +
              totalPrice;
+   }
+   
+   public String toString() {
+	   return orderID + " - " + date + " - " + totalPrice;
    }
 }

@@ -24,6 +24,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
 
+import facade.Customer;
 import facade.DataExtraction;
 import facade.DataInsertion;
 import facade.Order;
@@ -223,9 +224,31 @@ public class OrderWindow {
 	 */
 	public void printRecord(String path) throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(path));
+		
+		try {
+			Customer user = data.getCustomerInfo(myOrder.getCustomerID());
+			
+			bw.write("BorrajaSoft\n");
+			bw.write("TextileSolutions                          Order: #" + myOrder.getOrderID() + "  -  " + myOrder.getDate() + "\n");
+			bw.write("===================================================================\n\n");
+			bw.write(user.getSurname() + ", " + user.getName() + "\n");
+			bw.write(user.getMailAddress() + "\n");
+			bw.write(user.getDeliveringAddress() + "\n");
+			bw.write("===================================================================\n");
+			bw.write("===================================================================\n\n\n");
+			bw.write("Product Id | Brand | Name | Price | Cuantity\n");
+			bw.write("-------------------------------------------------------------------\n");
 
-		for (ProductOrder po : orderArray) {
-			bw.write(po + "\n");
+			for (ProductOrder po : orderArray) {
+				bw.write(po + "\n");
+			}
+			
+			bw.write("-------------------------------------------------------------------\n\n");
+			bw.write("                                             Total price: " + myOrder.getTotalPrice() + " €");
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		bw.close();

@@ -1,12 +1,14 @@
 package gui;
 
 import java.sql.SQLException;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+
 import facade.DataExtraction;
 
 /**
@@ -25,7 +27,8 @@ public class LoginWindow {
    /**
     * Method that implements the login window
     * 
-    * @return id of the user logged -1 if login fails
+    * @return id  of the user logged 
+    *         -1  if login fails
     */
    public int login() {
       int idUser = -1;

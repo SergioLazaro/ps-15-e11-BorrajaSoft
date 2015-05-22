@@ -7,9 +7,6 @@ public class OrderRecord {
    private double pricePerItem;
    private String productID;
 
-   /**
-    * Constructor
-    */
    public OrderRecord(int orderID, int orderRecordID, String productID, int numItems,
             double pricePerItem) {
       this.orderID = orderID;

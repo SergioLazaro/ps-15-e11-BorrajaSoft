@@ -6,9 +6,6 @@ public class Order {
    private int orderID;
    private double totalPrice;
 
-   /**
-    * Constructor
-    */ 
    public Order(int orderID, int customerID, String date, double totalPrice) {
       this.orderID = orderID;
       this.customerID = customerID;
@@ -50,16 +47,8 @@ public class Order {
 
    @Override
    public String toString() {
-      return orderID + "\t" + customerID + "\t" + date + "\t" + totalPrice;
-   }
-
-   /**
-    * Create the sentence to insert a row in the table Order.
-    * 
-    * @return The string to insert.
-    */
-   public String toInsert() {
-      return customerID + ", " +
+      return orderID + ", " +
+             customerID + ", " +
              "'" + date + "', " +
              totalPrice;
    }

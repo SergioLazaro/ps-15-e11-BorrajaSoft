@@ -47,7 +47,6 @@ public class OrderWindow {
 		dataIns = new DataInsertion();
 		mOrder = new DefaultListModel<ProductOrder>();
 
-		System.err.println("Inicializando order window: " + myOrder);
 		inicializate();
 	}
 
@@ -71,8 +70,6 @@ public class OrderWindow {
 		orderArray = null;
 		try {
 			orderArray = data.getProductsFromOrder(myOrder);
-			System.out.println("Numero de productos en carrito "
-					+ myOrder.getOrderID() + ": " + orderArray.size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,7 +104,6 @@ public class OrderWindow {
 			long d2=formater.parse(date2).getTime();
 
 			numDays = (int) (Math.abs((d1-d2)/(1000*60*60*24)));
-			System.err.println("Numero de dias: " + numDays);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -229,7 +225,7 @@ public class OrderWindow {
 			Customer user = data.getCustomerInfo(myOrder.getCustomerID());
 			
 			bw.write("BorrajaSoft\n");
-			bw.write("TextileSolutions                          Order: #" + myOrder.getOrderID() + "  -  " + myOrder.getDate() + "\n");
+			bw.write("Textile Manager                           Order: #" + myOrder.getOrderID() + "  -  " + myOrder.getDate() + "\n");
 			bw.write("===================================================================\n\n");
 			bw.write(user.getSurname() + ", " + user.getName() + "\n");
 			bw.write(user.getMailAddress() + "\n");

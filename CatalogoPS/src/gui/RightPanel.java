@@ -147,9 +147,7 @@ public class RightPanel {
     	        if (evt.getClickCount() == 2) {
     	            // Double-click detected
     	            int index = list.locationToIndex(evt.getPoint());
-    	            
-    	            System.err.println(history.get(index));
-    	            
+    	                	            
     	            try {
 						OrderWindow ow = new OrderWindow(history.get(index));
 						updateHistoryList();
@@ -166,13 +164,10 @@ public class RightPanel {
 	   
 	   Date d = new Date();
 	   String date = (d.getYear()+1900) + "-" + (d.getMonth()+1) + "-" + d.getDate();
-	   System.err.println("Fecha insertada: " + date);
 	   
 	   double price = 0.0;
 	   
-	   System.out.println("Tamaño del carrito: " + order.size());
 	   for (Product p:order) {
-		   System.out.println("Precio: " + p.getPrice());
 		   price += p.getPrice();
 	   }
 	   
@@ -180,7 +175,6 @@ public class RightPanel {
 	   
 	   int orderId = dataIns.insertOrder(o);
 	   
-	   System.err.println("Numero de pedido " + orderId);
 	   for (Product p:order) {
 		   OrderRecord or = new OrderRecord(orderId, 0, p.getProductID(), p.getCuantity(), -1);
 		   

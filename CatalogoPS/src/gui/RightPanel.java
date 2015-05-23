@@ -82,7 +82,8 @@ public class RightPanel {
 
       shoppingCartList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       shoppingCartScroll.setViewportView(shoppingCartList);
-      shoppingCartList.setBackground(new Color(255, 255, 255));
+      shoppingCartList.setBackground(Colors.background3);
+      shoppingCartList.setSelectionBackground(Colors.background10);
       
     //Add listener to list
       shoppingCartList.addMouseListener(new MouseAdapter() {
@@ -98,7 +99,7 @@ public class RightPanel {
       
       JButton btBuy = new JButton("Confirm order");
       btBuy.setBounds(558, 373, 238, 41);
-      btBuy.setBackground(new Color(0, 255, 0));
+      btBuy.setBackground(Colors.background9);
       layeredPane.add(btBuy);
       
       btBuy.addActionListener(new ActionListener() {
@@ -139,7 +140,9 @@ public class RightPanel {
       historyList = new JList<Order>(mHistory);
       historyList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scrollHistory.setViewportView(historyList);
-      historyList.setBackground(new Color(255, 255, 255));
+      historyList.setBackground(Colors.background3);
+      historyList.setSelectionBackground(Colors.background10);
+
       
       historyList.addMouseListener(new MouseAdapter() {
     	    public void mouseClicked(MouseEvent evt) {

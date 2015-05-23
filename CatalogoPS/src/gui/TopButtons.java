@@ -36,6 +36,9 @@ public class TopButtons extends JPanel implements ActionListener {
 		this.idUser = idUser;
 		this.shCart = HomeWindow.getRight();
 		this.center = HomeWindow.getCenter();
+		
+	    setBackground(Colors.background7);
+
 //		System.out.println("IDUSER = " + this.idUser);
 		minus = new JButton("-");
 		minus.setActionCommand("less");

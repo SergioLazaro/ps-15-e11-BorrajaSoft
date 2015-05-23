@@ -21,8 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.plaf.ColorUIResource;
 
 import facade.Customer;
 import facade.DataExtraction;
@@ -53,19 +55,25 @@ public class OrderWindow {
 	public void inicializate() throws IOException {
 		SpringLayout layout = new SpringLayout();
 
+		UIManager.put("OptionPane.background", new ColorUIResource(Colors.background7));
+		UIManager.put("Panel.background", new ColorUIResource(Colors.background7));
+
 		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(300, 300));
 		panel.setLayout(layout);
+		panel.setBackground(Colors.background7);
 
-		JLabel msg = new JLabel("Product ID | Brand | Name | Price | Num. Items");
+		JLabel msg = new JLabel(
+				"Product ID | Brand | Name | Price | Num. Items");
 		panel.add(msg);
-		
+
 		JScrollPane scroll = new JScrollPane();
 		scroll.setPreferredSize(new Dimension(300, 250));
-		//scroll.setBounds(558, 124, 300, 250);
+		// scroll.setBounds(558, 124, 300, 250);
 		panel.add(scroll);
-		
-		layout.putConstraint(SpringLayout.NORTH, scroll, 5, SpringLayout.SOUTH, msg);
+
+		layout.putConstraint(SpringLayout.NORTH, scroll, 5, SpringLayout.SOUTH,
+				msg);
 
 		orderArray = null;
 		try {
@@ -86,36 +94,34 @@ public class OrderWindow {
 		orderList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null,
 				null, null));
 		scroll.setViewportView(orderList);
-		orderList.setBackground(new Color(255, 255, 255));
-		
-		
+		orderList.setBackground(Colors.background3);
+
 		String date = myOrder.getDate();
 		Date d;
 		int numDays = 0;
 		try {
-			
+
 			Date currentDate = new Date();
-		    String date2 = (currentDate.getYear()+1900) + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
+			String date2 = (currentDate.getYear() + 1900) + "-"
+					+ (currentDate.getMonth() + 1) + "-"
+					+ currentDate.getDate();
 
-			
-			SimpleDateFormat formater=new SimpleDateFormat("yyyy-MM-dd");
-			
-			long d1=formater.parse(date).getTime();
-			long d2=formater.parse(date2).getTime();
+			SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 
-			numDays = (int) (Math.abs((d1-d2)/(1000*60*60*24)));
+			long d1 = formater.parse(date).getTime();
+			long d2 = formater.parse(date2).getTime();
+
+			numDays = (int) (Math.abs((d1 - d2) / (1000 * 60 * 60 * 24)));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		if (numDays > 15) {
 			JLabel msg2 = new JLabel("You can't cancell this record");
 			panel.add(msg2);
-			layout.putConstraint(SpringLayout.NORTH, msg2, 5, SpringLayout.SOUTH, scroll);
-			
-			
+			layout.putConstraint(SpringLayout.NORTH, msg2, 5,
+					SpringLayout.SOUTH, scroll);
+
 			String[] options = new String[] { "Print", "Ok" };
 			int option = JOptionPane.showOptionDialog(null, panel, "My order",
 					JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
@@ -125,33 +131,32 @@ public class OrderWindow {
 				generateFileChooser();
 				inicializate();
 			}
-		}
-		else {
+		} else {
 			String[] options = new String[] { "Cancel order", "Print", "Ok" };
 			int option = JOptionPane.showOptionDialog(null, panel, "My order",
 					JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 					options, options[0]);
-			
-			if (option == 0) {		// Delete the order form the DB
+
+			if (option == 0) { // Delete the order form the DB
 				dataIns.deleteOrder(myOrder, orderArray);
 				inicializateEnd();
 				HomeWindow.getCenter().update();
-			}
-			else if (option == 1) // print order
+			} else if (option == 1) // print order
 			{
 				generateFileChooser();
 				inicializate();
 			}
 		}
 
-		
-		
 	}
 
-	
-	
 	public void inicializateEnd() {
 		SpringLayout layout = new SpringLayout();
+		
+		UIManager UI = new UIManager();
+		UIManager.put("OptionPane.background", new ColorUIResource(Colors.background2));
+		UIManager.put("Panel.background", new ColorUIResource(Colors.background2));
+
 
 		panel = new JPanel();
 		panel.setLayout(layout);
@@ -163,15 +168,15 @@ public class OrderWindow {
 		int option = JOptionPane.showOptionDialog(null, panel, "My order",
 				JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 				options, options[0]);
-		
-		if (option == 0) {		// Exit
-			
+
+		if (option == 0) { // Exit
+
 		}
 	}
-	
-	
+
 	/**
 	 * Generate an emergent window to chose a file to save
+	 * 
 	 * @throws IOException
 	 */
 	public void generateFileChooser() throws IOException {
@@ -215,17 +220,19 @@ public class OrderWindow {
 
 	/**
 	 * Print the current record in a File
+	 * 
 	 * @param path
 	 * @throws IOException
 	 */
 	public void printRecord(String path) throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-		
+
 		try {
 			Customer user = data.getCustomerInfo(myOrder.getCustomerID());
-			
+
 			bw.write("BorrajaSoft\n");
-			bw.write("Textile Manager                           Order: #" + myOrder.getOrderID() + "  -  " + myOrder.getDate() + "\n");
+			bw.write("Textile Manager                           Order: #"
+					+ myOrder.getOrderID() + "  -  " + myOrder.getDate() + "\n");
 			bw.write("===================================================================\n\n");
 			bw.write(user.getSurname() + ", " + user.getName() + "\n");
 			bw.write(user.getMailAddress() + "\n");
@@ -238,10 +245,10 @@ public class OrderWindow {
 			for (ProductOrder po : orderArray) {
 				bw.write(po + "\n");
 			}
-			
+
 			bw.write("-------------------------------------------------------------------\n\n");
-			bw.write("                                             Total price: " + myOrder.getTotalPrice() + " €");
-			
+			bw.write("                                             Total price: "
+					+ myOrder.getTotalPrice() + " €");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

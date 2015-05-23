@@ -4,6 +4,7 @@ package gui;
  * Class that implements the GUI management
  */
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -50,8 +51,10 @@ public class HomeWindow {
 		data = new DataExtraction();
 		dataIn = new DataInsertion();
 		layeredPane = new JPanel();
+		layeredPane.setBackground(Colors.background);
 		LoginWindow loginW = new LoginWindow();
 		tabbedPane = new JTabbedPane();
+		
 		idUser = -1; // CHANGE to -1
 		// Show up log-in window
 		while (idUser == -1) {
@@ -73,6 +76,8 @@ public class HomeWindow {
 	private void initialize() {
 		// Define the frame
 		frameRopaUltracool = new JFrame();
+		frameRopaUltracool.getContentPane().setBackground(Colors.background11);
+		
 		frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(
 				HomeWindow.class.getResource("/photos/CompanyIcon.jpg")));
 		frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //

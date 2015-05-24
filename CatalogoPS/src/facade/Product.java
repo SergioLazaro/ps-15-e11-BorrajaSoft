@@ -1,84 +1,83 @@
 package facade;
 
 public class Product {
-	private String brand;
-	private String name;
-	private double price;
-	private int productID;
-	private int productTypeID;
-	private int stock;
-    private int cuantity;
+   private String brand;
+   private int cuantity;
+   private String name;
+   private double price;
+   private int productID;
+   private int productTypeID;
+   private int stock;
 
-	public Product(int productID, int productTypeID, String brand, String name,
-			double price, int stock) {
-		this.productID = productID;
-		this.productTypeID = productTypeID;
-		this.brand = brand;
-		this.name = name;
-		this.price = price;
-		this.stock = stock;
-		this.cuantity = 0;
-	}
+   public Product(int productID, int productTypeID, String brand, String name, double price,
+            int stock) {
+      this.productID = productID;
+      this.productTypeID = productTypeID;
+      this.brand = brand;
+      this.name = name;
+      this.price = price;
+      this.stock = stock;
+      this.cuantity = 0;
+   }
 
-	public String getBrand() {
-		return brand;
-	}
+   public String getBrand() {
+      return brand;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public int getCuantity() {
+      return cuantity;
+   }
 
-	public double getPrice() {
-		return price;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public int getProductID() {
-		return productID;
-	}
+   public double getPrice() {
+      return price;
+   }
 
-	public int getProductTypeID() {
-		return productTypeID;
-	}
+   public int getProductID() {
+      return productID;
+   }
 
-	public int getStock() {
-		return stock;
-	}
+   public int getProductTypeID() {
+      return productTypeID;
+   }
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+   public int getStock() {
+      return stock;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public void setBrand(String brand) {
+      this.brand = brand;
+   }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+   public void setCuantity(int cuantity) {
+      this.cuantity = cuantity;
+   }
 
-	public void setProductID(int productID) {
-		this.productID = productID;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
-	public void setProductTypeID(int productTypeID) {
-		this.productTypeID = productTypeID;
-	}
+   public void setPrice(double price) {
+      this.price = price;
+   }
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+   public void setProductID(int productID) {
+      this.productID = productID;
+   }
 
-	public int getCuantity() {
-		return cuantity;
-	}
+   public void setProductTypeID(int productTypeID) {
+      this.productTypeID = productTypeID;
+   }
 
-	public void setCuantity(int cuantity) {
-		this.cuantity = cuantity;
-	}
+   public void setStock(int stock) {
+      this.stock = stock;
+   }
 
-	@Override
-	public String toString() {
-		return name + " , " + brand + " , " + price + "€ , " + stock;
-	}
-
+   @Override
+   public String toString() {
+      return name + " , " + brand + " , " + price + "€ , " + stock;
+   }
 }

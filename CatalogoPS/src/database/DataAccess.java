@@ -31,28 +31,28 @@ public class DataAccess {
    }
 
    /**
-    * Return the result of a search in the database. 
+    * Return the result of a search in the database.
     * 
-    * @param query Expression searched.
-    * @return      Rows that granted the searched.
+    * @param query
+    *           Expression searched.
+    * @return Rows that granted the searched.
     */
    public ResultSet getQuery(String query) {
       ResultSet resultado = null;
-
       try {
          Statement state = (Statement) conn.createStatement();
          resultado = state.executeQuery(query);
       } catch (SQLException e) {
          e.printStackTrace();
       }
-
       return resultado;
    }
 
    /**
-    * Set a query to the database.
+    * Executes a query in the database.
     * 
-    * @param query Query to set.
+    * @param query
+    *           Query to execute.
     */
    public void setQuery(String query) {
       try {

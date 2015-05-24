@@ -8,7 +8,8 @@ public class ProductType {
    private String size;
    private String style;
 
-   public ProductType(int productTypeID, String clothes, String colour, String style, String image, String size) {
+   public ProductType(int productTypeID, String clothes, String colour, String style, String image,
+            String size) {
       this.productTypeID = productTypeID;
       this.clothes = clothes;
       this.colour = colour;
@@ -67,11 +68,7 @@ public class ProductType {
 
    @Override
    public String toString() {
-      return productTypeID + "," +
-             "'" + clothes + "', " +
-             "'" + colour + "', " +
-             "'" + style + "', " +
-             "'" + image + "', " +
-             "'" + size + "'";
+      return productTypeID + "," + "'" + clothes + "', " + "'" + colour + "', " + "'" + style
+               + "', " + "'" + image + "', " + "'" + size + "'";
    }
 }

@@ -1,7 +1,6 @@
 package facade;
 
 public class Customer {
-	
    private int customerID;
    private String deliveringAddress;
    private String mailAddress;
@@ -79,12 +78,7 @@ public class Customer {
 
    @Override
    public String toString() {
-      return customerID + ", " +
-             "'" + password + "', " +
-             "'" + name + "', " +
-             "'" + surname + "', " +
-             "'" + deliveringAddress + "', " +
-             "'" + mailAddress + "', " +
-             telephone;
+      return customerID + ", " + "'" + password + "', " + "'" + name + "', " + "'" + surname
+               + "', " + "'" + deliveringAddress + "', " + "'" + mailAddress + "', " + telephone;
    }
 }

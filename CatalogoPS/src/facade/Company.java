@@ -8,9 +8,6 @@ public class Company {
    private String password;
    private int telephone;
 
-   /**
-    * 
-    */
    public Company(int idPyme, String nombre, String direccion, String mail, int telefono,
             String password) {
       this.companyID = idPyme;
@@ -71,6 +68,7 @@ public class Company {
 
    @Override
    public String toString() {
-      return companyID + "\t" + name + "\t" + direction + "\t" + mail + "\t" + telephone + "\t" + password;
+      return companyID + "\t" + name + "\t" + direction + "\t" + mail + "\t" + telephone + "\t"
+               + password;
    }
 }

@@ -37,8 +37,6 @@ public class ShoppingCart {
 
    @Override
    public String toString() {
-      return customerID + ", " +
-             productID + ", " +
-             numItems;
+      return customerID + ", " + productID + ", " + numItems;
    }
 }

@@ -1,64 +1,61 @@
 package facade;
 
 public class ProductOrder {
+   private String brand;
+   private String name;
+   private int numItems;
+   private double price;
+   private int productId;
 
-	private int productId;
-	private int numItems;
-	private String brand;
-	private String name;
-	private double price;
+   public ProductOrder(int productId, int numItems, String brand, String name, double price) {
+      this.productId = productId;
+      this.numItems = numItems;
+      this.brand = brand;
+      this.name = name;
+      this.price = price;
+   }
 
-	public ProductOrder(int productId, int numItems, String brand, String name,
-			double price) {
-		this.productId = productId;
-		this.numItems = numItems;
-		this.brand = brand;
-		this.name = name;
-		this.price = price;
-	}
+   public String getBrand() {
+      return brand;
+   }
 
-	public int getProductId() {
-		return productId;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
+   public int getNumItems() {
+      return numItems;
+   }
 
-	public int getNumItems() {
-		return numItems;
-	}
+   public double getPrice() {
+      return price;
+   }
 
-	public void setNumItems(int numItems) {
-		this.numItems = numItems;
-	}
+   public int getProductId() {
+      return productId;
+   }
 
-	public String getBrand() {
-		return brand;
-	}
+   public void setBrand(String brand) {
+      this.brand = brand;
+   }
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public void setNumItems(int numItems) {
+      this.numItems = numItems;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public void setPrice(double price) {
+      this.price = price;
+   }
 
-	public double getPrice() {
-		return price;
-	}
+   public void setProductId(int productId) {
+      this.productId = productId;
+   }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	
-	public String toString() {
-		return productId + " - " + brand + " - " + name + " - " + price + " - " + numItems;
-	}
-
+   public String toString() {
+      return productId + " - " + brand + " - " + name + " - " + price + " - " + numItems;
+   }
 }

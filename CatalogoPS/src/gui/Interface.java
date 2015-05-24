@@ -1,22 +1,16 @@
 package gui;
 
-/*
- * DEPRECATED -- FOR TEST ONLY
- */
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 
+@Deprecated
 public class Interface {
    private JFrame frmCatlogoTextil;
    private JTabbedPane tabbedPane;
@@ -45,37 +39,31 @@ public class Interface {
    }
 
    /**
-    * Initialize the contents of the frame.
+    * Initialise the contents of the frame.
     */
    private void initialize() {
-//       frame.add(new TabbedPaneDemo(), BorderLayout.CENTER);
-	   
+      // frame.add(new TabbedPaneDemo(), BorderLayout.CENTER);
       frmCatlogoTextil = new JFrame();
       frmCatlogoTextil.setTitle("Cat\u00E1logo textil");
       frmCatlogoTextil.setBounds(100, 100, 723, 490);
       frmCatlogoTextil.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//      frmCatlogoTextil.getContentPane().setLayout(null);
-//      frmCatlogoTextil.pack();
-      
+      // frmCatlogoTextil.getContentPane().setLayout(null);
+      // frmCatlogoTextil.pack();
       tabbedPane = new JTabbedPane();
-      
       ImageIcon icon = new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg"));
-      
       JComponent panel1 = makeTextPanel("Panel #1");
       panel1.add(new JLabel("Prueba", JLabel.CENTER));
-      tabbedPane.addTab("Tab 1", icon, panel1,
-              "Does nothing");
-      
+      tabbedPane.addTab("Tab 1", icon, panel1, "Does nothing");
       frmCatlogoTextil.add(tabbedPane, BorderLayout.PAGE_START);
       frmCatlogoTextil.setVisible(true);
    }
-   
+
    protected JComponent makeTextPanel(String text) {
-       JPanel panel = new JPanel(false);
-       JLabel filler = new JLabel(text);
-       filler.setHorizontalAlignment(JLabel.CENTER);
-       panel.setLayout(new GridLayout(1, 1));
-       panel.add(filler);
-       return panel;
+      JPanel panel = new JPanel(false);
+      JLabel filler = new JLabel(text);
+      filler.setHorizontalAlignment(JLabel.CENTER);
+      panel.setLayout(new GridLayout(1, 1));
+      panel.add(filler);
+      return panel;
    }
 }

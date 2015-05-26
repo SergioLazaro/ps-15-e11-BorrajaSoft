@@ -31,8 +31,8 @@ public class LoginWindow {
       int idUser = -1;
       try {
          SpringLayout layout = new SpringLayout();
-         UIManager.put("OptionPane.background", new ColorUIResource(Colors.background2));
-         UIManager.put("Panel.background", new ColorUIResource(Colors.background2));
+         UIManager.put("OptionPane.background", new ColorUIResource(Colors.PANEL_BACKGROUND));
+         UIManager.put("Panel.background", new ColorUIResource(Colors.PANEL_BACKGROUND));
          JPanel panel = new JPanel();
 
          // panel.setBackground(Colors.background2);

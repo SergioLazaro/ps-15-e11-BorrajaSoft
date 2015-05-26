@@ -64,7 +64,7 @@ public class RightPanel {
       Order o = new Order(1, idUser, date, price);
       int orderId = dataIns.insertOrder(o);
       for (Product p : order) {
-         OrderRecord or = new OrderRecord(orderId, 0, p.getProductID(), p.getCuantity(), -1);
+         OrderRecord or = new OrderRecord(orderId, 0, p.getProductID(), p.getStock(), -1);
          dataIns.insertOrderRecord(or);
       }
       dataIns.deleteShoppingCart(idUser);
@@ -188,8 +188,8 @@ public class RightPanel {
       shoppingCartList = new JList<>(mCart);
       shoppingCartList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       shoppingCartScroll.setViewportView(shoppingCartList);
-      shoppingCartList.setBackground(Colors.background3);
-      shoppingCartList.setSelectionBackground(Colors.background10);
+      shoppingCartList.setBackground(Colors.ORDER_BACKGROUND);
+      shoppingCartList.setSelectionBackground(Colors.CART_SELECTION);
       // Add listener to list
       shoppingCartList.addMouseListener(new MouseAdapter() {
          public void mouseClicked(MouseEvent evt) {
@@ -199,7 +199,7 @@ public class RightPanel {
       /*********************************************************************************************/
       JButton btBuy = new JButton("Confirm order");
       btBuy.setBounds(558, 373, 238, 41);
-      btBuy.setBackground(Colors.background9);
+      btBuy.setBackground(Colors.CONFIRM_ORDER);
       layeredPane.add(btBuy);
       btBuy.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent evt) {
@@ -234,8 +234,8 @@ public class RightPanel {
       historyList = new JList<Order>(mHistory);
       historyList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scrollHistory.setViewportView(historyList);
-      historyList.setBackground(Colors.background3);
-      historyList.setSelectionBackground(Colors.background10);
+      historyList.setBackground(Colors.ORDER_BACKGROUND);
+      historyList.setSelectionBackground(Colors.CART_SELECTION);
       historyList.addMouseListener(new MouseAdapter() {
          public void mouseClicked(MouseEvent evt) {
             JList list = (JList) evt.getSource();

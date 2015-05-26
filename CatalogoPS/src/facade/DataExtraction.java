@@ -215,9 +215,9 @@ public class DataExtraction {
          String brand = result.getString("brand");
          String name = result.getString("name");
          double price = result.getDouble("price");
-         int stock = result.getInt("stock");
+         int stock = result.getInt("numItems");
          Product aux = new Product(productID, productTypeID, brand, name, price, stock);
-         aux.setCuantity(result.getInt("numItems"));
+//         aux.setCuantity(result.getInt("numItems"));
          array.add(aux);
       }
       System.out.println("getShoppingCart ends.");

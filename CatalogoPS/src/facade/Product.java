@@ -2,7 +2,7 @@ package facade;
 
 public class Product {
    private String brand;
-   private int cuantity;
+//   private int cuantity;
    private String name;
    private double price;
    private int productID;
@@ -17,16 +17,16 @@ public class Product {
       this.name = name;
       this.price = price;
       this.stock = stock;
-      this.cuantity = 0;
+//      this.cuantity = 0;
    }
 
    public String getBrand() {
       return brand;
    }
 
-   public int getCuantity() {
-      return cuantity;
-   }
+//   public int getCuantity() {
+//      return cuantity;
+//   }
 
    public String getName() {
       return name;
@@ -52,9 +52,9 @@ public class Product {
       this.brand = brand;
    }
 
-   public void setCuantity(int cuantity) {
-      this.cuantity = cuantity;
-   }
+//   public void setCuantity(int cuantity) {
+//      this.cuantity = cuantity;
+//   }
 
    public void setName(String name) {
       this.name = name;

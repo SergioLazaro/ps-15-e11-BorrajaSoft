@@ -98,12 +98,12 @@ public class OrderWindow {
     */
    public void inicializate() throws IOException {
       SpringLayout layout = new SpringLayout();
-      UIManager.put("OptionPane.background", new ColorUIResource(Colors.background7));
-      UIManager.put("Panel.background", new ColorUIResource(Colors.background7));
+      UIManager.put("OptionPane.background", new ColorUIResource(Colors.ORDER_WINDOW_BACKGROUND));
+      UIManager.put("Panel.background", new ColorUIResource(Colors.ORDER_WINDOW_BACKGROUND));
       panel = new JPanel();
       panel.setPreferredSize(new Dimension(300, 300));
       panel.setLayout(layout);
-      panel.setBackground(Colors.background7);
+      panel.setBackground(Colors.ORDER_PANEL_BACKGROUND);
       JLabel msg = new JLabel("Product ID | Brand | Name | Price | Num. Items");
       panel.add(msg);
       JScrollPane scroll = new JScrollPane();
@@ -126,7 +126,7 @@ public class OrderWindow {
       orderList = new JList<>(mOrder);
       orderList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scroll.setViewportView(orderList);
-      orderList.setBackground(Colors.background3);
+      orderList.setBackground(Colors.ORDER_BACKGROUND);
       String date = myOrder.getDate();
       Date d;
       int numDays = 0;
@@ -175,8 +175,8 @@ public class OrderWindow {
    public void inicializateEnd() {
       SpringLayout layout = new SpringLayout();
       UIManager UI = new UIManager();
-      UIManager.put("OptionPane.background", new ColorUIResource(Colors.background2));
-      UIManager.put("Panel.background", new ColorUIResource(Colors.background2));
+      UIManager.put("OptionPane.background", new ColorUIResource(Colors.PANEL_BACKGROUND));
+      UIManager.put("Panel.background", new ColorUIResource(Colors.PANEL_BACKGROUND));
       panel = new JPanel();
       panel.setLayout(layout);
       JLabel msg = new JLabel("Your order has been removed");

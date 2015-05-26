@@ -23,6 +23,7 @@ public class AdminButtons extends JPanel implements ActionListener {
       this.setBounds(495, 20, 250, 50);
       this.setLayout(new GridLayout(2, 2));
       setOpaque(true);
+      this.setOpaque(false);
 
       // Insert button
       insertButton = new JButton("Insert element");

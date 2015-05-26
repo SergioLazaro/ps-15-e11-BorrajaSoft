@@ -46,7 +46,7 @@ public class TopPanel {
     */
    public void update(Product p) {
       jp1 = new JPanel(new BorderLayout(20, 0));
-      jp1.setBackground(Colors.background7);
+      jp1.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       // Search & add the image
       // Scanner scan = new Scanner(p.getName());
       // String nombre = scan.next();
@@ -68,7 +68,7 @@ public class TopPanel {
       JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
       jp2.add(new TopButtons(p.getStock(), p, idUser, 0));
       System.out.println("centerPANEL ES " + centerPanel);
-      jp2.setBackground(Colors.background7);
+      jp2.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       jp1.add(jp2, BorderLayout.PAGE_END);
       // scan.close();
    }
@@ -84,7 +84,7 @@ public class TopPanel {
       jp1 = new JPanel(new BorderLayout(20, 0));
       jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource(d.getProductPath(p
                .getProductTypeID())))), BorderLayout.LINE_START);
-      jp1.setBackground(Colors.background7);
+      jp1.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       // Add padding
       Border paddingBorder = BorderFactory.createEmptyBorder(10, 10, 0, 0);
       jp1.setBorder(paddingBorder);
@@ -93,7 +93,7 @@ public class TopPanel {
       scrollPane1.setViewportView(jp1);
       JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
       jp2.add(new TopButtons(d.getStackFromCart(p.getProductID(), idUser), p, idUser, 1));
-      jp2.setBackground(Colors.background7);
+      jp2.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       jp1.add(jp2, BorderLayout.PAGE_END);
    }
 
@@ -110,7 +110,7 @@ public class TopPanel {
       layeredPane.add(scrollPane1);
       // // first line
       jp1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-      jp1.setBackground(Colors.background7);
+      jp1.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg"))));
       jp1.add(new JLabel(" Seleccionar prenda "));
       //

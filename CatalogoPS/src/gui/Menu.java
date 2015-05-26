@@ -30,7 +30,7 @@ public class Menu {
       scrollSelectionTree.setBounds(0, 124, 174, 581);
       layeredPane.add(scrollSelectionTree);
       selectionTree = new JTree();
-      selectionTree.setBackground(Colors.background6);
+      selectionTree.setBackground(Colors.COMBOBOX_BACKGROUND);
       selectionTree.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scrollSelectionTree.setViewportView(selectionTree);
       try {
@@ -39,9 +39,9 @@ public class Menu {
             {
                DefaultTreeCellRenderer renderers = (DefaultTreeCellRenderer) selectionTree
                         .getCellRenderer();
-               renderers.setBackgroundNonSelectionColor(Colors.background2);
+               renderers.setBackgroundNonSelectionColor(Colors.PANEL_BACKGROUND);
                // renderers.setTextSelectionColor(Color.white);
-               renderers.setBackgroundSelectionColor(Colors.background3);
+               renderers.setBackgroundSelectionColor(Colors.LIST_SELECTION);
                renderers.setBorderSelectionColor(Color.black);
                // Obtain the elements of the tree
                ArrayList<String> array = data.getProductType();

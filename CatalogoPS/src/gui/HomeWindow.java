@@ -1,11 +1,13 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.TreePath;
+
 import facade.Customer;
 import facade.DataExtraction;
 import facade.DataInsertion;
@@ -44,9 +47,11 @@ public class HomeWindow {
       data = new DataExtraction();
       dataIn = new DataInsertion();
       layeredPane = new JPanel();
-      layeredPane.setBackground(Colors.background);
+      layeredPane.setBackground(Colors.HOME_BACKGROUND);
+      layeredPane.setOpaque(false);
       LoginWindow loginW = new LoginWindow();
       tabbedPane = new JTabbedPane();
+//      tabbedPane.setBackground(Colors.HOME_BACKGROUND);
       idUser = -1; // CHANGE to -1
       // Show up log-in window
       while (idUser == -1) {
@@ -181,10 +186,10 @@ public class HomeWindow {
    private void initialize() {
       // Define the frame
       frameRopaUltracool = new JFrame();
-      frameRopaUltracool.getContentPane().setBackground(Colors.background11);
+      frameRopaUltracool.getContentPane().setBackground(Colors.HOME_PANEL_BACKGROUND);
       frameRopaUltracool.setIconImage(Toolkit.getDefaultToolkit().getImage(
                HomeWindow.class.getResource("/photos/CompanyIcon.jpg")));
-      frameRopaUltracool.setTitle("ROPA ULTRA-COOL"); //
+      frameRopaUltracool.setTitle("Textile Manager"); //
       // frameRopaUltracool.setExtendedState(JFrame.MAXIMIZED_BOTH); //MAXIMUM
       // AVAIVABLE SIZE
       frameRopaUltracool.setBounds(100, 100, 820, 800); // SMALL NON-FIXED
@@ -195,10 +200,11 @@ public class HomeWindow {
       // layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.X_AXIS));
       layeredPane.setLayout(null);
       // ADD Catalogue TAB
-      ImageIcon icon = new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg"));
+      ImageIcon icon = new ImageIcon(HomeWindow.class.getResource("/photos/menu_icon.png"));
       tabbedPane.addTab("Catalogue", icon, layeredPane, "Catalogue Panel");
       frameRopaUltracool.getContentPane().add(tabbedPane);
       // ADD User Info TAB
+      icon = new ImageIcon(HomeWindow.class.getResource("/photos/icon_user.png"));
       tabbedPane.addTab("User", icon, new UserInfo(), "User Info");
       // frameRopaUltracool.getContentPane().add(layeredPane);
       frameRopaUltracool.setResizable(false); // NON-RESIZABLE

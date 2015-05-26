@@ -51,7 +51,7 @@ public class CenterPanel {
       scrollPane.setBounds(173, 225, 385, 480);
       layeredPane.add(scrollPane);
       list = new JList<Product>(model);
-      list.setBackground(Colors.background2);
+      list.setBackground(Colors.PANEL_BACKGROUND);
       // list.setBackground(Color.BLUE);//new Color(255, 215, 0));
       // Add mouse listener to list
       list.addMouseListener(new MouseAdapter() {
@@ -66,7 +66,7 @@ public class CenterPanel {
       String[] options = { "Nombre (a-z)", "Nombre (z-a)", "Precio ascendente",
                "Precio descendente" };
       JComboBox<String> comboBox = new JComboBox<String>(options);
-      comboBox.setBackground(Colors.background6);
+      comboBox.setBackground(Colors.COMBOBOX_BACKGROUND);
       scrollPane.setColumnHeaderView(comboBox);
       comboBox.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {

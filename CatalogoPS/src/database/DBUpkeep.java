@@ -3,7 +3,7 @@ package database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-import org.junit.Ignore;
+//import org.junit.Ignore;
 
 public class DBUpkeep {
    public static void main(String[] args) {
@@ -47,7 +47,7 @@ public class DBUpkeep {
     * @param mda
     *           The database.
     */
-   @Ignore("Method is not useful now.")
+//   @Ignore("Method is not useful now.")
    private static void insertPath(DataAccess mda) {
       ResultSet result = mda.getQuery("SELECT * FROM ProductTypes");
       String clothes = "";
@@ -161,7 +161,7 @@ public class DBUpkeep {
     * @param mda
     *           The database.
     */
-   @Ignore("Method is not useful now.")
+//   @Ignore("Method is not useful now.")
    private static void updateProductName(DataAccess mda) {
       ResultSet result1;
       ResultSet result2 = mda.getQuery("SELECT * FROM Products");

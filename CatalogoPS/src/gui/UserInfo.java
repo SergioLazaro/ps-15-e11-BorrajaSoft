@@ -65,8 +65,11 @@ public class UserInfo extends JPanel implements ActionListener {
 
    private void initialize() {
       this.removeAll();
+      this.setOpaque(false);
       fields = new JPanel(new GridLayout(0, 6));
+      fields.setOpaque(false);
       control = new JPanel(new GridLayout(15, 5));
+      control.setOpaque(false);
       errorLabel = new JLabel[7];
       update = new JButton("Update");
       update.setActionCommand("update");

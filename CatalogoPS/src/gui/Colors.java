@@ -3,15 +3,16 @@ package gui;
 import java.awt.Color;
 
 public class Colors {
-   public static Color background = new Color(00, 100, 00);    // Dark Green
-   public static Color background10 = new Color(0x7CFC00);     // Lawn Green
-   public static Color background11 = new Color(00, 75, 00);   // Dark Green
-   public static Color background2 = new Color(154, 205, 50);  // Yellow Green
-   public static Color background3 = new Color(173, 255, 47);  // Green Yellow
-   public static Color background4 = new Color(32, 205, 32);
-   public static Color background5 = new Color(0, 128, 0);     // Green
-   public static Color background6 = new Color(34, 139, 34);   // Forest Green
-   public static Color background7 = new Color(0x6B8E23);      // Olive Drab
-   public static Color background8 = new Color(0x556B2F);      // Dark Olive Green
-   public static Color background9 = new Color(0x32CD32);      // Lime Green
+   public static final Color HOME_BACKGROUND = new Color(153,204,255);    // Light Blue
+   public static final Color CART_SELECTION = new Color(0,102,204);     // BLUE
+//   public static final Color HOME_PANEL_BACKGROUND = new Color(224, 224, 224);   // Grey
+   public static final Color HOME_PANEL_BACKGROUND = new Color(255, 255, 255);
+   public static final Color PANEL_BACKGROUND = new Color(242,242,245);  // LIGHT LIGHT GREY
+   public static final Color ORDER_BACKGROUND = new Color(242,242,245);  // GLIGHT LIGHT GREY
+   public static final Color CONFIRM_ORDER = new Color(32, 205, 32);
+   public static final Color TOP_BUTTONS_BACKGROUND = new Color(204,229,255);     // Green
+   public static final Color COMBOBOX_BACKGROUND = new Color(242,242,245);   // LIGHT LIGHT GREY
+   public static final Color ORDER_WINDOW_BACKGROUND = new Color(242,242,245);      // LIGHT LIGHT GREY
+   public static final Color ORDER_PANEL_BACKGROUND = new Color(242,242,245);      // DLIGHT LIGHT GREY
+   public static final Color LIST_SELECTION = new Color(0,102,204);      // Lime Green
 }

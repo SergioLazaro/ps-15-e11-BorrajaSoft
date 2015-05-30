@@ -32,9 +32,11 @@ public class DataInsertion {
     */
    public void deleteFromTable(String table, int ID) {
       if (table.equals("Customers")) {
-         mda.setQuery("DELETE FROM " + table + " WHERE customerID = " + ID);
+          mda.setQuery("DELETE FROM " + table + " WHERE customerID = " + ID);
       } else if (table.equals("Products")) {
-         mda.setQuery("DELETE FROM " + table + " WHERE productID = " + ID);
+    	  // Elimina un producto del conjunto de productos y de todos los pedidos de los clientes
+          mda.setQuery("DELETE FROM shoppingCart WHERE productID = " + ID);
+          mda.setQuery("DELETE FROM " + table + " WHERE productID = " + ID);
       } else if (table.equals("ProductTypes")) {
          mda.setQuery("DELETE FROM " + table + " WHERE productTypeID" + ID);
       }

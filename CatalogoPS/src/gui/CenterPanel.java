@@ -80,8 +80,6 @@ public class CenterPanel {
     * 
     * @param evt
     *           Event to search.
-    * @param top
-    *           The principal panel.
     */
    public void centerValueChanged(ListSelectionEvent evt) {
       // TODO Auto-generated method stub
@@ -118,9 +116,6 @@ public class CenterPanel {
     * above the center panel (comboBoxOption).
     * 
     * By default, comboBoxOption is set to order by name (a to z).
-    *  
-    * @param array
-    *           A list of products.
     */
    public void update() {
       model.clear();

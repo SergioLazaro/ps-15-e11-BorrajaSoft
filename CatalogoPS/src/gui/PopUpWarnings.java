@@ -66,6 +66,7 @@ public class PopUpWarnings {
          if (line.length() > 0) {
             minStock = Integer.parseInt(line);
          }
+         new PopUpWarnings();
       }
    }
 }

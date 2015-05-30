@@ -57,7 +57,7 @@ public class PopUpDelete {
       layout.putConstraint(SpringLayout.WEST, textField, 68, SpringLayout.EAST, label2);
       panel.add(textField);
       String[] options = new String[] { "Confirm", "Cancel" };
-      int option = JOptionPane.showOptionDialog(null, panel, "Insert new element",
+      int option = JOptionPane.showOptionDialog(null, panel, "Delete element",
                JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
       String line = "";
       if (option == 0) // pressing OK button

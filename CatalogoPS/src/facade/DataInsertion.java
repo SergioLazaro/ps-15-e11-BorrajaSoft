@@ -61,11 +61,11 @@ public class DataInsertion {
    /**
     * Deletes the products in the shopping cart of an user.
     * 
-    * @param idUser
+    * @param userID
     *           The user selected.
     */
-   public void deleteShoppingCart(int idUser) {
-      mda.setQuery("DELETE FROM shoppingcart WHERE customerId = " + idUser);
+   public void deleteShoppingCart(int userID) {
+      mda.setQuery("DELETE FROM shoppingcart WHERE customerId = " + userID);
    }
 
    /**

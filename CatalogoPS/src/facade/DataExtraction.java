@@ -175,7 +175,7 @@ public class DataExtraction {
          ProductOrder po = new ProductOrder(productID, numItems, brand, name, price);
          productArray.add(po);
       }
-      System.out.println("basicSearchProducts ends.");
+      System.out.println("getProductsFromOrder ends.");
       return productArray;
    }
 
@@ -352,7 +352,7 @@ public class DataExtraction {
     */
    public ArrayList<Product> searchProduct(String query) throws SQLException {
       ArrayList<Product> productArray = new ArrayList<Product>();
-      ResultSet result = mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '% " + query
+      ResultSet result = mda.getQuery("SELECT * FROM Products WHERE name " + "LIKE '%" + query
                + "%'");
       // Buscamos en la tabla Prenda a ver si esta la busqueda del cliente.
       while (result.next()) {

@@ -35,7 +35,7 @@ public class OrderWindow {
    private static JList<ProductOrder> orderList;
    // update
    private Order myOrder;
-   private ArrayList<ProductOrder> orderArray;
+   private ArrayList<ProductOrder> orderArray = null;
    private JPanel panel;
 
    /**
@@ -49,6 +49,18 @@ public class OrderWindow {
       data = new DataExtraction();
       dataIns = new DataInsertion();
       mOrder = new DefaultListModel<ProductOrder>();
+
+      try {
+         orderArray = data.getProductsFromOrder(myOrder);
+      } catch (SQLException e){
+         e.printStackTrace();
+      }
+      if (orderArray != null) {
+         for (ProductOrder o : orderArray) {
+            mOrder.addElement(o);
+         }
+      }
+
       inicializate();
    }
 
@@ -74,8 +86,7 @@ public class OrderWindow {
          }
 
          @Override
-         public String getDescription() {
-            // TODO Auto-generated method stub
+         public String getDescription(){
             return description;
          }
       });
@@ -111,18 +122,6 @@ public class OrderWindow {
       // scroll.setBounds(558, 124, 300, 250);
       panel.add(scroll);
       layout.putConstraint(SpringLayout.NORTH, scroll, 5, SpringLayout.SOUTH, msg);
-      orderArray = null;
-      try {
-         orderArray = data.getProductsFromOrder(myOrder);
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      if (orderArray != null) {
-         for (ProductOrder o : orderArray) {
-            mOrder.addElement(o);
-         }
-      }
       orderList = new JList<>(mOrder);
       orderList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
       scroll.setViewportView(orderList);
@@ -142,7 +141,7 @@ public class OrderWindow {
          e.printStackTrace();
       }
       if (numDays > 15) {
-         JLabel msg2 = new JLabel("You can't cancell this record");
+         JLabel msg2 = new JLabel("You can't cancel this record");
          panel.add(msg2);
          layout.putConstraint(SpringLayout.NORTH, msg2, 5, SpringLayout.SOUTH, scroll);
          String[] options = new String[] { "Print", "Ok" };

@@ -1,5 +1,6 @@
 package gui;
 
+import facade.DataExtraction;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,11 +11,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import facade.DataExtraction;
 
 public class Menu {
    // TODO Maybe create methods instead of having everything in the Constructor?
-   private DataExtraction data = new DataExtraction();
+   //private DataExtraction data = new DataExtraction();
    private JPanel layeredPane;
    private JTree selectionTree;
 
@@ -25,6 +25,7 @@ public class Menu {
     *           The JlayeredPane to which the menu is added
     */
    public Menu() {
+	  final DataExtraction data = HomeWindow.getDataEx();
       layeredPane = HomeWindow.getLayeredPane();
       JScrollPane scrollSelectionTree = new JScrollPane();
       scrollSelectionTree.setBounds(0, 124, 174, 581);

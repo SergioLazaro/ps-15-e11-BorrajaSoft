@@ -1,8 +1,15 @@
 package gui;
 
+/*
+ * File: Interface.java
+ * Version: 1.0
+ * Author: Víctor Sánchez
+ */
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -39,7 +46,7 @@ public class Interface {
    }
 
    /**
-    * Initialise the contents of the frame.
+    * Initialize the contents of the frame.
     */
    private void initialize() {
       // frame.add(new TabbedPaneDemo(), BorderLayout.CENTER);
@@ -58,6 +65,9 @@ public class Interface {
       frmCatlogoTextil.setVisible(true);
    }
 
+   /**
+    * Initializes the JComponent that represents the panel.
+	*/
    protected JComponent makeTextPanel(String text) {
       JPanel panel = new JPanel(false);
       JLabel filler = new JLabel(text);

@@ -1,5 +1,10 @@
 package gui;
 
+import facade.DataExtraction;
+import facade.DataInsertion;
+import facade.Order;
+import facade.OrderRecord;
+import facade.Product;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -8,18 +13,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.border.BevelBorder;
 import javax.swing.DefaultListModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.event.ListSelectionEvent;
-import facade.DataExtraction;
-import facade.DataInsertion;
-import facade.Order;
-import facade.OrderRecord;
-import facade.Product;
 
 public class RightPanel {
    private static DataExtraction data;
@@ -42,10 +42,10 @@ public class RightPanel {
    public RightPanel(int usr) {
       layeredPane = HomeWindow.getLayeredPane();
       idUser = usr;
-      data = new DataExtraction();
+      data = HomeWindow.getDataEx();
       mCart = new DefaultListModel<Product>();
       mHistory = new DefaultListModel<Order>();
-      dataIns = new DataInsertion();
+      dataIns = HomeWindow.getDataIn();
       initialize();
    }
 

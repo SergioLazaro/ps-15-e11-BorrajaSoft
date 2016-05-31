@@ -1,5 +1,6 @@
 package gui;
 
+import facade.DataInsertion;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import facade.DataInsertion;
 
 public class PopUpUpdate {
    // Table selection
@@ -25,7 +25,7 @@ public class PopUpUpdate {
     * Creates a pop up warning to confirm the update.
     */
    public PopUpUpdate() {
-      data = new DataInsertion();
+      data = HomeWindow.getDataIn();
       SpringLayout layout = new SpringLayout();
       JPanel panel = new JPanel();
       panel.setPreferredSize(new Dimension(300, 200));

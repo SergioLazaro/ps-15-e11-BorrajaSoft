@@ -1,5 +1,23 @@
 package gui;
 
+/*
+ * File: HomeWindow.java
+ * Version: 2.0
+ * Author: Antonio Martínez
+ */
+
+/*
+ * File: HomeWindow.java
+ * Version: 1.1
+ * Author: Antonio Martínez
+ */
+ 
+/*
+ * File: HomeWindow.java
+ * Version: 1.0
+ * Author: Víctor Sánchez
+ */
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -18,6 +36,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.TreePath;
 
+import database.DataAccess;
 import facade.Customer;
 import facade.DataExtraction;
 import facade.DataInsertion;
@@ -26,7 +45,8 @@ import facade.Product;
 public class HomeWindow {
    private static CenterPanel center;
    private static ArrayList<Customer> customerArray;
-   private static DataExtraction data;
+   public static DataAccess data;
+   private static DataExtraction dataEx;
    private static DataInsertion dataIn;
    private static JFrame frameRopaUltracool;
    private static int idUser;
@@ -44,8 +64,7 @@ public class HomeWindow {
     * Creates the principal window of the application.
     */
    public HomeWindow() {
-      data = new DataExtraction();
-      dataIn = new DataInsertion();
+      
       layeredPane = new JPanel();
       layeredPane.setBackground(Colors.HOME_BACKGROUND);
       layeredPane.setOpaque(false);
@@ -60,6 +79,9 @@ public class HomeWindow {
          System.out.println("ID = " + idUser);
       }
       if (idUser != -2) {
+//    	 dataEx = new DataExtraction(data);
+//         dataIn = new DataInsertion(data);
+    	 dataIn.updateCustomers();
          initialize();
          frameRopaUltracool.setVisible(true);
       }
@@ -73,8 +95,10 @@ public class HomeWindow {
       return customerArray;
    }
 
-   public static DataExtraction getData() {
-      return data;
+  // public static DataAccess get
+   
+   public static DataExtraction getDataEx() {
+      return dataEx;
    }
 
    public static DataInsertion getDataIn() {
@@ -124,8 +148,20 @@ public class HomeWindow {
    public static TopPanel getTop() {
       return top;
    }
+   
+   public static void setDataAccess(DataAccess mda) {
+	  HomeWindow.data = mda;
+	}   
 
-   /**
+   public static void setDataEx(DataExtraction dataEx) {
+	HomeWindow.dataEx = dataEx;
+   }
+
+   public static void setDataIn(DataInsertion dataIn) {
+	HomeWindow.dataIn = dataIn;
+	}
+
+/**
     * Launch the application.
     */
    public static void main(String[] args) {
@@ -149,8 +185,7 @@ public class HomeWindow {
    /**
     * Implements the actionListener over the JTree (Menu)
     * 
-    * @param tse
-    *           event
+    * @param tse event
     */
    public void menuValueChanged(TreeSelectionEvent tse) {
       try {
@@ -181,7 +216,7 @@ public class HomeWindow {
    }
 
    /**
-    * Initialise the contents of the frame that implements the main window.
+    * Initialize the contents of the frame that implements the main window.
     */
    private void initialize() {
       // Define the frame
@@ -209,7 +244,7 @@ public class HomeWindow {
       // frameRopaUltracool.getContentPane().add(layeredPane);
       frameRopaUltracool.setResizable(false); // NON-RESIZABLE
       // Admin buttons
-      if (data.userType(idUser).equals("admin")) {
+      if (dataEx.userType(idUser).equals("admin")) {
          @SuppressWarnings("unused")
          AdminButtons adminButtons = new AdminButtons();
       }
@@ -252,7 +287,7 @@ public class HomeWindow {
             try {
                if (textField.getText() != null && !textField.getText().equals("")) {
                   System.err.println("Busqueda" + textField.getText());
-                  productArray = data.basicSearchProducts(getLastSearch(), "name", true);
+                  productArray = dataEx.basicSearchProducts(getLastSearch(), "name", true);
                   // customerArray =
                   // data.searchCustomers(getLastSearch());
                   textField.setText("");
@@ -285,4 +320,6 @@ public class HomeWindow {
                   }
                });
    }
+
+
 }

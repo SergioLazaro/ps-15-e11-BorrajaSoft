@@ -1,5 +1,11 @@
 package gui;
 
+/*
+ * File: ElementoSubArbol.java
+ * Version: 1.0
+ * Author: Sergio Lázaro
+ */
+ 
 import java.util.ArrayList;
 
 public class ElementoSubArbol {

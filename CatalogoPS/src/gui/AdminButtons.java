@@ -3,6 +3,7 @@ package gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -56,22 +57,33 @@ public class AdminButtons extends JPanel implements ActionListener {
     */
    @Override
    public void actionPerformed(ActionEvent evt) {
-      switch (evt.getActionCommand()) {
-         case "insert":
-            PopUpInsert insert = new PopUpInsert();
-            break;
+	  LoginWindow2 loginW = new LoginWindow2();
+	  int idUser = -1; // CHANGE to -1
+      // Show up log-in window
+      while (idUser == -1) {
+         System.out.println("ID = " + idUser);
+         idUser = loginW.login();
+         System.out.println("ID = " + idUser);
+      }
+      if (idUser != -2) {
 
-         case "update":
-            PopUpUpdate update = new PopUpUpdate();
-            break;
-
-         case "delete":
-            PopUpDelete delete = new PopUpDelete();
-            break;
-
-         case "check":
-            PopUpWarnings warnings = new PopUpWarnings();
-            break;
+	      switch (evt.getActionCommand()) {
+	         case "insert":
+	            PopUpInsert insert = new PopUpInsert();
+	            break;
+	
+	         case "update":
+	            PopUpUpdate update = new PopUpUpdate();
+	            break;
+	
+	         case "delete":
+	            PopUpDelete delete = new PopUpDelete();
+	            break;
+	
+	         case "check":
+	            PopUpWarnings warnings = new PopUpWarnings();
+	            break;
+	      }
       }
    }
 }

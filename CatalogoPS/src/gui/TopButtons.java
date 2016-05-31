@@ -1,87 +1,115 @@
+/**
+* Version 1
+* Author: Sergio
+*/
+
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import facade.DataInsertion;
 import facade.Product;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
- * Class that manages the buttons (and their listeners) that appear on the Product being selected in
- * the Top panel.
+ * Class that manages the buttons (and their listeners) that appear on the Product 
+ * which is being selected in the Top panel.
  */
 @SuppressWarnings("serial")
 public class TopButtons extends JPanel implements ActionListener {
+   
    private int idUser;
    private Product product;
-   protected JButton buy;
-   protected CenterPanel center;
+   
    protected int maxClothes;
+   protected RightPanel shCart;
+   protected CenterPanel center;
+   protected JButton buy;
    protected JButton minus;
    protected JButton plus;
-   protected JTextField quantity;
    protected JButton remove;
-   protected RightPanel shCart;
+   protected JTextField quantity;
+   
 
    /**
-    * Inserts the buttons for interact with the shopping carts. 
+    * Constructor method. 
     * 
     * @param max The maximum number of items.
-    * @param product The product id.
-    * @param idUser The user id
+    * @param product The product ID.
+    * @param idUser The user ID
     * @param mode The user mode: normal or administrator.
     */
    public TopButtons(int max, Product product, int idUser, int mode) {
-      maxClothes = max;
-      this.product = product;
-      this.idUser = idUser;
-      this.shCart = HomeWindow.getRight();
-      this.center = HomeWindow.getCenter();
-      setBackground(Colors.TOP_BUTTONS_BACKGROUND);
-      // System.out.println("IDUSER = " + this.idUser);
-      minus = new JButton("-");
-      minus.setActionCommand("less");
-      minus.addActionListener(this);
-      plus = new JButton("+");
-      plus.setActionCommand("more");
-      plus.addActionListener(this);
-      buy = new JButton("Add");
-      buy.setActionCommand("buy");
-      buy.addActionListener(this);
-      remove = new JButton("Remove");
-      remove.setActionCommand("remove");
-      remove.addActionListener(this);
-      quantity = new JTextField();
-      quantity.setBounds(10, 10, 10, 10);
-      quantity.setColumns(4);
-      quantity.addActionListener(this);
-      addQuantityListener();
-      quantity.setText(String.valueOf(maxClothes));
-      setOpaque(true);
-      add(minus);
-      add(quantity);
-      add(plus);
-      System.out.println();
-      // Check if one of the necessary panels for adding elements to the cart is null
-      if (mode == 0)
-         add(buy);
-      else {
-         add(remove);
-         remove.setEnabled(true);
-      }
+	    //Setting-up the attributes
+		maxClothes = max;
+		this.product = product;
+		this.idUser = idUser;
+		this.shCart = HomeWindow.getRight();
+		this.center = HomeWindow.getCenter();
+		
+		//Setting-up the JPanel
+		setBackground(Colors.TOP_BUTTONS_BACKGROUND);
+		
+		//Setting-up minus JButton
+		minus = new JButton("-");
+		minus.setActionCommand("less");
+		minus.addActionListener(this);
+		
+		//Setting-up plus JButton
+		plus = new JButton("+");
+		plus.setActionCommand("more");
+		plus.addActionListener(this);
+		
+		//Setting-up buy JButton
+		buy = new JButton("Add");
+		buy.setActionCommand("buy");
+		buy.addActionListener(this);
+		
+		//Setting-up remove JButton
+		remove = new JButton("Remove");
+		remove.setActionCommand("remove");
+		remove.addActionListener(this);
+		
+		//Setting-up quantity TextField
+		quantity = new JTextField();
+		quantity.setBounds(10, 10, 10, 10);
+		quantity.setColumns(4);
+		quantity.addActionListener(this);
+		quantity.setText(String.valueOf(maxClothes));
+		
+		//Call to the method which add different listeners
+		addQuantityListener();
+		
+		//Adding the different objects to Jpanel
+		setOpaque(true);
+		add(minus);
+		add(quantity);
+		add(plus);
+		System.out.println();
+		
+		// Check if one of the necessary panels for adding elements to the cart is null
+		if (mode == 0)
+		 add(buy);
+		else {
+		 add(remove);
+		 remove.setEnabled(true);
+		}
    }
 
    /**
-    * Creates the behaviour for actions related to updated user shopping cart.  
+    * Creates the behaviour for actions related to update user shopping cart.  
+	* @param evt must be a semantic event which indicates that a component-defined action ocurred.
     */
-   @Override
    public void actionPerformed(ActionEvent evt) {
       int num;
-      DataInsertion data = new DataInsertion();
+      DataInsertion data = HomeWindow.getDataIn();
       try {
          num = Integer.parseInt(quantity.getText());
          if (num > maxClothes)
@@ -144,7 +172,7 @@ public class TopButtons extends JPanel implements ActionListener {
             int num;
             try {
                num = Integer.parseInt(quantity.getText());
-               if (num <= 0) {
+               if (num <= 0) { //If num <= 0 just allow to increase
                   plus.setEnabled(true);
                   minus.setEnabled(false);
                   buy.setEnabled(false);
@@ -156,7 +184,7 @@ public class TopButtons extends JPanel implements ActionListener {
                         }
                      });
                   }
-               } else if (num >= maxClothes) {
+               } else if (num >= maxClothes) {	//If num >= 0 just allow to decrement
                   plus.setEnabled(false);
                   minus.setEnabled(true);
                   buy.setEnabled(true);
@@ -168,7 +196,7 @@ public class TopButtons extends JPanel implements ActionListener {
                         }
                      });
                   }
-               } else {
+               } else { //Otherwise, we allow every possibility
                   plus.setEnabled(true);
                   minus.setEnabled(true);
                   buy.setEnabled(true);

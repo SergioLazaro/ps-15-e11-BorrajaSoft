@@ -50,7 +50,6 @@ public class Order {
    }
 
    public String toStringDB() {
-      return // sorderID + ", " +
-      customerID + ", " + "'" + date + "', " + totalPrice;
+      return customerID + ", " + "'" + date + "', " + totalPrice;
    }
 }

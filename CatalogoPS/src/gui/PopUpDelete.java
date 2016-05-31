@@ -1,5 +1,6 @@
 package gui;
 
+import facade.DataInsertion;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import facade.DataInsertion;
 
 public class PopUpDelete {
    // Table selection
@@ -24,7 +24,7 @@ public class PopUpDelete {
     * Creates a pop up warning to confirm the deletion.
     */
    public PopUpDelete() {
-      data = new DataInsertion();
+      data = HomeWindow.getDataIn();
       SpringLayout layout = new SpringLayout();
       JPanel panel = new JPanel();
       panel.setPreferredSize(new Dimension(300, 70));
@@ -33,6 +33,8 @@ public class PopUpDelete {
       layout.putConstraint(SpringLayout.NORTH, tableLabel, 3, SpringLayout.NORTH, panel);
       layout.putConstraint(SpringLayout.WEST, tableLabel, 0, SpringLayout.WEST, panel);
       String tableArray[] = { "Customers", "Products", "ProductTypes" };
+
+      // TODO: Añadir descripción
       comboBox = new JComboBox(tableArray);
       comboBox.setPreferredSize(new Dimension(200, 23));
       layout.putConstraint(SpringLayout.NORTH, comboBox, 2, SpringLayout.NORTH, panel);
@@ -42,6 +44,7 @@ public class PopUpDelete {
             customComboBoxHandler(e);
          }
       });
+
       // New elements label
       JLabel label2 = new JLabel("ID: ");
       layout.putConstraint(SpringLayout.NORTH, label2, 17, SpringLayout.SOUTH, tableLabel);
@@ -50,12 +53,15 @@ public class PopUpDelete {
       panel.add(tableLabel);
       panel.add(comboBox);
       panel.add(label2);
+
       // Textfield
       textField = new JTextField();
       textField.setPreferredSize(new Dimension(195, 23));
       layout.putConstraint(SpringLayout.NORTH, textField, 6, SpringLayout.SOUTH, comboBox);
       layout.putConstraint(SpringLayout.WEST, textField, 68, SpringLayout.EAST, label2);
       panel.add(textField);
+
+      // TODO: Añadir descripción
       String[] options = new String[] { "Confirm", "Cancel" };
       int option = JOptionPane.showOptionDialog(null, panel, "Delete element",
                JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);

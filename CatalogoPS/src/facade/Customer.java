@@ -9,6 +9,9 @@ public class Customer {
    private String surname;
    private String telephone;
 
+   /**
+    * Create a Customer object
+    */
    public Customer(int customerID, String password, String name, String surname,
             String deliveringAddress, String mailAddress, String telephone) {
       this.customerID = customerID;

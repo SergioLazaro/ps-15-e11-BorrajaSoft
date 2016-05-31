@@ -8,6 +8,9 @@ public class Company {
    private String password;
    private int telephone;
 
+   /**
+    * Create a Company object
+    */
    public Company(int idPyme, String nombre, String direccion, String mail, int telefono,
             String password) {
       this.companyID = idPyme;

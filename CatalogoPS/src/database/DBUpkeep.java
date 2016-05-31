@@ -7,9 +7,16 @@ import java.util.Random;
 
 public class DBUpkeep {
    public static void main(String[] args) {
-      DataAccess mda = new DataAccess();
+      DataAccess mda;
+	try {
+		mda = new DataAccess("");
+	
       modifyingStyle(mda);
       // System.out.println("Conectado");
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
    }
 
    /**
@@ -25,10 +32,12 @@ public class DBUpkeep {
                + "t1.numItems numItems, t2.productID productID , t2.price price "
                + "FROM OrderRecords t1 , Products t2 WHERE t1.productID = t2.productID");
       try {
-         while (result.next()) { // Just one iteration, one element
+         // Just one iteration, one element
+         while (result.next()) { 
             totalprices = new double[result.getInt("max")];
          }
-         while (result2.next()) { // adding all prices per order
+         // adding all prices per order
+         while (result2.next()) { 
             totalprices[result2.getInt("orderID") - 1] += result2.getDouble("price");
          }
          for (int i = 0; i < totalprices.length; i++) {

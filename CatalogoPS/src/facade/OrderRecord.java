@@ -1,23 +1,23 @@
 package facade;
 
 public class OrderRecord {
-   private int numItems;
+   private int ItemNumber;
    private int orderID;
    private int orderRecordID;
    private double pricePerItem;
    private int productID;
 
-   public OrderRecord(int orderID, int orderRecordID, int productID, int numItems,
+   public OrderRecord(int orderID, int orderRecordID, int productID, int ItemNumber,
             double pricePerItem) {
       this.orderID = orderID;
       this.orderRecordID = orderRecordID;
       this.productID = productID;
-      this.numItems = numItems;
+      this.ItemNumber = ItemNumber;
       this.pricePerItem = pricePerItem;
    }
 
-   public int getNumItems() {
-      return numItems;
+   public int getItemNumber() {
+      return ItemNumber;
    }
 
    public int getOrderID() {
@@ -36,8 +36,8 @@ public class OrderRecord {
       return productID;
    }
 
-   public void setNumItems(int numItems) {
-      this.numItems = numItems;
+   public void setItemNumber(int ItemNumber) {
+      this.ItemNumber = ItemNumber;
    }
 
    public void setOrderID(int orderID) {
@@ -58,9 +58,6 @@ public class OrderRecord {
 
    @Override
    public String toString() {
-      return orderID + ", " +
-      // orderRecordID + ", " +
-               productID + ", " + numItems;
-      // pricePerItem;
+      return orderID + ", " + productID + ", " + ItemNumber;
    }
 }

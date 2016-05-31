@@ -1,7 +1,16 @@
 package gui;
 
+/*
+ * File: Colors.java
+ * Version: 1.0
+ * Author: Antonio Martinez
+ */
+
 import java.awt.Color;
 
+/**
+ * Class that contains all the colors used in the GUI.
+ */ 
 public class Colors {
    public static final Color HOME_BACKGROUND = new Color(153,204,255);    // Light Blue
    public static final Color CART_SELECTION = new Color(0,102,204);     // BLUE

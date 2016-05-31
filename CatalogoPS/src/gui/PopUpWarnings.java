@@ -1,5 +1,7 @@
 package gui;
 
+import facade.DataExtraction;
+import facade.DataInsertion;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,8 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import facade.DataExtraction;
-import facade.DataInsertion;
 
 public class PopUpWarnings {
    private static int minStock = 5;
@@ -31,8 +31,8 @@ public class PopUpWarnings {
     * Creates the pop up warning.
     */
    public PopUpWarnings() {
-      dataInsertion = new DataInsertion();
-      dataExtraction = new DataExtraction();
+      dataInsertion = HomeWindow.getDataIn();
+      dataExtraction = HomeWindow.getDataEx();
       model = new DefaultListModel<String>();
       SpringLayout layout = new SpringLayout();
       JPanel panel = new JPanel();

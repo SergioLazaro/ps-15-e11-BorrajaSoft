@@ -1,34 +1,41 @@
+/**
+* Version 1
+* Author: Sergio
+*/
+
 package gui;
+
+import facade.DataExtraction;
+import facade.Product;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import javax.swing.border.Border;
-import facade.DataExtraction;
-import facade.Product;
 
 public class TopPanel {
-   private CenterPanel centerPanel;
-   private int idUser;
-   private JPanel jp1;
-   private JPanel layeredPane;
-   private JScrollPane scrollPane1;
+	private int idUser;	
+	private CenterPanel centerPanel;
+	private JPanel jp1;
+	private JPanel layeredPane;
+	private JScrollPane scrollPane1;
 
    /**
     * Creates the top panel of the GUI.
-    * 
-    * @param panel
-    *           The object reference.
+    * @param idUser is equals to user ID
     */
    public TopPanel(int idUser) {
+	  this.idUser = idUser;
       layeredPane = HomeWindow.getLayeredPane();
       centerPanel = HomeWindow.getCenter();
       initialize();
-      this.idUser = idUser;
+      
    }
 
    /**
@@ -41,17 +48,13 @@ public class TopPanel {
     * where "name_of_the_product" corresponds to the full name of the product, this is, name and the
     * brand
     * 
-    * @param p
-    *           The product to modify.
+    * @param p is the product to modify.
     */
    public void update(Product p) {
       jp1 = new JPanel(new BorderLayout(20, 0));
       jp1.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       // Search & add the image
-      // Scanner scan = new Scanner(p.getName());
-      // String nombre = scan.next();
-      // if(PantInicio.class.getResource("/photos/icon_" + nombre + ".jpg")==null) {
-      DataExtraction d = new DataExtraction();
+      DataExtraction d = HomeWindow.getDataEx();
       try {
          jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource(d.getProductPath(p
                   .getProductTypeID())))), BorderLayout.LINE_START);
@@ -75,12 +78,10 @@ public class TopPanel {
 
    /**
     * Update the product in the shopping cart.
-    * 
-    * @param p
-    *           The product in the shopping cart.
+    * @param p is the product in the shopping cart.
     */
    public void updateFromCart(Product p) {
-      DataExtraction d = new DataExtraction();
+      DataExtraction d = HomeWindow.getDataEx();
       jp1 = new JPanel(new BorderLayout(20, 0));
       jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource(d.getProductPath(p
                .getProductTypeID())))), BorderLayout.LINE_START);
@@ -113,13 +114,7 @@ public class TopPanel {
       jp1.setBackground(Colors.TOP_BUTTONS_BACKGROUND);
       jp1.add(new JLabel(new ImageIcon(HomeWindow.class.getResource("/photos/LookingFor.jpg"))));
       jp1.add(new JLabel(" Seleccionar prenda "));
-      //
-      // // second line
-      // JPanel jp2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-      // jp2.add(new JLabel(new
-      // ImageIcon(PantInicio.class.getResource("/imagenes/icon_pantalon.jpg"))));
-      // jp2.add(new JLabel(" Pantalon"));
-      //
+      // second line
       scrollPane1.setViewportView(jp1);
       jp1.setVisible(true);
    }

@@ -1,10 +1,43 @@
 package facade;
 
+/*
+ * File: DataInsertion.java
+ * Version: 1.4
+ * Author: Antonio Martinez
+ */
+
+/*
+ * File: DataInsertion.java
+ * Version: 1.3
+ * Author: Sergio Lázaro
+ */
+
+/*
+ * File: DataInsertion.java
+ * Version: 1.2
+ * Author: Sergio Lázaro
+ */
+
+/*
+ * File: DataInsertion.java
+ * Version: 1.1
+ * Author: Antonio Martinez
+ */
+
+/*
+ * File: DataInsertion.java
+ * Version: 1.0
+ * Author: Sergio Lázaro
+ */
+
+import database.BCrypt;
+import database.DataAccess;
+import gui.HomeWindow;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import database.DataAccess;
 
 public class DataInsertion {
    private static final String[] customersFields = { "password", "name", "surname",
@@ -18,8 +51,8 @@ public class DataInsertion {
    /**
     * Constructor
     */
-   public DataInsertion() {
-      mda = new DataAccess();
+   public DataInsertion(DataAccess mda) {
+      this.mda = mda;
    }
 
    /**
@@ -77,6 +110,7 @@ public class DataInsertion {
     *           The data to insert.
     */
    public void insertCustomer(Customer customer) {
+	  customer.setPassword(BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt(12)));
       mda.setQuery("INSERT INTO Customers VALUES (" + customer.toString() + ")");
    }
 
@@ -98,6 +132,7 @@ public class DataInsertion {
 
       String query = "INSERT INTO Customers(password,name,surname,deliveringAddress,"
                + "mailAddress,telephone,customerType) VALUES('";
+      array.set(0, BCrypt.hashpw(array.get(0), BCrypt.gensalt(12)));
       for (int i = 0; i < array.size(); i++) {
          if (i == array.size() - 1) {
             query += array.get(i) + "')";
@@ -227,6 +262,7 @@ public class DataInsertion {
    public void updateCustomersFromLine(String line, int customerID) {
       String query = "UPDATE Customers SET ";
       String[] array = line.split(",");
+      array[0]=BCrypt.hashpw(array[0], BCrypt.gensalt(12));
       if (array.length == customersFields.length) {
          for (int i = 0; i < array.length; i++) {
             if (!array[i].equals("-")) {
@@ -237,6 +273,27 @@ public class DataInsertion {
          query += " WHERE customerID = " + customerID;
          mda.setQuery(query);
       }
+   }
+   
+   public void updateCustomers(){
+	   for (int i=1; i<200; i++){
+			StringBuffer rs = new StringBuffer();
+		   try {
+			   Customer cust = HomeWindow.getDataEx().getCustomerInfo(i);
+			   if (cust.getPassword().charAt(0)!='$'){
+				   rs.append("UPDATE Customers SET password='");
+				   String generatedSecuredPasswordHash = 
+						   BCrypt.hashpw(cust.getPassword(), BCrypt.gensalt(12));
+				   rs.append(generatedSecuredPasswordHash);
+				   rs.append("' WHERE customerID = " + i);
+				   mda.setQuery(rs.toString());
+			   }
+			   //rs.append("");
+		   } catch (SQLException e) {
+			//e.printStackTrace();
+			break;
+		   }
+	   }
    }
 
    /**
@@ -276,7 +333,7 @@ public class DataInsertion {
     * @param userID  The customer identification in the database.
     */
    public void updateProductStock(int num, int maxNum, Product product, int userID) {
-      DataExtraction d = new DataExtraction();
+      DataExtraction d = HomeWindow.getDataEx();
       try {
          int stock = d.searchStockByID(product.getProductID());
          mda.setQuery("UPDATE Products SET stock = " + (stock - num) + " WHERE productID = "
@@ -339,6 +396,7 @@ public class DataInsertion {
     */
    public void updateUserInfo(Customer info) throws SQLException {
       String cPassword = info.getPassword();
+      cPassword=BCrypt.hashpw(cPassword, BCrypt.gensalt(12));
       String query = "UPDATE Customers SET deliveringAddress = '" + info.getDeliveringAddress()
                + "', mailAddress = '" + info.getMailAddress() + "', telephone = '"
                + info.getTelephone() + "'";

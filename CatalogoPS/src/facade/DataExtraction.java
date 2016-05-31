@@ -1,9 +1,30 @@
 package facade;
 
+/*
+ * File: DataInsertion.java
+ * Version: 1.2
+ * Author: Antonio Martinez
+ */
+
+/*
+ * File: DataInsertion.java
+ * Version: 1.1
+ * Author: Antonio Martinez
+ */
+
+/*
+ * File: DataInsertion.java
+ * Version: 1.0
+ * Author: Sergio Lázaro
+ */
+
+import database.BCrypt;
+import database.DataAccess;
+ 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import database.DataAccess;
 
 public class DataExtraction {
    private DataAccess mda;
@@ -11,8 +32,8 @@ public class DataExtraction {
    /**
     * Constructor.
     */
-   public DataExtraction() {
-      mda = new DataAccess();
+   public DataExtraction(DataAccess mda) {
+      this.mda = mda;
    }
 
    /**
@@ -297,7 +318,7 @@ public class DataExtraction {
     * @return customerID If exists a customer with that username and password. -1 Otherwise.
     * @throws SQLException
     */
-   public int login(String mailAddress, String password) throws SQLException {
+   public int login2(String mailAddress, String password) throws SQLException {
       int idUser = -1;
       ResultSet result = mda.getQuery("SELECT customerID, mailAddress, password FROM Customers"
                + " WHERE mailAddress = '" + mailAddress + "' AND password = '" + password + "'");
@@ -312,6 +333,25 @@ public class DataExtraction {
       }
       System.out.println("login ends.");
       return idUser;
+   }
+   
+   public int login(String mailAddress, String password) throws SQLException {
+	   int idUser = -1;
+	      ResultSet result = mda.getQuery("SELECT customerID, mailAddress, password FROM Customers"
+	               + " WHERE mailAddress = '" + mailAddress + "'");
+	      String mailAddressAux = "";
+	      String passwordAux = "";
+	      while (result.next()) {
+	         mailAddressAux = result.getString("mailAddress");
+	         passwordAux = result.getString("password");	         
+	         if (BCrypt.checkpw(password, passwordAux)){
+	         	idUser = result.getInt("customerID");
+	         } else{
+	        	 
+	         }
+	      }
+	      System.out.println("login ends.");
+	      return idUser;
    }
 
    /**

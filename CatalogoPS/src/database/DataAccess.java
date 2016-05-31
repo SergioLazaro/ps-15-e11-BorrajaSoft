@@ -9,22 +9,24 @@ import java.sql.Statement;
 public class DataAccess {
    private static String _bd = "CatalogueDB";
    private static String _url = "jdbc:mysql://localhost/" + _bd;
-   private String _pwd = "toor2"; // CONTROLAR CONTRASEÑA DEL SERVIDOR
+   private String _pwd = "";
    private String _usuario = "root";
    private Connection conn = null;
 
    /**
     * Create the connection with the database.
     */
-   public DataAccess() {
+   public DataAccess(String password) throws SQLException {
       try {
          Class.forName("com.mysql.jdbc.Connection");
+         _pwd = password;
          conn = (Connection) DriverManager.getConnection(_url, _usuario, _pwd);
          if (conn != null) {
             System.out.println("Conexion a base de datos " + _url + " . . . Ok");
          }
       } catch (SQLException ex) {
          System.out.println("Hubo un problema al intentar conectarse a la base de datos " + _url);
+         throw new SQLException();
       } catch (ClassNotFoundException ex) {
          System.out.println(ex);
       }
@@ -38,14 +40,14 @@ public class DataAccess {
     * @return Rows that granted the searched.
     */
    public ResultSet getQuery(String query) {
-      ResultSet resultado = null;
+      ResultSet result = null;
       try {
          Statement state = (Statement) conn.createStatement();
-         resultado = state.executeQuery(query);
+         result = state.executeQuery(query);
       } catch (SQLException e) {
          e.printStackTrace();
       }
-      return resultado;
+      return result;
    }
 
    /**

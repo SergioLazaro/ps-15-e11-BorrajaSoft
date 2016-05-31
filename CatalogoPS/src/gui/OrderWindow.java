@@ -1,5 +1,10 @@
 package gui;
 
+import facade.Customer;
+import facade.DataExtraction;
+import facade.DataInsertion;
+import facade.Order;
+import facade.ProductOrder;
 import java.awt.Dimension;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,11 +27,6 @@ import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.plaf.ColorUIResource;
-import facade.Customer;
-import facade.DataExtraction;
-import facade.DataInsertion;
-import facade.Order;
-import facade.ProductOrder;
 
 public class OrderWindow {
    private static DataExtraction data;
@@ -40,14 +40,14 @@ public class OrderWindow {
 
    /**
     * Creates the window to place the order.
-    * 
+    *
     * @param myOrder The order to insert.
     * @throws IOException
     */
    public OrderWindow(Order myOrder) throws IOException {
       this.myOrder = myOrder;
-      data = new DataExtraction();
-      dataIns = new DataInsertion();
+      data = HomeWindow.getDataEx();
+      dataIns = HomeWindow.getDataIn();
       mOrder = new DefaultListModel<ProductOrder>();
 
       try {
@@ -66,7 +66,7 @@ public class OrderWindow {
 
    /**
     * Generates an emergent window to chose a file to save.
-    * 
+    *
     * @throws IOException
     */
    public void generateFileChooser() throws IOException {
@@ -103,24 +103,32 @@ public class OrderWindow {
    }
 
    /**
-    * Starts the order window. 
-    * 
+    * Starts the order window.
+    *
     * @throws IOException
     */
    public void inicializate() throws IOException {
       SpringLayout layout = new SpringLayout();
       UIManager.put("OptionPane.background", new ColorUIResource(Colors.ORDER_WINDOW_BACKGROUND));
       UIManager.put("Panel.background", new ColorUIResource(Colors.ORDER_WINDOW_BACKGROUND));
+
+      // TODO: Añadir descripción
       panel = new JPanel();
       panel.setPreferredSize(new Dimension(300, 300));
       panel.setLayout(layout);
       panel.setBackground(Colors.ORDER_PANEL_BACKGROUND);
+
+      // TODO: Añadir descripción
       JLabel msg = new JLabel("Product ID | Brand | Name | Price | Num. Items");
       panel.add(msg);
+
+      // TODO: Añadir descripción
       JScrollPane scroll = new JScrollPane();
       scroll.setPreferredSize(new Dimension(300, 250));
       // scroll.setBounds(558, 124, 300, 250);
       panel.add(scroll);
+
+      // TODO: Añadir descripción
       layout.putConstraint(SpringLayout.NORTH, scroll, 5, SpringLayout.SOUTH, msg);
       orderList = new JList<>(mOrder);
       orderList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -129,6 +137,8 @@ public class OrderWindow {
       String date = myOrder.getDate();
       Date d;
       int numDays = 0;
+
+      // TODO: Añadir descripción
       try {
          Date currentDate = new Date();
          String date2 = (currentDate.getYear() + 1900) + "-" + (currentDate.getMonth() + 1) + "-"
@@ -140,6 +150,8 @@ public class OrderWindow {
       } catch (ParseException e) {
          e.printStackTrace();
       }
+
+      // TODO: Añadir descripción
       if (numDays > 15) {
          JLabel msg2 = new JLabel("You can't cancel this record");
          panel.add(msg2);
@@ -152,6 +164,8 @@ public class OrderWindow {
             generateFileChooser();
             inicializate();
          }
+
+      // TODO: Añadir descripción
       } else {
          String[] options = new String[] { "Cancel order", "Print", "Ok" };
          int option = JOptionPane.showOptionDialog(null, panel, "My order", JOptionPane.NO_OPTION,
@@ -176,6 +190,8 @@ public class OrderWindow {
       UIManager UI = new UIManager();
       UIManager.put("OptionPane.background", new ColorUIResource(Colors.PANEL_BACKGROUND));
       UIManager.put("Panel.background", new ColorUIResource(Colors.PANEL_BACKGROUND));
+
+      // TODO: Añadir descripción
       panel = new JPanel();
       panel.setLayout(layout);
       JLabel msg = new JLabel("Your order has been removed");
@@ -189,7 +205,7 @@ public class OrderWindow {
 
    /**
     * Print the current record in a file.
-    * 
+    *
     * @param path The location of the file.
     * @throws IOException
     */
@@ -213,7 +229,7 @@ public class OrderWindow {
          }
          bw.write("-------------------------------------------------------------------\n\n");
          bw.write("                                             Total price: "
-                  + myOrder.getTotalPrice() + " �");
+                  + myOrder.getTotalPrice() + " €");
       } catch (SQLException e) {
          e.printStackTrace();
       }

@@ -82,14 +82,13 @@ public class CenterPanel {
     *           Event to search.
     */
    public void centerValueChanged(ListSelectionEvent evt) {
-      // TODO Auto-generated method stub
       if (!evt.getValueIsAdjusting()) {
          try {
-            JList<?> prueba = (JList<?>) evt.getSource();
-            if (prueba == null) {
+            JList<?> ex = (JList<?>) evt.getSource();
+            if (ex == null) {
                System.out.println("\nla lista es nula");
             }
-            Product select = (Product) prueba.getSelectedValue();
+            Product select = (Product) ex.getSelectedValue();
             if (select == null) {
                System.out.println("la prenda es nula");
             } else {
@@ -121,7 +120,7 @@ public class CenterPanel {
       model.clear();
       ArrayList<Product> array;
       try {
-         array = HomeWindow.getData().basicSearchProducts(HomeWindow.getLastSearch(), orderBy, asc);
+         array = HomeWindow.getDataEx().basicSearchProducts(HomeWindow.getLastSearch(), orderBy, asc);
       } catch (SQLException e) {
          e.printStackTrace();
          array = new ArrayList<Product>();
